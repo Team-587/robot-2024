@@ -31,13 +31,30 @@ RobotContainer::RobotContainer() {
 
   // Set up default drive command
   // The left stick controls translation of the robot.
-  // Turning is controlled by the X axis of the right stick.
+  // Turning is controlled by the X axis of the right stick
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_drive.Drive(
-            units::meters_per_second_t{m_driverController.GetLeftY()},
-            units::meters_per_second_t{m_driverController.GetLeftX()},
-            units::radians_per_second_t{m_driverController.GetRightX()}, true);
+        m_vision.VisionPeriodic();
+
+        if (m_vision.NotePickupEnabled()) {
+            m_drive.Drive(
+                units::meters_per_second_t{0},
+                units::meters_per_second_t{m_vision.GetForwardSpeed()},
+                units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
+
+        } else if (m_vision.StereoShotEnabled()) {
+            m_drive.Drive(
+                units::meters_per_second_t{m_driverController.GetLeftY()},
+                units::meters_per_second_t{m_driverController.GetLeftX()},
+                units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
+                
+        } else {
+
+            m_drive.Drive(
+                units::meters_per_second_t{m_driverController.GetLeftY()},
+                units::meters_per_second_t{m_driverController.GetLeftX()},
+                units::radians_per_second_t{m_driverController.GetRightX()}, true);
+        }
       },
       {&m_drive}));
 }

@@ -13,6 +13,7 @@
 #include <frc2/command/PIDCommand.h>
 #include <frc2/command/ParallelRaceGroup.h>
 #include <frc2/command/RunCommand.h>
+#include <frc/DriverStation.h>
 
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
@@ -41,6 +42,7 @@ class RobotContainer {
   DriveSubsystem m_drive;
   Vision m_vision;
   
+  std::optional<frc::DriverStation::Alliance> alliance;
   // The chooser for the autonomous routines
   frc::SendableChooser<frc2::Command*> m_chooser;
 

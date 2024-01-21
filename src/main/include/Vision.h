@@ -11,8 +11,11 @@
 #include <photon/PhotonPoseEstimator.h>
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/apriltag/AprilTagFields.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
+
+
 
 class Vision {
     private:
@@ -25,12 +28,20 @@ class Vision {
         double forwardSpeed;
         double rotationSpeed;
 
+        int aprilTagID;
+
         photon::PhotonPoseEstimator m_poseEstimator{
             frc::LoadAprilTagLayoutField(frc::AprilTagField::k2024Crescendo),
             photon::MULTI_TAG_PNP_ON_RIO, std::move(camera),
             frc::Transform3d{}};
 
     public:
+        Vision() {
+           frc::SmartDashboard::PutData("forwardPID", &forwardController); 
+           frc::SmartDashboard::PutData("turnPID", &turnController); 
+
+        }
+
         void SetPipelineIndex(int pipelineIndex) {
             if (pipelineIndex != camera.GetPipelineIndex()) {
                 camera.SetPipelineIndex(pipelineIndex);
@@ -45,6 +56,10 @@ class Vision {
             return rotationSpeed;
         }
 
+        int GetAprilTagID() {
+            return aprilTagID;
+        }
+
         bool NotePickupEnabled() {
             return xboxController.GetAButton();
         }
@@ -54,6 +69,14 @@ class Vision {
         }
 
         void VisionPeriodic() {
+            frc::SmartDashboard::PutBoolean("NotePickupEnabled", NotePickupEnabled());
+            frc::SmartDashboard::PutBoolean("StereoShotEnabled", StereoShotEnabled());
+            
+            frc::SmartDashboard::PutNumber("AprilTagID", aprilTagID);
+            frc::SmartDashboard::PutNumber("ForwardSpeed", forwardSpeed);
+            frc::SmartDashboard::PutNumber("RotationSpeed", rotationSpeed);
+
+            aprilTagID = -1;
 
              if (NotePickupEnabled()) {
                 // Vision-alignment mode
@@ -73,7 +96,7 @@ class Vision {
                     // -1.0 required to ensure positive PID controller effort _increases_
                     // range
                     forwardSpeed = -forwardController.Calculate(range.value(),
-                                                    VisionConstants::GOAL_RANGE_METERS.value());
+                                                    VisionConstants::NOTE_GOAL_RANGE_METERS.value());
 
                     // Also calculate angular power
                     // -1.0 required to ensure positive PID controller effort _increases_ yaw
@@ -96,6 +119,7 @@ class Vision {
                     rotationSpeed =
                         -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
                     forwardSpeed = 0;
+                    aprilTagID = result.GetBestTarget().GetFiducialId();
                 }
             } else {
                 // Manual Driver Mode

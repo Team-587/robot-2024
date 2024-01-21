@@ -109,18 +109,24 @@ constexpr int kCoDriverControllerPort = 1;
 }  // namespace OIConstants
 
 namespace VisionConstants {
-    std::string cameraOne = "Microsoft_LifeCam_HD-3000";
-    int colorPipeline = 0;
-    int aprilTagPipeline = 1;
+    const std::string cameraOne = "Microsoft_LifeCam_HD-3000";
+    const int colorPipeline = 0;
+    const int aprilTagPipeline = 1;
+
+    const int blueAprilTag = 7;
+    const int redAprilTag = 4;
 
     const units::meter_t CAMERA_HEIGHT = 24_in;
     const units::meter_t TARGET_HEIGHT = 5_ft;
     const units::radian_t CAMERA_PITCH = 0_deg;
-    const units::meter_t GOAL_RANGE_METERS = 3_ft;
+    const units::meter_t NOTE_GOAL_RANGE_METERS = 3_ft;
+    const units::meter_t STEREO_GOAL_RANGE_METERS = 3_ft;
 
     const double VISION_LINEAR_P = 0.1;
     const double VISION_LINEAR_D = 0.0;
 
     const double VISION_ANGULAR_P = 0.1;
     const double VISION_ANGULAR_D = 0.0;
+
+
 }

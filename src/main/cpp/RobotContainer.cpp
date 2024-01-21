@@ -9,6 +9,7 @@
 #include <frc/controller/PIDController.h>
 #include <frc/geometry/Translation2d.h>
 #include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/DriverStation.h>
 #include <frc/trajectory/Trajectory.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc2/command/InstantCommand.h>
@@ -23,12 +24,13 @@
 
 using namespace DriveConstants;
 
-RobotContainer::RobotContainer() {
+RobotContainer::RobotContainer():
+        m_drive{&m_vision} {
   // Initialize all of your commands and subsystems here
-
+  
   //  the button bindings
   ConfigureButtonBindings();
-
+  alliance = frc::DriverStation::GetAlliance();
   // Set up default drive command
   // The left stick controls translation of the robot.
   // Turning is controlled by the X axis of the right stick
@@ -42,12 +44,14 @@ RobotContainer::RobotContainer() {
                 units::meters_per_second_t{m_vision.GetForwardSpeed()},
                 units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
 
-        } else if (m_vision.StereoShotEnabled()) {
-            m_drive.Drive(
-                units::meters_per_second_t{m_driverController.GetLeftY()},
-                units::meters_per_second_t{m_driverController.GetLeftX()},
-                units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
-                
+        } else if (m_vision.StereoShotEnabled() && alliance.has_value()) {
+            if ((alliance.value() == frc::DriverStation::Alliance::kRed && m_vision.GetAprilTagID() == VisionConstants::redAprilTag) || 
+                (alliance.value() == frc::DriverStation::Alliance::kBlue && m_vision.GetAprilTagID() == VisionConstants::blueAprilTag)) { 
+                m_drive.Drive(
+                    units::meters_per_second_t{m_driverController.GetLeftY()},
+                    units::meters_per_second_t{m_driverController.GetLeftX()},
+                    units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
+            } 
         } else {
 
             m_drive.Drive(

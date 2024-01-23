@@ -9,6 +9,7 @@
 #include <frc/controller/ProfiledPIDController.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/Command.h>
+#include <frc2/command/CommandPtr.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/PIDCommand.h>
 #include <frc2/command/ParallelRaceGroup.h>
@@ -35,7 +36,7 @@ class RobotContainer {
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 
   // The robot's subsystems and commands are defined here...
-
+  public:
   // The robot's subsystems
   DriveSubsystem m_drive;
 
@@ -44,6 +45,12 @@ class RobotContainer {
 
   void ConfigureButtonBindings();
 
-      frc2::InstantCommand m_ZeroHeading{[this] {m_drive.ZeroHeading(); }, {&m_drive}};
+    frc2::InstantCommand m_ZeroHeading{[this] {m_drive.ZeroHeading(); }, {&m_drive}};
+
+
+    std::unique_ptr<frc2::Command> AmpNote_Note1;
+    std::unique_ptr<frc2::Command> Center_Amp_Note1;
+    std::unique_ptr<frc2::Command> SourceNote_Note3;
+    std::unique_ptr<frc2::Command> Rectangle;
 
 };

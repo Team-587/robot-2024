@@ -36,7 +36,7 @@ RobotContainer::RobotContainer():
   // Turning is controlled by the X axis of the right stick
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_vision.VisionPeriodic();
+        //m_vision.VisionPeriodic();
 
         if (m_vision.NotePickupEnabled()) {
             m_drive.Drive(

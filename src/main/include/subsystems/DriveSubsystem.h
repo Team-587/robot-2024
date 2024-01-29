@@ -145,8 +145,8 @@ private:
     
     // Odometry class for tracking robot pose
     // 4 defines the number of modules
-    //frc::SwerveDriveOdometry<4> m_odometry;
-    frc::SwerveDrivePoseEstimator<4> m_poseEstimator;
+    frc::SwerveDriveOdometry<4> m_odometry;
+    //frc::SwerveDrivePoseEstimator<4> m_poseEstimator;
     frc::Field2d m_fieldSim;
 
     double initialPitch;

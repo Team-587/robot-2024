@@ -19,6 +19,8 @@
 #include <units/angle.h>
 #include <units/velocity.h>
 #include <frc/smartdashboard/Smartdashboard.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+
 
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
@@ -31,6 +33,8 @@ RobotContainer::RobotContainer() {
   //  the button bindings
   ConfigureButtonBindings();
 
+  pathplanner::NamedCommands::registerCommand("drive stop", frc2::cmd::RunOnce([this] {this->m_drive.Stop();}, {&m_drive}));
+  pathplanner::NamedCommands::registerCommand("print hello", frc2::cmd::Print("hello"));
   // Set up default drive command
   // The left stick controls translation of the robot.
   // Turning is controlled by the X axis of the right stick.

@@ -14,7 +14,7 @@
 #include <frc2/command/PIDCommand.h>
 #include <frc2/command/ParallelRaceGroup.h>
 #include <frc2/command/RunCommand.h>
-
+#include "subsystems/ShooterIntake.h"
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
 
@@ -40,13 +40,23 @@ class RobotContainer {
   // The robot's subsystems
   DriveSubsystem m_drive;
 
+  //ShooterIntake m_shooter;
   // The chooser for the autonomous routines
   frc::SendableChooser<frc2::Command*> m_chooser;
 
   void ConfigureButtonBindings();
 
     frc2::InstantCommand m_ZeroHeading{[this] {m_drive.ZeroHeading(); }, {&m_drive}};
-
+    frc2::InstantCommand m_DriveStop{[this] {m_drive.Stop(); }, {&m_drive}};
+  //Setting up commands from the Shooter
+  /*
+    frc2::InstantCommand m_StartIntake{[this] {m_shooter.setIntakeStart(); }, {&m_shooter}};
+    frc2::InstantCommand m_StopIntake{[this] {m_shooter.setIntakeStop(); }, {&m_shooter}};
+    frc2::InstantCommand m_BeginShoot{[this] {m_shooter.setBeginShooter(); }, {&m_shooter}};
+    frc2::InstantCommand m_StopShoot{[this] {m_shooter.setShooterVelocity(0); }, {&m_shooter}};
+    frc2::InstantCommand m_ShortShoot{[this] {m_shooter.setShooterVelocity(0.5); }, {&m_shooter}};
+    frc2::InstantCommand m_LongShoot{[this] {m_shooter.setShooterVelocity(1.0); }, {&m_shooter}};
+*/
 
     std::unique_ptr<frc2::Command> AmpNote_Note1;
     std::unique_ptr<frc2::Command> Center_Amp_Note1;

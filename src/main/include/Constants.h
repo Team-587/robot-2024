@@ -29,6 +29,11 @@
 
 
 namespace DriveConstants {
+
+constexpr int kIntakeMotorPort = 4;
+constexpr int kOutakeMotorPort = 5;
+constexpr int kIntakeSwitchPort = 0; //DIO port
+
 constexpr int kFrontLeftDriveMotorPort = 18;
 constexpr int kRearLeftDriveMotorPort = 16;
 constexpr int kFrontRightDriveMotorPort = 11;
@@ -43,7 +48,6 @@ constexpr int kFrontLeftAbsoluteEncoderPort = 23;
 constexpr int kFrontRightAbsoluteEncoderPort = 22;
 constexpr int kRearLeftAbsoluteEncoderPort = 24;
 constexpr int kRearRightAbsoluteEncoderPort = 21;
-
 
 constexpr bool kFrontLeftTurningEncoderReversed = false;
 constexpr bool kRearLeftTurningEncoderReversed = false;
@@ -87,7 +91,7 @@ constexpr double kPModuleDriveController = 1;
 }  // namespace ModuleConstants
 
 namespace AutoConstants {
-constexpr auto kMaxSpeed = 3_mps;
+constexpr auto kMaxSpeed = 4.5_mps;
 constexpr auto kMaxAcceleration = 3_mps_sq;
 constexpr auto kMaxAngularSpeed = 3.142_rad_per_s;
 constexpr auto kMaxAngularAcceleration = 3.142_rad_per_s_sq;

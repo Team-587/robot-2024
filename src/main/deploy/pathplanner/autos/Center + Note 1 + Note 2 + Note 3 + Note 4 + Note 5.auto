@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.47025552740564164,
-      "y": 4.163118981508619
+      "x": 1.3122346472613169,
+      "y": 5.5196408968316515
     },
     "rotation": 0
   },
@@ -12,63 +12,51 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Short Shoot Setup"
+            "pathName": "Center Speaker"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Source Start"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
+            "pathName": "Center + Note 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Source Speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Setup"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
+            "pathName": "Center + Note 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Source note + Note 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Setup"
+            "pathName": "Center + Note 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Shoot Note 3"
+            "pathName": "Shoot Note 3b"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Shoot + Intake"
+            "pathName": "Center + Note 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center + Note 5"
           }
         }
       ]

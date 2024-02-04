@@ -148,9 +148,9 @@ void DriveSubsystem::driveRobotRelative(const frc::ChassisSpeeds& robotRelativeS
     targetSpeeds.vy = -targetSpeeds.vy;
     targetSpeeds.omega = -targetSpeeds.omega;
 
-    if (frc::DriverStation::IsAutonomousEnabled()) {
-        std::cout << "auto drive speed x:" << (double)targetSpeeds.vx << " y:" << (double)targetSpeeds.vy << " ang:" << (double)targetSpeeds.omega << "\n";
-    }
+    //if (frc::DriverStation::IsAutonomousEnabled()) {
+        //std::cout << "auto drive speed x:" << (double)targetSpeeds.vx << " y:" << (double)targetSpeeds.vy << " ang:" << (double)targetSpeeds.omega << "\n";
+    //}
     
     auto targetStates = kDriveKinematics.ToSwerveModuleStates(targetSpeeds);
     SetModuleStates(targetStates);
@@ -297,9 +297,9 @@ double DriveSubsystem::GetTurnRate() {
 frc::Pose2d DriveSubsystem::GetPose() {
   frc::Pose2d tmpPose = m_odometry.GetPose();
 
-  if (frc::DriverStation::IsAutonomousEnabled()) {
-    std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
-  }
+  //if (frc::DriverStation::IsAutonomousEnabled()) {
+    //std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
+  //}
 
   return tmpPose;
 }

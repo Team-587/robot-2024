@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Amp Start"
@@ -20,13 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "drive stop"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "name": "Shoot + Intake"
           }
         },
         {
@@ -42,15 +42,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Amp Note + Note 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
           }
         },
         {
@@ -62,7 +80,7 @@
         {
           "type": "named",
           "data": {
-            "name": "print hello"
+            "name": "Shoot"
           }
         }
       ]

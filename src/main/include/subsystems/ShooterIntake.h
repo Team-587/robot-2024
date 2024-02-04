@@ -8,6 +8,8 @@
 #include <rev/CANSparkMax.h>
 #include <frc/DigitalInput.h>
 
+//#define HAVEINTAKE
+
 class ShooterIntake : public frc2::SubsystemBase {
  public:
   ShooterIntake();
@@ -23,6 +25,11 @@ class ShooterIntake : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
+  
+  static constexpr double ShortShootVelocity{0.5};
+  static constexpr double LongShootVelocity{1.0};
+  static constexpr double StopShootVelocity{0.0};
+
 
  private:
 
@@ -38,12 +45,14 @@ class ShooterIntake : public frc2::SubsystemBase {
  //Creating variable for state of motors
  stateType stateVar;
 
+#ifdef HAVEINTAKE
 //Seting up motors
  rev::CANSparkMax intakeMotor;
  rev::CANSparkMax outakeMotor;
 
 //Using PID to set motor speed for intake/outake
- rev::SparkMaxPIDController motorSpeedPID;
+ rev::SparkPIDController motorSpeedPID;
+#endif
 
 //Declaring the switch to detect notes
  frc::DigitalInput intakeSwitch;

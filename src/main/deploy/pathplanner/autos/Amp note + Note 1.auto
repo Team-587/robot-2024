@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.1251281761875525,
-      "y": 6.712444649958376
+      "x": 0.4351730640783217,
+      "y": 6.911245275482004
     },
     "rotation": 0
   },
@@ -12,9 +12,51 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Amp Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "drive stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
           }
         },
         {
@@ -24,9 +66,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Shoot Note 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

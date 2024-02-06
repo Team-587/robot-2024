@@ -14,7 +14,8 @@
 #include <frc2/command/PIDCommand.h>
 #include <frc2/command/ParallelRaceGroup.h>
 #include <frc2/command/RunCommand.h>
-
+#include "subsystems/ShooterIntake.h"
+#include "subsystems/RobotArm.h"
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
 
@@ -34,11 +35,16 @@ class RobotContainer {
  private:
   // The driver's controller
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
+  frc::XboxController m_codriverController{OIConstants::kCoDriverControllerPort};
 
   // The robot's subsystems and commands are defined here...
   public:
   // The robot's subsystems
   DriveSubsystem m_drive;
+
+  ShooterIntake m_shooter;
+
+  RobotArm m_robotarm;
 
   // The chooser for the autonomous routines
   frc::SendableChooser<frc2::Command*> m_chooser;
@@ -46,11 +52,27 @@ class RobotContainer {
   void ConfigureButtonBindings();
 
     frc2::InstantCommand m_ZeroHeading{[this] {m_drive.ZeroHeading(); }, {&m_drive}};
+    frc2::InstantCommand m_DriveStop{[this] {m_drive.Stop(); }, {&m_drive}};
+  //Setting up commands from the Shooter
+
+    frc2::InstantCommand m_StartIntake{[this] {m_shooter.setIntakeStart(); }, {&m_shooter}};
+    frc2::InstantCommand m_StopIntake{[this] {m_shooter.setIntakeStop(); }, {&m_shooter}};
+    frc2::InstantCommand m_Shoot{[this] {m_shooter.setBeginShooter(); }, {&m_shooter}};
+    frc2::InstantCommand m_StopShoot{[this] {m_shooter.setShooterVelocity(ShooterIntake::StopShootVelocity); }, {&m_shooter}};
+    frc2::InstantCommand m_ShortShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::ShortShootVelocity); }, {&m_shooter}};
+    frc2::InstantCommand m_LongShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter}};
+    frc2::InstantCommand m_PickUpPosition{[this] {m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength);}, {&m_robotarm}};
+    frc2::InstantCommand m_HoldPosition{[this] {m_robotarm.ArmPosition(RobotArm::HoldAngle, RobotArm::HoldLength);}, {&m_robotarm}};
+    frc2::InstantCommand m_AmpPosition{[this] {m_robotarm.ArmPosition(RobotArm::AmpAngle, RobotArm::AmpLength);}, {&m_robotarm}};
+    frc2::InstantCommand m_ShortShootPosition{[this] {m_robotarm.ArmPosition(RobotArm::ShortShootAngle, RobotArm::ShortShootLength);}, {&m_robotarm}};
+    frc2::InstantCommand m_LongShootPosition{[this] {m_robotarm.ArmPosition(RobotArm::LongShootAngle, RobotArm::LongShootLength);}, {&m_robotarm}}; 
 
 
     std::unique_ptr<frc2::Command> AmpNote_Note1;
     std::unique_ptr<frc2::Command> Center_Amp_Note1;
     std::unique_ptr<frc2::Command> SourceNote_Note3;
     std::unique_ptr<frc2::Command> Rectangle;
+    std::unique_ptr<frc2::Command> Center_Note3_Note4;
+    std::unique_ptr<frc2::Command> Center_Note2_Note3;
 
 };

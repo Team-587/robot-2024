@@ -28,6 +28,18 @@
           "data": {
             "pathName": "Shoot Note 2"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center + Note 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 3b"
+          }
         }
       ]
     }

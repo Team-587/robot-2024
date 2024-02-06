@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.4812164722321943,
-      "y": 4.165245109751039
+      "x": 1.335622956146197,
+      "y": 5.496252587946771
     },
     "rotation": 0
   },
@@ -12,63 +12,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Short Shoot Setup"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Source Start"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source Speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Setup"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source note + Note 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Setup"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Shoot Note 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "pathName": "New Path"
           }
         }
       ]

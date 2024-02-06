@@ -68,7 +68,7 @@ DriveSubsystem::DriveSubsystem()
             pathplanner::PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
             5.0_mps, // Max module speed, in m/s
             0.3_m, // Drive base radius in meters. Distance from robot center to furthest module.
-            pathplanner::ReplanningConfig() // Default path replanning config. See the API for the options here
+            NULL //pathplanner::ReplanningConfig() // Default path replanning config. See the API for the options here
         ),
         []() {
             // Boolean supplier that controls when the path will be mirrored for the red alliance

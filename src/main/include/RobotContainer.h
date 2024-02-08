@@ -16,6 +16,7 @@
 #include <frc2/command/RunCommand.h>
 #include "subsystems/ShooterIntake.h"
 #include "subsystems/RobotArm.h"
+#include "subsystems/TentaclesSubsystem.h"
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
 
@@ -46,12 +47,15 @@ class RobotContainer {
 
   RobotArm m_robotarm;
 
+  TentaclesSubsystem m_tentacle;
+
   // The chooser for the autonomous routines
   frc::SendableChooser<frc2::Command*> m_chooser;
 
   void ConfigureButtonBindings();
 
     frc2::InstantCommand m_ZeroHeading{[this] {m_drive.ZeroHeading(); }, {&m_drive}};
+    frc2::InstantCommand m_StartTentacles{[this] {m_tentacle.allowTentacleExtend(); }, {&m_tentacle}};
     frc2::InstantCommand m_DriveStop{[this] {m_drive.Stop(); }, {&m_drive}};
   //Setting up commands from the Shooter
 

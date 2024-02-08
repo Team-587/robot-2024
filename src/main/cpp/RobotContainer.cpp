@@ -72,6 +72,14 @@ RobotContainer::RobotContainer() {
       },
       {&m_drive}));
 
+  m_tentacle.SetDefaultCommand(frc2::RunCommand(
+      [this] {
+        m_tentacle.moveTentacles(
+            m_codriverController.GetLeftY(),
+            m_codriverController.GetRightY());
+      },
+      {&m_tentacle}));
+
     const std::string AmpNote_Note1_Str = "Amp note + Note 1";
     const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";
     const std::string SourceNote_Note3_Str = "Source Note + Note 3";
@@ -100,26 +108,29 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton startButton{&m_driverController, frc::XboxController::Button::kStart};
     startButton.OnTrue(&m_ZeroHeading);
 
-    frc2::JoystickButton rightBumper{&m_codriverController, frc::XboxController::Button::kRightBumper};
-    rightBumper.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake).OnTrue(&m_StopShoot);
-
-    frc2::JoystickButton leftBumper{&m_codriverController, frc::XboxController::Button::kLeftBumper};
-    leftBumper.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
-
-    frc2::JoystickButton aButton{&m_codriverController, frc::XboxController::Button::kA};
-    aButton.OnTrue(&m_AmpPosition).OnTrue(&m_Shoot);
-
-    frc2::JoystickButton yButton{&m_codriverController, frc::XboxController::Button::kY};
-    yButton.OnTrue(&m_ShortShootPosition).OnTrue(&m_ShortShootVelocity);
-
-    frc2::JoystickButton xButton{&m_codriverController, frc::XboxController::Button::kX};
-    xButton.OnTrue(&m_LongShootPosition).OnTrue(&m_LongShootVelocity);
-
     frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightBumper};
     rightBumperDriver.OnTrue(&m_Shoot);
 
     frc2::JoystickButton leftBumperDriver{&m_driverController, frc::XboxController::Button::kLeftBumper};
     leftBumperDriver.OnTrue(&m_StopShoot);
+
+    frc2::JoystickButton startButtonCoDrive{&m_codriverController, frc::XboxController::Button::kStart};
+    startButtonCoDrive.OnTrue(&m_StartTentacles);
+
+    frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
+    rightBumperCoDrive.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake).OnTrue(&m_StopShoot);
+
+    frc2::JoystickButton leftBumperCoDrive{&m_codriverController, frc::XboxController::Button::kLeftBumper};
+    leftBumperCoDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
+
+    frc2::JoystickButton aButtonCoDrive{&m_codriverController, frc::XboxController::Button::kA};
+    aButtonCoDrive.OnTrue(&m_AmpPosition).OnTrue(&m_Shoot);
+
+    frc2::JoystickButton yButtonCoDrive{&m_codriverController, frc::XboxController::Button::kY};
+    yButtonCoDrive.OnTrue(&m_ShortShootPosition).OnTrue(&m_ShortShootVelocity);
+
+    frc2::JoystickButton xButtonCoDrive{&m_codriverController, frc::XboxController::Button::kX};
+    xButtonCoDrive.OnTrue(&m_LongShootPosition).OnTrue(&m_LongShootVelocity);
 
  }
 

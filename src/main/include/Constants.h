@@ -30,8 +30,8 @@
 
 namespace DriveConstants {
 
-constexpr int kClimberAMotorPort = 2;
-constexpr int kClimberBMotorPort = 3;
+constexpr int kLeftTentacleMotorPort = 2;
+constexpr int kRightTentacleMotorPort = 3;
 
 constexpr int kIntakeMotorPort = 4;
 constexpr int kOutakeMotorPort = 5;

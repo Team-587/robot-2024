@@ -144,8 +144,11 @@ private:
     // The gyro sensor
     //frc::ADXRS450_Gyro m_gyro;
     //AHRS m_NavX;
-    //AHRS m_NavX{frc::SPI::Port::kMXP};
+    #ifndef SWERVEBASE
+    AHRS m_NavX{frc::SPI::Port::kMXP};
+    #else
     AHRS m_NavX{frc::SerialPort::Port::kUSB};
+    #endif
     
     // Odometry class for tracking robot pose
     // 4 defines the number of modules

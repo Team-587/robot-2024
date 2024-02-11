@@ -7,6 +7,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
 #include <frc/DigitalInput.h>
+#include <rev/CANSparkFlex.h>
 
 //#define HAVEINTAKE
 
@@ -47,8 +48,8 @@ class ShooterIntake : public frc2::SubsystemBase {
 
 #ifdef HAVEINTAKE
 //Seting up motors
- rev::CANSparkMax intakeMotor;
- rev::CANSparkMax outakeMotor;
+ rev::CANSparkFlex intakeMotor;
+ rev::CANSparkFlex outakeMotor;
 
 //Using PID to set motor speed for intake/outake
  rev::SparkPIDController motorSpeedPID;

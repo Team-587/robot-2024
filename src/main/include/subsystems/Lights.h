@@ -5,33 +5,26 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <rev/CANSparkMax.h>
+#include <frc/AddressableLED.h>
+#include "Constants.h"
 
-//#define HAVETENTACLES;
-
-class TentaclesSubsystem : public frc2::SubsystemBase {
+class Lights : public frc2::SubsystemBase {
  public:
-
-  TentaclesSubsystem();
+  Lights();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-
-  void allowTentacleExtend();
-
-  void moveTentacles(double leftTentacleValue, double rightTentacleValue);
-
   void Periodic() override;
 
  private:
-
- bool TentacleExtend;
-
-  #ifdef HAVETENTACLES
-  rev::CANSparkMax RightTentacleMotor;
-  rev::CANSparkMax LeftTentacleMotor;
-  #endif
+bool blueActive;
+int ledLoopCount;
+int disableLoopCount;
+bool haveNoteLight;
+frc::AddressableLED m_led{DriveConstants::kLEDPort};
+std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDLength> ledArray;
+std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDLength * 2> topLEDArray;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

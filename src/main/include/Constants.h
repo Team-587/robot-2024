@@ -27,8 +27,13 @@
  */
 
 
+//#define SWERVEBASE
+
 
 namespace DriveConstants {
+
+constexpr int kLEDLength = 9;
+constexpr int kLEDPort = 0;
 
 constexpr int kLeftTentacleMotorPort = 2;
 constexpr int kRightTentacleMotorPort = 3;

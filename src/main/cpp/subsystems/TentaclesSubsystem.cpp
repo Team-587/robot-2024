@@ -4,6 +4,9 @@
 
 #include "subsystems/TentaclesSubsystem.h"
 #include "constants.h"
+#include "iostream"
+
+using namespace std;
 
 TentaclesSubsystem::TentaclesSubsystem() :
 
@@ -28,7 +31,7 @@ void TentaclesSubsystem::moveTentacles(double leftTentacleValue, double rightTen
 
     if(rightTentacleValue < 0.1 && rightTentacleValue > -0.1) {
         rightTentacleValue = 0;
-    } 
+    }
 
     #ifdef HAVETENTACLES
     if(TentacleExtend) {
@@ -40,7 +43,7 @@ void TentaclesSubsystem::moveTentacles(double leftTentacleValue, double rightTen
         LeftTentacleMotor.Set(0);
         RightTentacleMotor.Set(0);
     }
-    
+
     #endif
 }
 

@@ -18,6 +18,10 @@
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
 #include "Vision.h"
+#include "subsystems/NoteVisionSubsystem.h"
+#include "subsystems/AprilTagVisionSubsystem.h"
+#include "commands/NoteVisionCommand.h"
+#include "commands/AprilTagVisionCommand.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -42,8 +46,13 @@ class RobotContainer {
   // The robot's subsystems
   DriveSubsystem m_drive;
   Vision m_vision;
+  NoteVisionSubsystem m_NoteVisionSubsystem;
+  AprilTagVisionSubsystem m_AprilTagVisionSubsystem;
+  NoteVisionCommand m_NoteVisionCommand;
+  AprilTagVisionCommand m_AprilTagVisionCommand;
+
   
-  std::optional<frc::DriverStation::Alliance> alliance;
+  //std::optional<frc::DriverStation::Alliance> alliance;
   // The chooser for the autonomous routines
   frc::SendableChooser<frc2::Command*> m_chooser;
 

@@ -25,48 +25,37 @@
 using namespace DriveConstants;
 
 RobotContainer::RobotContainer():
-        m_drive{&m_vision} {
-  // Initialize all of your commands and subsystems here
+        m_drive{&m_vision} ,
+        m_NoteVisionCommand{&m_NoteVisionSubsystem, &m_drive},
+        m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem, &m_drive} {
+  // Initialize all of your commands and subsystems here, 
   
   //  the button bindings
   ConfigureButtonBindings();
-  alliance = frc::DriverStation::GetAlliance();
+  //alliance = frc::DriverStation::GetAlliance();
   // Set up default drive command
   // The left stick controls translation of the robot.
   // Turning is controlled by the X axis of the right stick
   m_drive.SetDefaultCommand(frc2::RunCommand(
-      [this] {
-        m_vision.VisionPeriodic();
-
-        if (m_vision.NotePickupEnabled()) {
-            m_drive.Drive(
-                units::meters_per_second_t{0},
-                units::meters_per_second_t{m_vision.GetForwardSpeed()},
-                units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
-
-        } else if (m_vision.StereoShotEnabled() && alliance.has_value()) {
-            if ((alliance.value() == frc::DriverStation::Alliance::kRed && m_vision.GetAprilTagID() == VisionConstants::redAprilTag) || 
-                (alliance.value() == frc::DriverStation::Alliance::kBlue && m_vision.GetAprilTagID() == VisionConstants::blueAprilTag)) { 
-                m_drive.Drive(
-                    units::meters_per_second_t{m_driverController.GetLeftY()},
-                    units::meters_per_second_t{m_driverController.GetLeftX()},
-                    units::radians_per_second_t{m_vision.GetRotationSpeed()}, true);
-            } 
-        } else {
-
-            m_drive.Drive(
-                units::meters_per_second_t{m_driverController.GetLeftY()},
-                units::meters_per_second_t{m_driverController.GetLeftX()},
-                units::radians_per_second_t{m_driverController.GetRightX()}, true);
-        }
-      },
-      {&m_drive}));
+    [this] {
+      m_drive.Drive(
+        units::meters_per_second_t{m_driverController.GetLeftY()},
+        units::meters_per_second_t{m_driverController.GetLeftX()},
+        units::radians_per_second_t{m_driverController.GetRightX()}, true);
+    },
+    {&m_drive}));
 }
 
 void RobotContainer::ConfigureButtonBindings() {
 
     frc2::JoystickButton startButton{&m_driverController, frc::XboxController::Button::kStart};
     startButton.OnTrue(&m_ZeroHeading);
+
+    frc2::JoystickButton aButton(&m_driverController, frc::XboxController::Button::kA);
+    aButton.WhileTrue(&m_NoteVisionCommand);
+    
+    frc2::JoystickButton bButton(&m_driverController, frc::XboxController::Button::kB);
+    bButton.WhileTrue(&m_AprilTagVisionCommand);
  }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

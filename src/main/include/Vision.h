@@ -39,8 +39,13 @@ class Vision {
 */
     public:
         Vision() {
-           frc::SmartDashboard::PutData("forwardPID", &forwardController); 
-           frc::SmartDashboard::PutData("turnPID", &turnController); 
+            turnController.SetTolerance(3, 5);
+            turnController.SetIntegratorRange(-.05, .05);
+            forwardController.SetTolerance(1, 3);
+            forwardController.SetIntegratorRange(-.05, .05);
+
+            frc::SmartDashboard::PutData("forwardPID", &forwardController); 
+            frc::SmartDashboard::PutData("turnPID", &turnController); 
 
         }
 
@@ -82,70 +87,71 @@ class Vision {
             aprilTagID = -1;
 
              if (NotePickupEnabled()) {
-                std::cout << "I am here\n";
+                //std::cout << "I am here\n";
                 // Vision-alignment mode
                 // Query the latest result from PhotonVision
-                //SetPipelineIndex(VisionConstants::colorPipeline);
-                SetPipelineIndex(0);
-                std::cout << "I am here 2" << camera.GetCameraName() << "\n";
-                std::cout << "I am here 2\n";
+                SetPipelineIndex(VisionConstants::colorPipeline);
+                //SetPipelineIndex(0);
+                //std::cout << "I am here 2" << camera.GetCameraName() << "\n";
+                //std::cout << "I am here 2\n";
                 const auto& result = camera.GetLatestResult();
-                std::cout << "I am here 3\n";
+                //std::cout << "I am here 3\n";
 
+                forwardSpeed = -.2;
                 frc::SmartDashboard::PutBoolean("HasTargets", result.HasTargets());
 
                 if (result.HasTargets()) {
-                    std::cout << "I am here 4\n";
+                    //std::cout << "I am here 4\n";
                     // First calculate range
                     units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
                         VisionConstants::CAMERA_HEIGHT, 
                         VisionConstants::TARGET_HEIGHT, 
                         VisionConstants::CAMERA_PITCH,
                         units::degree_t{result.GetBestTarget().GetPitch()});
-                        std::cout << "I am here 5\n";
+                        //std::cout << "I am here 5\n";
 
                     // Use this range as the measurement we give to the PID controller.
                     // -1.0 required to ensure positive PID controller effort _increases_
                     // range
-                    /*forwardSpeed = -forwardController.Calculate(range.value(),
-                                                    VisionConstants::NOTE_GOAL_RANGE_METERS.value());*/
-                    forwardSpeed = 0;
-                    std::cout << "I am here 6\n";
+                    //forwardSpeed = -forwardController.Calculate(range.value(), VisionConstants::NOTE_GOAL_RANGE_METERS.value());
+                    //forwardSpeed = std::fmin(1, std::fmax(-1, forwardSpeed / 5));
+
+                    //std::cout << "I am here 6\n";
                     // Also calculate angular power
                     // -1.0 required to ensure positive PID controller effort _increases_ yaw
-                    rotationSpeed = 
-                        -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
+                    rotationSpeed = -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
+                    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
 
-                    std::cout << "I am here 7\n";
+                    //std::cout << "I am here 7\n";
                 } else {
-                    forwardSpeed = 0;
+                    //forwardSpeed = 0;
                     rotationSpeed = 0;
                 }
             } else if (StereoShotEnabled()) {
-                std::cout << "I am here 8\n";
+                //std::cout << "I am here 8\n";
 
                 SetPipelineIndex(VisionConstants::aprilTagPipeline);
                 const auto& result = camera.GetLatestResult();
 
-                std::cout << "I am here 9\n";
+                //std::cout << "I am here 9\n";
 
                 if (result.HasTargets()) {
-                    std::cout << "I am here 10\n";
+                    //std::cout << "I am here 10\n";
                     // First calculate range
                     units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
                         VisionConstants::CAMERA_HEIGHT, 
                         VisionConstants::TARGET_HEIGHT, 
                         VisionConstants::CAMERA_PITCH,
                         units::degree_t{result.GetBestTarget().GetPitch()});
-                    std::cout << "I am here 11\n";
+                    //std::cout << "I am here 11\n";
                     
                     //Range should help us decide how to angle the shooter and how fast it should be running.
-                    rotationSpeed =
-                        -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
+                    rotationSpeed = -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
+                    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
                     forwardSpeed = 0;
                     aprilTagID = result.GetBestTarget().GetFiducialId();
 
-                    std::cout << "I am here 12\n";
+                    //std::cout << "I am here 12\n";
                 }
             } else {
                 // Manual Driver Mode

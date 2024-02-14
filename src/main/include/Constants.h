@@ -119,7 +119,7 @@ namespace VisionConstants {
     const units::meter_t CAMERA_HEIGHT = 24_in;
     const units::meter_t TARGET_HEIGHT = 5_ft;
     const units::radian_t CAMERA_PITCH = 0_deg;
-    const units::meter_t NOTE_GOAL_RANGE_METERS = 3_ft;
+    const units::meter_t NOTE_GOAL_RANGE_METERS = .5_ft;
     const units::meter_t STEREO_GOAL_RANGE_METERS = 3_ft;
 
     const double VISION_LINEAR_P = 0.1;

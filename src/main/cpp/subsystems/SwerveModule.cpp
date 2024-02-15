@@ -8,6 +8,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
+#include "iostream"
+
+
+
+double SwerveModule::maxVelocity = 0;
 
 SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
                            const int absoluteEncoderChannel,
@@ -17,9 +22,10 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
     : m_driveMotor(driveMotorChannel, rev::CANSparkLowLevel::MotorType::kBrushless),
       m_turningMotor(turningMotorChannel, rev::CANSparkLowLevel::MotorType::kBrushless),
       m_absoluteEncoder(absoluteEncoderChannel),
-      m_drive_encoder(m_driveMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor, 42)), 
+      m_drive_encoder(m_driveMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor)), //rev::SparkRelativeEncoder::Type::kHallSensor, 42)), 
       m_reverseDriveEncoder(driveEncoderReversed),
       m_reverseTurningEncoder(turningEncoderReversed),
+      m_revDrivePIDController(m_driveMotor.GetPIDController()),
       m_name(name) {
 
     //m_absoluteEncoder.SetPositionToAbsolute();
@@ -41,11 +47,11 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
     m_turningMotor.SetSecondaryCurrentLimit(80);
 
     m_turningMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
-    m_turningMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 100);   
-    m_turningMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 100);
+    m_turningMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 20);   
+    m_turningMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 20);
     m_driveMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
     m_driveMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 20);
-    m_driveMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 100);   
+    m_driveMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 20);   
     //m_absoluteEncoder.SetStatusFramePeriod(ctre::phoenix::sensors::CANCoderStatusFrame::CANCoderStatusFrame_SensorData, 20);
 
   // Limit the PID Controller's input range between -pi and pi and set the input
@@ -53,15 +59,32 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
   m_turningPIDController.EnableContinuousInput(
       -std::numbers::pi, std::numbers::pi);
   m_turningPIDController.SetPID(turnP, turnI, turnD);
+  
+  m_revDrivePIDController.SetP(driveP);
+  m_revDrivePIDController.SetI(driveI);
+  m_revDrivePIDController.SetD(driveD);
+  m_revDrivePIDController.SetFF(driveFF);
+  m_revDrivePIDController.SetOutputRange(0, (double)AutoConstants::kMaxSpeed);
 
   m_driveMotor.BurnFlash();
   m_turningMotor.BurnFlash();
   //frc::SmartDashboard::PutNumber(m_name + "P", turnP);
   //frc::SmartDashboard::PutNumber(m_name + "I", turnI);
+  if(m_name.compare("fr_") == 0) {
+
+  frc::SmartDashboard::PutData("swervePID", &m_drivePIDController);
+
+  }
+  
+
 }
 
 frc::SwerveModuleState SwerveModule::GetState() {
-  return {units::meters_per_second_t{m_drive_encoder.GetVelocity()},
+
+  auto tempVelocity = m_drive_encoder.GetVelocity();
+
+  
+  return {units::meters_per_second_t{tempVelocity},
   //Subject to change
           //frc::Rotation2d(units::radian_t(m_turningEncoder.Get()))};
           //Sketchy potentially error filled code!!!!!
@@ -70,8 +93,17 @@ frc::SwerveModuleState SwerveModule::GetState() {
 }
 
 frc::SwerveModulePosition SwerveModule::GetPosition() {
+
+  auto tempVelocity = m_drive_encoder.GetVelocity();
+
+  if (tempVelocity > maxVelocity) {
+    maxVelocity = tempVelocity;
+  }
+
+  frc::SmartDashboard::PutNumber("Max Velocity", (double)maxVelocity);
+  //std::cout << m_name << "position " << m_drive_encoder.GetPosition() << "\n";
   //double encPos{m_absoluteEncoder.GetPosition()};
-  return {units::meter_t{m_drive_encoder.GetPosition()},
+  return {units::meter_t{-m_drive_encoder.GetPosition()},
         //units::radian_t{m_absoluteEncoder.GetPosition()}};
         frc::Rotation2d(units::radian_t(encoderAngleRadians()))};
 }
@@ -94,9 +126,10 @@ double SwerveModule::encoderAngleRadians() {
 
 void SwerveModule::SetDesiredState(
     const frc::SwerveModuleState& referenceState) {
-
+//Print to the smart dashboard
   frc::SmartDashboard::PutNumber(m_name + "speed", (double)referenceState.speed);
   frc::SmartDashboard::PutNumber(m_name + "angle", (double)referenceState.angle.Degrees());
+
 
 
   double speed = ((double)referenceState.speed); // / 4.0;
@@ -135,14 +168,26 @@ void SwerveModule::SetDesiredState(
   // Calculate the turning motor output from the turning PID controller.
   auto turnOutput = m_turningPIDController.Calculate(
       m_absoluteEncoderRadians, referenceState.angle.Radians().to<double>());
-      frc::SmartDashboard::PutNumber(m_name + "Encoder", m_absoluteEncoderRadians);
-      frc::SmartDashboard::PutNumber(m_name + "stateAngle", (double)referenceState.angle.Radians());
-      frc::SmartDashboard::PutNumber(m_name + "turnOutput", turnOutput);
-      frc::SmartDashboard::PutData(m_name + "PID", &m_turningPIDController);
+      //frc::SmartDashboard::PutNumber(m_name + "Encoder", m_absoluteEncoderRadians);
+      //frc::SmartDashboard::PutNumber(m_name + "stateAngle", (double)referenceState.angle.Radians());
+      //frc::SmartDashboard::PutNumber(m_name + "turnOutput", turnOutput);
+      //frc::SmartDashboard::PutData(m_name + "PID", &m_turningPIDController);
       //frc::SmartDashboard::PutNumber(m_name + "adjReading",  adjReading);
       //frc::SmartDashboard::PutNumber(m_name + "sensReading", sensReading);
       //frc::SmartDashboard::PutNumber(m_name + "newReading", newReading);
 
+if (driveP !=m_drivePIDController.GetP() ||driveI != m_drivePIDController.GetI() || driveD != m_drivePIDController.GetD()) {
+    driveP = m_drivePIDController.GetP();
+    driveI =m_drivePIDController.GetI();
+    driveD = m_drivePIDController.GetD();
+
+    std::cout << " changing pid\n";
+    m_revDrivePIDController.SetP(driveP);
+    m_revDrivePIDController.SetI(driveI);
+    m_revDrivePIDController.SetD(driveD);
+    
+  }
+ //m_revDrivePIDController.SetReference(speed * (double)AutoConstants::kMaxSpeed, rev::CANSparkMax::ControlType::kVelocity);
   // Set the motor outputs.
   m_driveMotor.Set(speed);
   m_turningMotor.Set(turnOutput);

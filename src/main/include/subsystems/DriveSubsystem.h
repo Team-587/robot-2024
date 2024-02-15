@@ -116,6 +116,12 @@ public:
      */
     void ResetOdometry(frc::Pose2d pose);
 
+    inline frc::ChassisSpeeds getSpeeds() {
+      return kDriveKinematics.ToChassisSpeeds({m_frontLeft.GetState(), m_frontRight.GetState(), m_rearLeft.GetState(), m_rearRight.GetState()});
+    }
+
+    void driveRobotRelative(const frc::ChassisSpeeds& robotRelativeSpeeds);
+
     units::meter_t kTrackWidth =
         0.59_m; // Distance between centers of right and left wheels on robot
     units::meter_t kWheelBase =
@@ -141,7 +147,11 @@ private:
     // The gyro sensor
     //frc::ADXRS450_Gyro m_gyro;
     //AHRS m_NavX;
+    #ifndef SWERVEBASE
     AHRS m_NavX{frc::SPI::Port::kMXP};
+    #else
+    AHRS m_NavX{frc::SerialPort::Port::kUSB};
+    #endif
     
     // Odometry class for tracking robot pose
     // 4 defines the number of modules

@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3122346472613169,
+      "y": 5.5196408968316515
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center Speaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center + Note 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 3b"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center + Note 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -12,9 +12,39 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Center Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
           }
         },
         {
@@ -24,15 +54,39 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Amp Note + Note 1"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Shoot Note 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

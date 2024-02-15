@@ -14,6 +14,7 @@
 #include <frc/motorcontrol/Spark.h>
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <rev/CANSparkMax.h>
+#include <rev/CANSparkFlex.h>
 #include <ctre/phoenix6/CANcoder.hpp>
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <units/voltage.h>
@@ -25,6 +26,8 @@
 #include <units/acceleration.h>
 
 #include "Constants.h"
+
+//#define SWERVEBASE
 
 class SwerveModule {
   /*using radians_per_second_squared_t =
@@ -53,6 +56,8 @@ class SwerveModule {
   // We have to use meters here instead of radians due to the fact that
   // ProfiledPIDController's constraints only take in meters per second and
   // meters per second squared.
+ 
+  static double maxVelocity;
 
   static constexpr auto kModuleMaxAngularVelocity =
       units::radians_per_second_t{std::numbers::pi};
@@ -62,7 +67,13 @@ class SwerveModule {
   //static constexpr auto kModuleMaxAngularAcceleration =
   //        units::unit_t<radians_per_second_squared_t>{std::numbers::pi * 2.0};  // radians per second squared
 
+  #ifdef SWERVEBASE
   rev::CANSparkMax m_driveMotor;
+  #else
+  rev::CANSparkFlex m_driveMotor;
+  #endif
+
+
   rev::CANSparkMax m_turningMotor;
 
   ctre::phoenix6::hardware::CANcoder m_absoluteEncoder;
@@ -78,7 +89,8 @@ class SwerveModule {
 
   double driveP = 3.42;
   double driveI = 0;
-  double driveD = 0; 
+  double driveD = 0;
+  double driveFF = 0; 
 
 
   double turnP = -0.463;
@@ -88,6 +100,8 @@ class SwerveModule {
 
   bool m_reverseDriveEncoder;
   bool m_reverseTurningEncoder;
+
+  rev::SparkPIDController m_revDrivePIDController;
 
   frc::PIDController m_drivePIDController{driveP, driveI, driveD};
   frc::PIDController m_turningPIDController{turnP, turnI, turnD};

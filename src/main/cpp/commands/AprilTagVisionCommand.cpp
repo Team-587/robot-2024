@@ -26,17 +26,13 @@ void AprilTagVisionCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AprilTagVisionCommand::Execute() {
 
+  //std::cout << "AprilTagVisionCommand\n";
+
   const auto& result = m_pAprilTagVisionSubsystem->GetCamera()->GetLatestResult();
 
   frc::SmartDashboard::PutBoolean("AprilTargets", result.HasTargets());
 
   if (result.HasTargets()) {
-
-    units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
-        VisionConstants::CAMERA_HEIGHT, 
-        VisionConstants::TARGET_HEIGHT, 
-        VisionConstants::CAMERA_PITCH,
-        units::degree_t{result.GetBestTarget().GetPitch()});
     
     forwardSpeed = 0;
     aprilTagID = result.GetBestTarget().GetFiducialId();

@@ -29,7 +29,7 @@
 using namespace DriveConstants;
 
 RobotContainer::RobotContainer():
-        m_drive{&m_vision} ,
+        m_drive{&m_vision},
         m_NoteVisionCommand{&m_NoteVisionSubsystem, &m_drive},
         m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem, &m_drive} {
   // Initialize all of your commands and subsystems here, 
@@ -69,6 +69,7 @@ RobotContainer::RobotContainer():
   // Turning is controlled by the X axis of the right stick
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
+        //std::cout << "Drive DefaultCommand\n";
         m_drive.Drive(
             units::meters_per_second_t{m_driverController.GetLeftY()},
             units::meters_per_second_t{m_driverController.GetLeftX()},
@@ -105,6 +106,7 @@ RobotContainer::RobotContainer():
   m_chooser.AddOption(Rectangle_Str, Rectangle.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
+  
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -145,5 +147,5 @@ void RobotContainer::ConfigureButtonBindings() {
  }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-return m_chooser.GetSelected();
+    return m_chooser.GetSelected();
 }

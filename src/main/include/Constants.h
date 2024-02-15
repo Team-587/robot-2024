@@ -132,9 +132,14 @@ namespace VisionConstants {
     const int blueAprilTag = 7;
     const int redAprilTag = 4;
 
-    const units::meter_t CAMERA_HEIGHT = 24_in;
-    const units::meter_t TARGET_HEIGHT = 5_ft;
-    const units::radian_t CAMERA_PITCH = 0_deg;
+    const units::meter_t CAMERA_HEIGHT_NOTE = 24_in;
+    const units::meter_t TARGET_HEIGHT_NOTE = 5_ft;
+    const units::radian_t CAMERA_PITCH_NOTE = 0_deg;
+
+    const units::meter_t CAMERA_HEIGHT_AT = 24_in;
+    const units::meter_t TARGET_HEIGHT_AT = 5_ft;
+    const units::radian_t CAMERA_PITCH_AT = 0_deg;
+
     const units::meter_t NOTE_GOAL_RANGE_METERS = .5_ft;
     const units::meter_t STEREO_GOAL_RANGE_METERS = 3_ft;
 
@@ -144,5 +149,5 @@ namespace VisionConstants {
     const double VISION_ANGULAR_P = 0.1;
     const double VISION_ANGULAR_D = 0.0;
 
-
+    const int MAX_TARGET_LATENCY = 1 * 1000;
 }

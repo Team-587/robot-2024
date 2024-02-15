@@ -7,6 +7,8 @@
 #include <frc2/command/SubsystemBase.h>
 //#include <PhotonVersion.h>
 #include <photon/PhotonCamera.h>
+#include <photon/PhotonUtils.h>
+#include <chrono>
 
 #include "Constants.h"
 
@@ -19,12 +21,23 @@ class NoteVisionSubsystem : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
+  std::optional<photon::PhotonTrackedTarget> GetBestTarget();
+  
+  std::optional<units::meter_t> GetDistance();
+
+  uint64_t GetTimeMillisec() {
+    using namespace std::chrono;
+    return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+  }
+
   photon::PhotonCamera* GetCamera() {
     return &camera;
   }
 
  private:
-    photon::PhotonCamera camera{VisionConstants::cameraOne};
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+  photon::PhotonCamera camera{VisionConstants::cameraOne};
+
+  std::optional<photon::PhotonTrackedTarget> currentTarget;
+  uint64_t currentTargetTime = 0;
+
 };

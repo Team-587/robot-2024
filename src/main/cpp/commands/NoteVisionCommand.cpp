@@ -24,18 +24,14 @@ void NoteVisionCommand::Initialize() {}
 
 void NoteVisionCommand::Execute() {
   
+  //std::cout << "NoteVisionCommand\n";
+
   const auto& result = m_pNoteVisionSubsystem->GetCamera()->GetLatestResult();
 
   forwardSpeed = -.2;
   frc::SmartDashboard::PutBoolean("NoteTargets", result.HasTargets());
 
   if (result.HasTargets()) {
-
-    units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
-      VisionConstants::CAMERA_HEIGHT, 
-      VisionConstants::TARGET_HEIGHT, 
-      VisionConstants::CAMERA_PITCH,
-      units::degree_t{result.GetBestTarget().GetPitch()});
                         
     rotationSpeed = -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
     rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
@@ -46,7 +42,6 @@ void NoteVisionCommand::Execute() {
       units::radians_per_second_t{rotationSpeed}, true);
 
   } else {
-
     rotationSpeed = 0;
   }
 }

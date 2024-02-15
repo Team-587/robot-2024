@@ -104,9 +104,9 @@ class Vision {
                     //std::cout << "I am here 4\n";
                     // First calculate range
                     units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
-                        VisionConstants::CAMERA_HEIGHT, 
-                        VisionConstants::TARGET_HEIGHT, 
-                        VisionConstants::CAMERA_PITCH,
+                        VisionConstants::CAMERA_HEIGHT_NOTE, 
+                        VisionConstants::TARGET_HEIGHT_NOTE, 
+                        VisionConstants::CAMERA_PITCH_NOTE,
                         units::degree_t{result.GetBestTarget().GetPitch()});
                         //std::cout << "I am here 5\n";
 
@@ -139,9 +139,9 @@ class Vision {
                     //std::cout << "I am here 10\n";
                     // First calculate range
                     units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
-                        VisionConstants::CAMERA_HEIGHT, 
-                        VisionConstants::TARGET_HEIGHT, 
-                        VisionConstants::CAMERA_PITCH,
+                        VisionConstants::CAMERA_HEIGHT_AT, 
+                        VisionConstants::TARGET_HEIGHT_AT, 
+                        VisionConstants::CAMERA_PITCH_AT,
                         units::degree_t{result.GetBestTarget().GetPitch()});
                     //std::cout << "I am here 11\n";
                     

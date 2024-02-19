@@ -23,7 +23,7 @@
 
 using namespace DriveConstants;
 
-DriveSubsystem::DriveSubsystem()
+DriveSubsystem::DriveSubsystem(Vision* pVision)
     : m_frontLeft{kFrontLeftDriveMotorPort,
                   kFrontLeftTurningMotorPort,
                   kFrontLeftAbsoluteEncoderPort,
@@ -50,6 +50,10 @@ DriveSubsystem::DriveSubsystem()
                  m_NavX.GetRotation2d(), 
                  {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
                  frc::Pose2d()}, 
+      /*m_poseEstimator{kDriveKinematics, 
+                 m_NavX.GetRotation2d(), 
+                 {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
+                 frc::Pose2d()},*/
       initialPitch{0},
       initialRoll{0},
       currentPitch{0},
@@ -57,6 +61,8 @@ DriveSubsystem::DriveSubsystem()
       currentYaw{0},
       imuValid{false}
 {
+  m_pVision = pVision;
+  frc::SmartDashboard::PutData("Field", &m_fieldSim);
   // Configure the AutoBuilder last
     pathplanner::AutoBuilder::configureHolonomic(
         [this](){ return GetPose(); }, // Robot pose supplier
@@ -97,6 +103,9 @@ void DriveSubsystem::Periodic() {
 
   m_odometry.Update(m_NavX.GetRotation2d(), //frc::Rotation2d(GetHeading()), 
                     {m_frontLeft.GetPosition(),m_frontRight.GetPosition(), m_rearLeft.GetPosition(), m_rearRight.GetPosition()});
+  //m_poseEstimator.Update(m_NavX.GetRotation2d(), //frc::Rotation2d(GetHeading()), 
+  //                  {m_frontLeft.GetPosition(),m_frontRight.GetPosition(), m_rearLeft.GetPosition(), m_rearRight.GetPosition()});
+  
   if (imuValid == false) {
     if (m_NavX.IsCalibrating() == false) {
       initialPitch = m_NavX.GetPitch();
@@ -107,6 +116,13 @@ void DriveSubsystem::Periodic() {
     }
   }
 
+  //auto result = m_pVision->Update(GetPose());
+  //if (result) {
+    //m_poseEstimator.AddVisionMeasurement(
+    //    result.value().estimatedPose.ToPose2d(), result.value().timestamp);
+  //}
+
+  m_fieldSim.SetRobotPose(GetPose());
   frc::Pose2d tmpPose = GetPose();
   auto alliance =frc::DriverStation::GetAlliance();
   frc::SmartDashboard::PutNumber("PoseX", (double)tmpPose.X());
@@ -296,6 +312,8 @@ double DriveSubsystem::GetTurnRate() {
 
 frc::Pose2d DriveSubsystem::GetPose() {
   frc::Pose2d tmpPose = m_odometry.GetPose();
+  //frc::Pose2d tmpPose = m_poseEstimator.GetEstimatedPosition();
+  //std::cout << "Drive getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
 
   //if (frc::DriverStation::IsAutonomousEnabled()) {
     //std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
@@ -316,11 +334,16 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
     frc::Pose2d tmpPose = GetPose();
     std::cout << "Reset Odometry start X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
     std::cout << "Reset Odometry set   X:" << (double)pose.X() << " Y:" << (double)pose.Y() << " Rot:" << (double)pose.Rotation().Degrees() << "\n";
-    m_odometry.ResetPosition(
+    //m_odometry.ResetPosition(
+    //  m_NavX.GetRotation2d(),
+    //  {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
+    //   m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
+    //  pose);
+    /*m_poseEstimator.ResetPosition(
       m_NavX.GetRotation2d(),
       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
        m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
-      pose);
+      pose);*/
 
     tmpPose = GetPose();
     std::cout << "Reset Odometry after X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";

@@ -72,7 +72,7 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
   //frc::SmartDashboard::PutNumber(m_name + "I", turnI);
   if(m_name.compare("fr_") == 0) {
 
-  frc::SmartDashboard::PutData("swervePID", &m_drivePIDController);
+  //frc::SmartDashboard::PutData("swervePID", &m_drivePIDController);
 
   }
   
@@ -127,8 +127,8 @@ double SwerveModule::encoderAngleRadians() {
 void SwerveModule::SetDesiredState(
     const frc::SwerveModuleState& referenceState) {
 //Print to the smart dashboard
-  frc::SmartDashboard::PutNumber(m_name + "speed", (double)referenceState.speed);
-  frc::SmartDashboard::PutNumber(m_name + "angle", (double)referenceState.angle.Degrees());
+ // frc::SmartDashboard::PutNumber(m_name + "speed", (double)referenceState.speed);
+ // frc::SmartDashboard::PutNumber(m_name + "angle", (double)referenceState.angle.Degrees());
 
 
 

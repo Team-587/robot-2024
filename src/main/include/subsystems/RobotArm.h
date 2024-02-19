@@ -6,6 +6,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
+#include <frc/controller/PIDController.h>
 
 //#define HAVEARM
 
@@ -26,9 +27,9 @@ class RobotArm : public frc2::SubsystemBase {
   static constexpr double HoldLength{0.0};
   static constexpr double AmpAngle{90.0};
   static constexpr double AmpLength{5.0};
-  static constexpr double ShortShootAngle{110.0};
+  static constexpr double ShortShootAngle{30.0};
   static constexpr double ShortShootLength{0.0};
-  static constexpr double LongShootAngle{130.0};
+  static constexpr double LongShootAngle{40.0};
   static constexpr double LongShootLength{0};
 
  private:
@@ -41,7 +42,7 @@ class RobotArm : public frc2::SubsystemBase {
   rev::SparkPIDController ElevatorHeightPID;
   rev::SparkPIDController ElbowAnglePID;
   rev::SparkRelativeEncoder ElevatorEncoder;
-  rev::SparkRelativeEncoder ElbowAEncoder;
+  rev::SparkAbsoluteEncoder ElbowAEncoder;
   #endif
   const double ElevatorMin{0.0};
   const double ElevatorMax{10.0};
@@ -49,6 +50,16 @@ class RobotArm : public frc2::SubsystemBase {
   const double ElbowAngleMin{0.0};
   const double ElbowAngleMax{90.0};
   const double ElbowAngleMaxsafe{45.0};
+
+  frc::PIDController elbowPID{elbowP, elbowI, elbowD};
+  double elbowP = 0.145;
+  double elbowI = 0.0;
+  double elbowD = 0.0004;
+
+  frc::PIDController elevatorPID{0.0, 0.0, 0.0};
+  double elevatorP = 0.0;
+  double elevatorI = 0.0;
+  double elevatorD = 0.0;
 
   double ElevatorHeight;
   double ElbowAngle;

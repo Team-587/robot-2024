@@ -16,8 +16,8 @@ ShooterIntake::ShooterIntake():
     motorSpeedPID(outakeMotor.GetPIDController()),
     #endif
     intakeSwitch(DriveConstants::kIntakeSwitchPort),
-    stopIntake(false),
     startIntake(false),
+    stopIntake(false),
     shooterVelocity(0),
     delayCount(0)
 {
@@ -30,6 +30,7 @@ ShooterIntake::ShooterIntake():
     outakeMotor.SetSecondaryCurrentLimit(80);
     outakeMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
     outakeMotor.EnableVoltageCompensation(12);
+    outakeMotor.SetInverted(true);
     intakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
     intakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 50);
     intakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 50);
@@ -102,7 +103,7 @@ void ShooterIntake::Periodic() {
             break;
         case INTAKE:
             #ifdef HAVEINTAKE
-            intakeMotor.Set(0.5);
+            intakeMotor.Set(intakeVelocity);
             outakeMotor.Set(0);
             #endif
                 if(switchState == true) {
@@ -128,10 +129,11 @@ void ShooterIntake::Periodic() {
             #ifdef HAVEINTAKE
             outakeMotor.Set(shooterVelocity);
             intakeMotor.Set(0);
+
             #endif
                 if(beginShooter == true) {
                     stateVar = SHOOTING;
-                    delayCount = 20;
+                    delayCount = 80;
                     beginShooter = false;
                     std::cout<<"Shot Note\n";
                 } else if (shooterVelocity == 0) {
@@ -141,13 +143,13 @@ void ShooterIntake::Periodic() {
             break;
         case SHOOTING:
             #ifdef HAVEINTAKE
-            intakeMotor.Set(0.5);
+            intakeMotor.Set(intakeVelocity);
             outakeMotor.Set(shooterVelocity);  
             #endif
             delayCount--;
                 if (delayCount <= 0) {
                     stateVar = STOP;
-                    std::cout<<"Done Shooting";
+                    std::cout<<"Done Shooting\n";
                 }
             break;
 /*        case REVERSE:

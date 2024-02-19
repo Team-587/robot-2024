@@ -20,6 +20,7 @@
 #include <units/velocity.h>
 #include <frc/smartdashboard/Smartdashboard.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
+#include <frc/filter/SlewRateLimiter.h>
 
 
 #include "Constants.h"
@@ -65,9 +66,17 @@ RobotContainer::RobotContainer() {
   // Turning is controlled by the X axis of the right stick.
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
+        static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{2.0_m / 1_s / 1_s};
+        static frc::SlewRateLimiter<units::velocity::meters_per_second> filterY{2.0_m / 1_s / 1_s};
+        units::velocity::meters_per_second_t jx(m_driverController.GetLeftY());
+        units::velocity::meters_per_second_t jy(m_driverController.GetLeftX());
+
+        //units::length::meter jx = filterY.Calculate(m_driverController.GetLeftY());
         m_drive.Drive(
-            units::meters_per_second_t{m_driverController.GetLeftY()},
-            units::meters_per_second_t{m_driverController.GetLeftX()},
+            //jx, 
+            //jy,
+            filterX.Calculate(jx),
+            filterY.Calculate(jy),
             units::radians_per_second_t{m_driverController.GetRightX()}, true);
       },
       {&m_drive}));
@@ -100,7 +109,17 @@ RobotContainer::RobotContainer() {
     m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
     m_chooser.AddOption(Rectangle_Str, Rectangle.get());
 
-       frc::SmartDashboard::PutData("Auto", &m_chooser);
+   frc::SmartDashboard::PutData("Auto", &m_chooser);
+   
+   frc::SmartDashboard::PutNumber("Command Angle", 0);
+   frc::SmartDashboard::PutNumber("Command Elevator", 0);
+   frc::SmartDashboard::PutNumber("Command Velocity", 0);
+
+ static frc2::InstantCommand m_MoveArm{[this] {m_robotarm.ArmPosition(frc::SmartDashboard::GetNumber("Command Angle", 0), frc::SmartDashboard::GetNumber("Command Elevator", 0));}, {&m_robotarm}};
+ static frc2::InstantCommand m_ShooterVelocity{[this] {m_shooter.setShooterVelocity(frc::SmartDashboard::PutNumber("Command Velocity", 0)); }, {&m_shooter}};
+
+   frc::SmartDashboard::PutData("Velocity Cmd", &m_ShooterVelocity);
+   frc::SmartDashboard::PutData("Arm Cmd", &m_MoveArm);
 }
 
 void RobotContainer::ConfigureButtonBindings() {

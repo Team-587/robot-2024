@@ -27,11 +27,11 @@ class ShooterIntake : public frc2::SubsystemBase {
    */
   void Periodic() override;
   
-  static constexpr double ShortShootVelocity{0.1};
-  static constexpr double LongShootVelocity{0.2};
+  static constexpr double ShortShootVelocity{0.2};
+  static constexpr double LongShootVelocity{0.4};
   static constexpr double StopShootVelocity{0.0};
 
-  static constexpr double intakeVelocity{0.5};
+  static constexpr double intakeVelocity{0.3};
 
 
  private:

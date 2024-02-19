@@ -5,6 +5,7 @@
 #include "subsystems/ShooterIntake.h"
 #include "Constants.h"
 #include "iostream"
+#include <frc/smartdashboard/Smartdashboard.h>
 
 //Constructor for shooter intake
 ShooterIntake::ShooterIntake():
@@ -39,6 +40,9 @@ ShooterIntake::ShooterIntake():
     outakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 50);
     intakeMotor.Set(0);
     outakeMotor.Set(0);
+    frc::SmartDashboard::PutNumber("Intake Velocity Intake", 0.2);
+    frc::SmartDashboard::PutNumber("Intake Velocity Shoot", 0.8);
+    frc::SmartDashboard::PutNumber("Shooter Velocity Shoot", 0.4);
     #endif
 }
 
@@ -83,6 +87,9 @@ void ShooterIntake::setShooterVelocity(double velocity) {
 // This method will be called once per scheduler run
 void ShooterIntake::Periodic() {
  bool switchState =  !intakeSwitch.Get();
+ double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
+ double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
+ double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);
 
  //std::cout<<switchState<<" "<<stateVar<<" Switch State\n";
 
@@ -103,7 +110,7 @@ void ShooterIntake::Periodic() {
             break;
         case INTAKE:
             #ifdef HAVEINTAKE
-            intakeMotor.Set(intakeVelocity);
+            intakeMotor.Set(intakeVelocityIntake);
             outakeMotor.Set(0);
             #endif
                 if(switchState == true) {
@@ -127,7 +134,7 @@ void ShooterIntake::Periodic() {
             break;
         case SHOOTSETUP:
             #ifdef HAVEINTAKE
-            outakeMotor.Set(shooterVelocity);
+            outakeMotor.Set(shooterVelocityShoot);
             intakeMotor.Set(0);
 
             #endif
@@ -143,8 +150,8 @@ void ShooterIntake::Periodic() {
             break;
         case SHOOTING:
             #ifdef HAVEINTAKE
-            intakeMotor.Set(intakeVelocity);
-            outakeMotor.Set(shooterVelocity);  
+            intakeMotor.Set(intakeVelocityShoot);
+            outakeMotor.Set(shooterVelocityShoot);  
             #endif
             delayCount--;
                 if (delayCount <= 0) {

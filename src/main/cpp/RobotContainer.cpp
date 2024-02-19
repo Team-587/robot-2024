@@ -143,13 +143,16 @@ void RobotContainer::ConfigureButtonBindings() {
     leftBumperCoDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
 
     frc2::JoystickButton aButtonCoDrive{&m_codriverController, frc::XboxController::Button::kA};
-    aButtonCoDrive.OnTrue(&m_AmpPosition).OnTrue(&m_Shoot);
+    aButtonCoDrive.OnTrue(&m_AmpPosition).OnTrue(&m_ShortShootVelocity);
 
     frc2::JoystickButton yButtonCoDrive{&m_codriverController, frc::XboxController::Button::kY};
     yButtonCoDrive.OnTrue(&m_ShortShootPosition).OnTrue(&m_ShortShootVelocity);
 
     frc2::JoystickButton xButtonCoDrive{&m_codriverController, frc::XboxController::Button::kX};
     xButtonCoDrive.OnTrue(&m_LongShootPosition).OnTrue(&m_LongShootVelocity);
+
+    frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
+    bButtonCoDrive.OnTrue(&m_Shoot);
 
  }
 

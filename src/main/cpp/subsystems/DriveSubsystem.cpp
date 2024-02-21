@@ -111,8 +111,8 @@ void DriveSubsystem::Periodic() {
       initialPitch = m_NavX.GetPitch();
       initialRoll = m_NavX.GetRoll();
       imuValid = true;
-      frc::SmartDashboard::PutNumber("InitialPitch", initialPitch);
-      frc::SmartDashboard::PutNumber("InitialRoll", initialRoll);
+      //frc::SmartDashboard::PutNumber("InitialPitch", initialPitch);
+      //frc::SmartDashboard::PutNumber("InitialRoll", initialRoll);
     }
   }
 
@@ -125,13 +125,13 @@ void DriveSubsystem::Periodic() {
   m_fieldSim.SetRobotPose(GetPose());
   frc::Pose2d tmpPose = GetPose();
   auto alliance =frc::DriverStation::GetAlliance();
-  frc::SmartDashboard::PutNumber("PoseX", (double)tmpPose.X());
-  frc::SmartDashboard::PutNumber("PoseY", (double)tmpPose.Y());
-  frc::SmartDashboard::PutNumber("PoseRotation", (double)tmpPose.Rotation().Degrees());
+  //frc::SmartDashboard::PutNumber("PoseX", (double)tmpPose.X());
+  //frc::SmartDashboard::PutNumber("PoseY", (double)tmpPose.Y());
+  //frc::SmartDashboard::PutNumber("PoseRotation", (double)tmpPose.Rotation().Degrees());
   double fl_dist = (double)m_frontLeft.GetPosition().distance;
-  frc::SmartDashboard::PutNumber("FL_pos", fl_dist);
-  frc::SmartDashboard::PutNumber("FL_angle", (double)m_frontLeft.GetPosition().angle.Degrees());
-  frc::SmartDashboard::PutBoolean("Alliance", alliance.value() != frc::DriverStation::Alliance::kRed);
+  //frc::SmartDashboard::PutNumber("FL_pos", fl_dist);
+  //frc::SmartDashboard::PutNumber("FL_angle", (double)m_frontLeft.GetPosition().angle.Degrees());
+  //frc::SmartDashboard::PutBoolean("Alliance", alliance.value() != frc::DriverStation::Alliance::kRed);
 
 /*static int skip = 0;
 skip++;

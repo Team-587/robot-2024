@@ -9,7 +9,7 @@
 #include <frc/DigitalInput.h>
 #include <rev/CANSparkFlex.h>
 
-#define HAVEINTAKE
+//#define HAVEINTAKE
 
 class ShooterIntake : public frc2::SubsystemBase {
  public:
@@ -31,7 +31,7 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double LongShootVelocity{0.4};
   static constexpr double StopShootVelocity{0.0};
 
-  static constexpr double intakeVelocity{0.3};
+  static constexpr double intakeVelocity{0.4};
 
 
  private:

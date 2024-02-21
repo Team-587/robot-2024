@@ -8,7 +8,7 @@
 #include <rev/CANSparkMax.h>
 #include <frc/controller/PIDController.h>
 
-//#define HAVEARM
+#define HAVEARM
 
 class RobotArm : public frc2::SubsystemBase {
  public:
@@ -22,11 +22,11 @@ class RobotArm : public frc2::SubsystemBase {
   void Periodic() override;
 
   static constexpr double PickUpAngle{0.0};
-  static constexpr double PickUpLength{7.0};
+  static constexpr double PickUpLength{9.0};
   static constexpr double HoldAngle{20.0};
   static constexpr double HoldLength{0.0};
   static constexpr double AmpAngle{90.0};
-  static constexpr double AmpLength{5.0};
+  static constexpr double AmpLength{7.0};
   static constexpr double ShortShootAngle{30.0};
   static constexpr double ShortShootLength{0.0};
   static constexpr double LongShootAngle{40.0};
@@ -44,20 +44,21 @@ class RobotArm : public frc2::SubsystemBase {
   rev::SparkRelativeEncoder ElevatorEncoder;
   rev::SparkAbsoluteEncoder ElbowAEncoder;
   #endif
+
   const double ElevatorMin{0.0};
-  const double ElevatorMax{10.0};
+  const double ElevatorMax{9.1};
   const double ElevatorMaxsafe{5.0};
   const double ElbowAngleMin{0.0};
   const double ElbowAngleMax{90.0};
-  const double ElbowAngleMaxsafe{45.0};
+  const double ElbowAngleMaxsafe{19.0};
 
   frc::PIDController elbowPID{elbowP, elbowI, elbowD};
-  double elbowP = 0.145;
+  double elbowP = 0.035;
   double elbowI = 0.0;
-  double elbowD = 0.0004;
+  double elbowD = 0;
 
-  frc::PIDController elevatorPID{0.0, 0.0, 0.0};
-  double elevatorP = 0.0;
+  frc::PIDController elevatorPID{elevatorP, elevatorI, elevatorD};
+  double elevatorP = 0.34;
   double elevatorI = 0.0;
   double elevatorD = 0.0;
 

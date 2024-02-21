@@ -40,8 +40,8 @@ ShooterIntake::ShooterIntake():
     outakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 50);
     intakeMotor.Set(0);
     outakeMotor.Set(0);
-    frc::SmartDashboard::PutNumber("Intake Velocity Intake", 0.2);
-    frc::SmartDashboard::PutNumber("Intake Velocity Shoot", 0.8);
+    frc::SmartDashboard::PutNumber("Intake Velocity Intake", 0.4);
+    frc::SmartDashboard::PutNumber("Intake Velocity Shoot", 0.4);
     frc::SmartDashboard::PutNumber("Shooter Velocity Shoot", 0.4);
     #endif
 }
@@ -89,7 +89,7 @@ void ShooterIntake::Periodic() {
  bool switchState =  !intakeSwitch.Get();
  double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
  double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
- double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);
+ //double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);
 
  //std::cout<<switchState<<" "<<stateVar<<" Switch State\n";
 
@@ -99,64 +99,88 @@ void ShooterIntake::Periodic() {
             intakeMotor.Set(0);
             outakeMotor.Set(0);
             #endif
+
                 if(switchState == true) {
                     stateVar = HAVENOTE;
+
                     std::cout<<"Have Note\n";
+
                 } else if (startIntake == true) {
                     stateVar = INTAKE;
                     startIntake = false;
+
                     std::cout<<"Start Intaking\n";
                 }
             break;
+
         case INTAKE:
             #ifdef HAVEINTAKE
             intakeMotor.Set(intakeVelocityIntake);
             outakeMotor.Set(0);
             #endif
+
                 if(switchState == true) {
                     stateVar = HAVENOTE;
+
                     std::cout<<"Have Note\n";
+
                 } else if (stopIntake == true) {
                     stateVar = STOP;
                     stopIntake = false;
+
                     std::cout<<"Stop Intake\n";
+                
                 }
             break;
+
         case HAVENOTE:
             #ifdef HAVEINTAKE
             intakeMotor.Set(0);
             outakeMotor.Set(0);
             #endif
+
                 if(shooterVelocity > 0) {
                     stateVar = SHOOTSETUP;
+
                     std::cout<<"Ready to shoot\n";
+
                 } 
             break;
+
         case SHOOTSETUP:
             #ifdef HAVEINTAKE
-            outakeMotor.Set(shooterVelocityShoot);
+            outakeMotor.Set(shooterVelocity);
             intakeMotor.Set(0);
-
             #endif
+
                 if(beginShooter == true) {
                     stateVar = SHOOTING;
                     delayCount = 80;
                     beginShooter = false;
+
                     std::cout<<"Shot Note\n";
+
                 } else if (shooterVelocity == 0) {
                     stateVar = HAVENOTE;
+
                     std::cout<<"Not ready to shoot\n";
+
                 }
             break;
+
         case SHOOTING:
             #ifdef HAVEINTAKE
             intakeMotor.Set(intakeVelocityShoot);
-            outakeMotor.Set(shooterVelocityShoot);  
+            outakeMotor.Set(shooterVelocity);  
             #endif
+
             delayCount--;
+
                 if (delayCount <= 0) {
                     stateVar = STOP;
+                    
                     std::cout<<"Done Shooting\n";
+
                 }
             break;
 /*        case REVERSE:

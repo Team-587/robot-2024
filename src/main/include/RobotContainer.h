@@ -14,11 +14,18 @@
 #include <frc2/command/PIDCommand.h>
 #include <frc2/command/ParallelRaceGroup.h>
 #include <frc2/command/RunCommand.h>
+#include <frc/DriverStation.h>
+
+#include "Constants.h"
+#include "subsystems/DriveSubsystem.h"
+#include "Vision.h"
+#include "subsystems/NoteVisionSubsystem.h"
+#include "subsystems/AprilTagVisionSubsystem.h"
+#include "commands/NoteVisionCommand.h"
+#include "commands/AprilTagVisionCommand.h"
 #include "subsystems/ShooterIntake.h"
 #include "subsystems/RobotArm.h"
 #include "subsystems/TentaclesSubsystem.h"
-#include "Constants.h"
-#include "subsystems/DriveSubsystem.h"
 #include "subsystems/Lights.h"
 
 /**
@@ -31,18 +38,24 @@
 class RobotContainer {
  public:
   RobotContainer();
-
+  
   frc2::Command* GetAutonomousCommand();
 
  private:
   // The driver's controller
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
+  
   frc::XboxController m_codriverController{OIConstants::kCoDriverControllerPort};
 
   // The robot's subsystems and commands are defined here...
   public:
   // The robot's subsystems
   DriveSubsystem m_drive;
+  Vision m_vision;
+  NoteVisionSubsystem m_NoteVisionSubsystem;
+  AprilTagVisionSubsystem m_AprilTagVisionSubsystem;
+  NoteVisionCommand m_NoteVisionCommand;
+  AprilTagVisionCommand m_AprilTagVisionCommand;
 
   ShooterIntake m_shooter;
 

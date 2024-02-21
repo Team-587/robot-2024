@@ -17,7 +17,9 @@
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/kinematics/SwerveModuleState.h>
 #include <frc/motorcontrol/PWMSparkMax.h>
+#include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc/smartdashboard/Field2d.h>
 #include <units/voltage.h>
 #include <units/angular_velocity.h>
 #include <units/time.h>
@@ -29,11 +31,12 @@
 
 #include "Constants.h"
 #include "SwerveModule.h"
+#include "Vision.h"
 
 class DriveSubsystem : public frc2::SubsystemBase
 {
 public:
-    DriveSubsystem();
+    DriveSubsystem(Vision* pVision);
 
     /**
      * Will be called periodically whenever the CommandScheduler runs.
@@ -153,6 +156,8 @@ private:
     // Odometry class for tracking robot pose
     // 4 defines the number of modules
     frc::SwerveDriveOdometry<4> m_odometry;
+    //frc::SwerveDrivePoseEstimator<4> m_poseEstimator;
+    frc::Field2d m_fieldSim;
 
     double initialPitch;
     double initialRoll;
@@ -161,5 +166,6 @@ private:
     double currentYaw;
     bool imuValid;
 
+    Vision* m_pVision;
 
 };

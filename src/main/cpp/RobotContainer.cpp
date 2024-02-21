@@ -10,6 +10,7 @@
 #include <frc/controller/PIDController.h>
 #include <frc/geometry/Translation2d.h>
 #include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/DriverStation.h>
 #include <frc/trajectory/Trajectory.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc2/command/InstantCommand.h>
@@ -28,9 +29,12 @@
 
 using namespace DriveConstants;
 
-RobotContainer::RobotContainer() {
-  // Initialize all of your commands and subsystems here
-
+RobotContainer::RobotContainer():
+        m_drive{&m_vision},
+        m_NoteVisionCommand{&m_NoteVisionSubsystem, &m_drive},
+        m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem, &m_drive} {
+  // Initialize all of your commands and subsystems here, 
+  
   //  the button bindings
   ConfigureButtonBindings();
 
@@ -63,7 +67,7 @@ RobotContainer::RobotContainer() {
           frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter})));
   // Set up default drive command
   // The left stick controls translation of the robot.
-  // Turning is controlled by the X axis of the right stick.
+  // Turning is controlled by the X axis of the right stick
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
         static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{2.0_m / 1_s / 1_s};
@@ -89,25 +93,25 @@ RobotContainer::RobotContainer() {
       },
       {&m_tentacle}));
 
-    const std::string AmpNote_Note1_Str = "Amp note + Note 1";
-    const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";
-    const std::string SourceNote_Note3_Str = "Source Note + Note 3";
-    const std::string Rectangle_Str = "Rectangle";
-    const std::string Center_Note3_Note4_Str = "Center + Note 3 + Note 4";
-    const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
-    AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
-    Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
-    SourceNote_Note3 = pathplanner::PathPlannerAuto(SourceNote_Note3_Str).ToPtr().Unwrap();
-    Rectangle = pathplanner::PathPlannerAuto(Rectangle_Str).ToPtr().Unwrap();
-    Center_Note3_Note4 = pathplanner::PathPlannerAuto(Center_Note3_Note4_Str).ToPtr().Unwrap();
-    Center_Note2_Note3 = pathplanner::PathPlannerAuto(Center_Note2_Note3_Str).ToPtr().Unwrap();
+  const std::string AmpNote_Note1_Str = "Amp note + Note 1";
+  const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";
+  const std::string SourceNote_Note3_Str = "Source Note + Note 3";
+  const std::string Rectangle_Str = "Rectangle";
+  const std::string Center_Note3_Note4_Str = "Center + Note 3 + Note 4";
+  const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
+  AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
+  Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
+  SourceNote_Note3 = pathplanner::PathPlannerAuto(SourceNote_Note3_Str).ToPtr().Unwrap();
+  Rectangle = pathplanner::PathPlannerAuto(Rectangle_Str).ToPtr().Unwrap();
+  Center_Note3_Note4 = pathplanner::PathPlannerAuto(Center_Note3_Note4_Str).ToPtr().Unwrap();
+  Center_Note2_Note3 = pathplanner::PathPlannerAuto(Center_Note2_Note3_Str).ToPtr().Unwrap();
 
-    m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
-    m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
-    m_chooser.AddOption(SourceNote_Note3_Str, SourceNote_Note3.get());
-    m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
-    m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
-    m_chooser.AddOption(Rectangle_Str, Rectangle.get());
+  m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
+  m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
+  m_chooser.AddOption(SourceNote_Note3_Str, SourceNote_Note3.get());
+  m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
+  m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
+  m_chooser.AddOption(Rectangle_Str, Rectangle.get());
 
    frc::SmartDashboard::PutData("Auto", &m_chooser);
    
@@ -127,6 +131,12 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton startButton{&m_driverController, frc::XboxController::Button::kStart};
     startButton.OnTrue(&m_ZeroHeading);
 
+    frc2::JoystickButton aButton(&m_driverController, frc::XboxController::Button::kA);
+    aButton.WhileTrue(&m_NoteVisionCommand);
+    
+    frc2::JoystickButton bButton(&m_driverController, frc::XboxController::Button::kB);
+    bButton.WhileTrue(&m_AprilTagVisionCommand);
+    
     frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightBumper};
     rightBumperDriver.OnTrue(&m_Shoot);
 
@@ -157,5 +167,5 @@ void RobotContainer::ConfigureButtonBindings() {
  }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-return m_chooser.GetSelected();
+    return m_chooser.GetSelected();
 }

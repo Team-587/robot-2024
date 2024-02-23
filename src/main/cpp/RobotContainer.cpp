@@ -70,17 +70,13 @@ RobotContainer::RobotContainer():
   // Turning is controlled by the X axis of the right stick
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{2.0_m / 1_s / 1_s};
-        static frc::SlewRateLimiter<units::velocity::meters_per_second> filterY{2.0_m / 1_s / 1_s};
         units::velocity::meters_per_second_t jx(m_driverController.GetLeftY());
         units::velocity::meters_per_second_t jy(m_driverController.GetLeftX());
 
         //units::length::meter jx = filterY.Calculate(m_driverController.GetLeftY());
         m_drive.Drive(
-            //jx, 
-            //jy,
-            filterX.Calculate(jx),
-            filterY.Calculate(jy),
+            jx, 
+            jy,
             units::radians_per_second_t{m_driverController.GetRightX()}, true);
       },
       {&m_drive}));

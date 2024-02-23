@@ -17,6 +17,7 @@
 #include <pathplanner/lib/util/PIDConstants.h>
 #include <pathplanner/lib/util/ReplanningConfig.h>
 #include <frc/DriverStation.h>
+#include <frc/filter/SlewRateLimiter.h>
 
 
 #include "Constants.h"
@@ -176,7 +177,12 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
                            units::meters_per_second_t ySpeed,
                            units::radians_per_second_t rot,
                            bool fieldRelative) {
-  
+
+  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{2.0_m / 1_s / 1_s};
+  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterY{2.0_m / 1_s / 1_s};
+
+  xSpeed = filterX.Calculate(xSpeed);
+  ySpeed = filterY.Calculate(ySpeed);
   
   if ((double)xSpeed < 0.1 && (double)xSpeed > -0.1){
     xSpeed = (units::meters_per_second_t)0.0;

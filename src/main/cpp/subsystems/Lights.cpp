@@ -8,7 +8,7 @@
 
 Lights::Lights()
 {
-  for (int i = 0; i < DriveConstants::kLEDLength * 2; i = i + 3) {
+  for (int i = 0; i < DriveConstants::kLEDLength * 3; i = i + 3) {
     //topLEDArray[i].SetRGB(0, 255, 0);
     //0, 133, 202
     //255, 234, 0
@@ -23,7 +23,7 @@ Lights::Lights()
   ledLoopCount = 9;
   disableLoopCount = 2;
   haveNoteLight = false;
-  m_led.SetLength(DriveConstants::kLEDLength * 2);
+  m_led.SetLength(DriveConstants::kLEDLength * 3);
   m_led.SetData(topLEDArray);
   m_led.Start();
 }
@@ -96,11 +96,14 @@ void Lights::Periodic() {
     }
   
 
-  int index = DriveConstants::kLEDLength * 2 - 1;
+  int index = DriveConstants::kLEDLength * 3 - 1;
+  int indexmiddle = DriveConstants::kLEDLength;
 
   for (int i = 0; i < DriveConstants::kLEDLength; i++) {
     topLEDArray[i] = ledArray[i];
     topLEDArray[index] = ledArray[i];
+    topLEDArray[indexmiddle] = ledArray[i];
+    indexmiddle++;
     index--;
   }
 

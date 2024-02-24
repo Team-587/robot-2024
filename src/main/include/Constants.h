@@ -27,12 +27,14 @@
  */
 
 
-//#define SWERVEBASE
+#define SWERVEBASE
 
 
 namespace DriveConstants {
 
-constexpr int kLEDLength = 9;
+constexpr int kLEDsideLength = 26;
+constexpr int kLEDbackLength = 36; 
+constexpr int kLEDtotalLength = kLEDsideLength + kLEDsideLength + kLEDbackLength;
 constexpr int kLEDPort = 0;
 
 constexpr int kLeftTentacleMotorPort = 2;

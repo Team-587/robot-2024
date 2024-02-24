@@ -17,6 +17,7 @@ RobotArm::RobotArm() :
     ElbowAnglePID(ElbowAMotor.GetPIDController()),
     ElevatorEncoder(ElevatorMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor)),
     ElbowAEncoder(ElbowAMotor.GetAbsoluteEncoder(rev::SparkAbsoluteEncoder::Type::kDutyCycle)),
+    ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyOpen)),
     #endif
     ElevatorHeight(0.0),
     ElbowAngle(45.0)
@@ -107,11 +108,10 @@ void RobotArm::Periodic()
       if(coLeftY > -0.1 && coLeftY < 0.1){
         coLeftY = 0;
       }
-      #ifdef HAVEARM
-      ElbowAMotor.Set(coLeftY);
-      ElevatorMotor.Set(0);
-      #endif
-      return;
+      
+      ElbowAngle = ElbowAngle + coLeftY*4.0; 
+      if (ElbowAngle > ElbowAngleMax) ElbowAngle = ElbowAngleMax;
+      if (ElbowAngle < ElbowAngleMin) ElbowAngle = ElbowAngleMin;
     }  
 
   if (elevatorP != elevatorPID.GetP() || elevatorI != elevatorPID.GetI() || elevatorD != elevatorPID.GetD()) {
@@ -143,6 +143,10 @@ void RobotArm::Periodic()
     double ElevatorEncoderValue = ElevatorEncoder.GetPosition();
     double ElbowAEncoderValue = ElbowAEncoder.GetPosition();
 
+    if(ElevatorLimit.Get()){
+      ElevatorEncoderValue = 0;
+    }
+
     frc::SmartDashboard::PutNumber("Cur Elbow Angle", ElbowAEncoderValue);
     frc::SmartDashboard::PutNumber("Set Elbow Angle", ElbowAngle);
     frc::SmartDashboard::PutNumber("Cur Elev Height", ElevatorEncoderValue);
@@ -155,7 +159,7 @@ void RobotArm::Periodic()
     bool CurElbowHigh = ElbowAEncoderValue >= ElbowAngleMaxsafe;
     bool DesElevatorLong = ElevatorHeight >= ElevatorMaxsafe;
     bool DesElbowHigh = ElbowAngle >= ElbowAngleMaxsafe;
-   
+
     if(CurElevatorLong == true && DesElevatorLong == false && CurElbowHigh == false){
        ElevatorHeightPID.SetReference(ElevatorMaxsafe, rev::CANSparkMax::ControlType::kPosition);
        ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);

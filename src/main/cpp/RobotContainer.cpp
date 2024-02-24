@@ -26,13 +26,26 @@
 
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
+//#include "subsystems/NoteVisionSubsystem.h"
 
 using namespace DriveConstants;
 
 RobotContainer::RobotContainer():
         m_drive{&m_vision},
-        m_NoteVisionCommand{&m_NoteVisionSubsystem, &m_drive},
-        m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem, &m_drive} {
+        m_NoteVisionCommand{&m_NoteVisionSubsystem, 
+                            &m_drive,
+                            &m_shooter,
+                            &m_StartIntake,
+                            &m_PickUpPosition,
+                            &m_HoldPosition,
+                            &m_StopIntake},
+        m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem, 
+                                &m_drive,
+                                &m_shooter,
+                                &m_StartIntake,
+                                &m_PickUpPosition,
+                                &m_HoldPosition,
+                                &m_StopIntake} {
   // Initialize all of your commands and subsystems here, 
   
   //  the button bindings

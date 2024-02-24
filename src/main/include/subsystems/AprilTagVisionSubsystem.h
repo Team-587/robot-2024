@@ -7,10 +7,13 @@
 #include <frc2/command/SubsystemBase.h>
 //#include <PhotonVersion.h>
 #include <photon/PhotonCamera.h>
+#include <photon/PhotonUtils.h>
+#include <chrono>
 
 #include "Constants.h"
+#include "VisionSubsystem.h"
 
-class AprilTagVisionSubsystem : public frc2::SubsystemBase {
+class AprilTagVisionSubsystem : public VisionSubsystem {
  public:
   AprilTagVisionSubsystem();
 
@@ -19,11 +22,16 @@ class AprilTagVisionSubsystem : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
-  photon::PhotonCamera* GetCamera() {
-    return &camera;
-  }
+  photon::PhotonCamera* GetCamera() override { return &camera; }
+
+  units::meter_t GetCameraHeight() override { return VisionConstants::CAMERA_HEIGHT_APRILTAG; };
+  units::meter_t GetTargetHeight() override { return VisionConstants::TARGET_HEIGHT_APRILTAG; };
+  units::radian_t GetCameraPitch() override { return VisionConstants::CAMERA_PITCH_APRILTAG; };
+
+  uint64_t GetMaxTargetLatency() override { return VisionConstants::MAX_TARGET_LATENCY; };
 
  private:
+
     photon::PhotonCamera camera{VisionConstants::cameraOne};
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

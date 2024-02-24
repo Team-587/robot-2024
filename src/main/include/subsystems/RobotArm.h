@@ -8,7 +8,7 @@
 #include <rev/CANSparkMax.h>
 #include <frc/controller/PIDController.h>
 
-#define HAVEARM
+//#define HAVEARM
 
 class RobotArm : public frc2::SubsystemBase {
  public:

@@ -23,8 +23,9 @@ int ledLoopCount;
 int disableLoopCount;
 bool haveNoteLight;
 frc::AddressableLED m_led{DriveConstants::kLEDPort};
-std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDLength> ledArray;
-std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDLength * 3> topLEDArray;
+std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDsideLength> LEDsideArray;
+std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDtotalLength > topLEDArray;
+std::array<frc::AddressableLED::LEDData, DriveConstants::kLEDbackLength > LEDbackArray;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

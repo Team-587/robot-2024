@@ -6,10 +6,12 @@
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/InstantCommand.h>
 #include <frc/XboxController.h>
 
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/NoteVisionSubsystem.h"
+#include "subsystems/ShooterIntake.h"
 
 /**
  * An example command.
@@ -21,7 +23,14 @@
 class NoteVisionCommand
     : public frc2::CommandHelper<frc2::Command, NoteVisionCommand> {
  public:
-  NoteVisionCommand(NoteVisionSubsystem* pNoteVisionSubsystem, DriveSubsystem* pDriveSubsystem);
+  NoteVisionCommand(
+    NoteVisionSubsystem* pNoteVisionSubsystem, 
+    DriveSubsystem* pDriveSubsystem,
+    ShooterIntake* pShooterintake,
+    frc2::InstantCommand* pStartIntake,
+    frc2::InstantCommand* pPickUpPosition,
+    frc2::InstantCommand* pHoldPosition,
+    frc2::InstantCommand* pStopIntake);
 
   void Initialize() override;
 
@@ -34,7 +43,14 @@ class NoteVisionCommand
   private:
     NoteVisionSubsystem* m_pNoteVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
+    ShooterIntake* m_pShooterIntake;
+    frc2::InstantCommand* m_pStartIntake;
+    frc2::InstantCommand* m_pPickUpPosition;
+    frc2::InstantCommand* m_pHoldPosition;
+    frc2::InstantCommand* m_pStopIntake;
+
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
+
     frc::PIDController forwardController{VisionConstants::VISION_LINEAR_P, 0.0, VisionConstants::VISION_LINEAR_D};
     frc::PIDController turnController{VisionConstants::VISION_ANGULAR_P, 0.0, VisionConstants::VISION_ANGULAR_D};
 

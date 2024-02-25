@@ -4,10 +4,22 @@
 
 #include "commands/AprilTagVisionCommand.h"
 
-AprilTagVisionCommand::AprilTagVisionCommand(AprilTagVisionSubsystem* pAprilTagVisionSubsystem, DriveSubsystem* pDriveSubsystem) {
+AprilTagVisionCommand::AprilTagVisionCommand(
+  AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
+  DriveSubsystem* pDriveSubsystem,
+  ShooterIntake* pShooterIntake,
+  frc2::InstantCommand* pStartIntake,
+  frc2::InstantCommand* pPickUpPosition,
+  frc2::InstantCommand* pHoldPosition,
+  frc2::InstantCommand* pStopIntake) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
+  m_pShooterIntake = pShooterIntake;
+  m_pStartIntake = pStartIntake;
+  m_pPickUpPosition = pPickUpPosition;
+  m_pHoldPosition = pHoldPosition;
+  m_pStopIntake = pStopIntake;
 
   AddRequirements(m_pAprilTagVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
@@ -28,21 +40,24 @@ void AprilTagVisionCommand::Execute() {
 
   //std::cout << "AprilTagVisionCommand\n";
 
-  const auto& result = m_pAprilTagVisionSubsystem->GetCamera()->GetLatestResult();
+  //const auto& result = m_pAprilTagVisionSubsystem->GetCamera()->GetLatestResult();
+  const std::optional<photon::PhotonTrackedTarget> target = m_pAprilTagVisionSubsystem->GetBestTarget();
 
-  frc::SmartDashboard::PutBoolean("AprilTargets", result.HasTargets());
+  frc::SmartDashboard::PutBoolean("AprilTargets", target.has_value());
 
-  if (result.HasTargets()) {
+  if (target.has_value()) {
     
     forwardSpeed = 0;
-    aprilTagID = result.GetBestTarget().GetFiducialId();
+    aprilTagID = target.value().GetFiducialId();
+    std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance();
 
     rotationSpeed = m_driverController.GetRightX();
     if ((alliance.value() == frc::DriverStation::Alliance::kRed && aprilTagID == VisionConstants::redAprilTag) || 
         (alliance.value() == frc::DriverStation::Alliance::kBlue && aprilTagID == VisionConstants::blueAprilTag)) { 
-        rotationSpeed = -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
+        rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
         rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
     } 
+    
     m_pDriveSubsystem->Drive(
         units::meters_per_second_t{m_driverController.GetLeftY()},
         units::meters_per_second_t{m_driverController.GetLeftX()},

@@ -4,10 +4,22 @@
 
 #include "commands/NoteVisionCommand.h"
 
-NoteVisionCommand::NoteVisionCommand(NoteVisionSubsystem* pNoteVisionSubsystem, DriveSubsystem* pDriveSubsystem) {
+NoteVisionCommand::NoteVisionCommand(
+  NoteVisionSubsystem* pNoteVisionSubsystem, 
+  DriveSubsystem* pDriveSubsystem,
+  ShooterIntake* pShooterIntake,
+  frc2::InstantCommand* pStartIntake,
+  frc2::InstantCommand* pPickUpPosition,
+  frc2::InstantCommand* pHoldPosition,
+  frc2::InstantCommand* pStopIntake) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pNoteVisionSubsystem = pNoteVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
+  m_pShooterIntake = pShooterIntake;
+  m_pStartIntake = pStartIntake;
+  m_pPickUpPosition = pPickUpPosition;
+  m_pHoldPosition = pHoldPosition;
+  m_pStopIntake = pStopIntake;
 
   AddRequirements(m_pNoteVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
@@ -19,21 +31,24 @@ NoteVisionCommand::NoteVisionCommand(NoteVisionSubsystem* pNoteVisionSubsystem, 
 }
 
 // Called when the command is initially scheduled.
-void NoteVisionCommand::Initialize() {}
+void NoteVisionCommand::Initialize() {
+  m_pPickUpPosition->Schedule();
+  m_pStartIntake->Schedule();
+}
 
 
 void NoteVisionCommand::Execute() {
   
   //std::cout << "NoteVisionCommand\n";
 
-  const auto& result = m_pNoteVisionSubsystem->GetCamera()->GetLatestResult();
+  const std::optional<photon::PhotonTrackedTarget> target = m_pNoteVisionSubsystem->GetBestTarget();
 
   forwardSpeed = -.2;
-  frc::SmartDashboard::PutBoolean("NoteTargets", result.HasTargets());
+  frc::SmartDashboard::PutBoolean("NoteTargets", target.has_value());
 
-  if (result.HasTargets()) {
+  if (target.has_value()) {
                         
-    rotationSpeed = -turnController.Calculate(result.GetBestTarget().GetYaw(), 0);
+    rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
     rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
 
     m_pDriveSubsystem->Drive(
@@ -47,12 +62,12 @@ void NoteVisionCommand::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void NoteVisionCommand::End(bool interrupted) {}
+void NoteVisionCommand::End(bool interrupted) {
+  m_pStopIntake->Schedule();
+  m_pHoldPosition->Schedule();
+}
 
 // Returns true when the command should end.
 bool NoteVisionCommand::IsFinished() {
-  
-  //check the note sensor to end
-
-  return false;
+  return m_pShooterIntake->getIntakeSensorState();
 }

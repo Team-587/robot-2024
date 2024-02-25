@@ -86,7 +86,7 @@ void ShooterIntake::setShooterVelocity(double velocity) {
 
 // This method will be called once per scheduler run
 void ShooterIntake::Periodic() {
- bool switchState =  !intakeSwitch.Get();
+ bool switchState =  getIntakeSensorState();
  double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
  double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
  //double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);

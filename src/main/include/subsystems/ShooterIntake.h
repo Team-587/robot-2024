@@ -22,6 +22,9 @@ class ShooterIntake : public frc2::SubsystemBase {
   void setBeginShooter(); 
 
   void setShooterVelocity(double velocity);
+
+  bool getIntakeSensorState() { return !intakeSwitch.Get(); };
+  
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

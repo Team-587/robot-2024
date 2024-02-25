@@ -4,9 +4,13 @@
 
 #include "subsystems/AprilTagVisionSubsystem.h"
 
-AprilTagVisionSubsystem::AprilTagVisionSubsystem() {
+/*AprilTagVisionSubsystem::AprilTagVisionSubsystem() {
     
-};
+};*/
+AprilTagVisionSubsystem::AprilTagVisionSubsystem():
+    VisionSubsystem() {
+
+}
 
 // This method will be called once per scheduler run
 void AprilTagVisionSubsystem::Periodic() {

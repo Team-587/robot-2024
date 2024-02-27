@@ -9,11 +9,13 @@
 #include <frc2/command/InstantCommand.h>
 #include <frc/XboxController.h>
 #include <frc/DriverStation.h>
+#include <units/angle.h>
 
 #include "subsystems/AprilTagVisionSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterIntake.h"
 #include "subsystems/VisionSubsystem.h"
+#include "subsystems/Distances.h"
 /**
  * An example command.
  *
@@ -34,6 +36,8 @@ class AprilTagVisionCommand
     frc2::InstantCommand* pHoldPosition,
     frc2::InstantCommand* pStopIntake);
 
+   std::optional<Distances> GetDistances(units::meter_t distance);
+
   void Initialize() override;
 
   void Execute() override;
@@ -50,6 +54,7 @@ class AprilTagVisionCommand
     frc2::InstantCommand* m_pPickUpPosition;
     frc2::InstantCommand* m_pHoldPosition;
     frc2::InstantCommand* m_pStopIntake;
+    Distances distArray[10];
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 

@@ -35,12 +35,28 @@ void AprilTagVisionCommand::Initialize() {
   alliance = frc::DriverStation::GetAlliance();
 }
 
+
+std::optional<Distances> AprilTagVisionCommand::GetDistances(units::meter_t distance) { 
+
+    for (int i = 0; i < 10; i++) {
+
+      if (distance >= distArray[i].m_minDist && distance <= distArray[i].m_maxDist) {
+        return std::make_optional(distArray[i]);
+
+      } else {
+        return std::nullopt;
+
+      }
+    }
+  } 
+
 // Called repeatedly when this Command is scheduled to run
 void AprilTagVisionCommand::Execute() {
 
   //std::cout << "AprilTagVisionCommand\n";
 
   //const auto& result = m_pAprilTagVisionSubsystem->GetCamera()->GetLatestResult();
+
   const std::optional<photon::PhotonTrackedTarget> target = m_pAprilTagVisionSubsystem->GetBestTarget();
 
   frc::SmartDashboard::PutBoolean("AprilTargets", target.has_value());
@@ -50,6 +66,10 @@ void AprilTagVisionCommand::Execute() {
     forwardSpeed = 0;
     aprilTagID = target.value().GetFiducialId();
     std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance();
+
+    if (distance.has_value()) {
+      GetDistances(distance.value());
+    }
 
     rotationSpeed = m_driverController.GetRightX();
     if ((alliance.value() == frc::DriverStation::Alliance::kRed && aprilTagID == VisionConstants::redAprilTag) || 

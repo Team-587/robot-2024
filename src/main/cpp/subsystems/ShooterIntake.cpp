@@ -25,7 +25,7 @@ ShooterIntake::ShooterIntake():
     #ifdef HAVEINTAKE
     intakeMotor.SetSmartCurrentLimit(50);
     intakeMotor.SetSecondaryCurrentLimit(80);
-    intakeMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+    intakeMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     intakeMotor.EnableVoltageCompensation(12);
     outakeMotor.SetSmartCurrentLimit(50);
     outakeMotor.SetSecondaryCurrentLimit(80);
@@ -87,8 +87,8 @@ void ShooterIntake::setShooterVelocity(double velocity) {
 // This method will be called once per scheduler run
 void ShooterIntake::Periodic() {
  bool switchState =  getIntakeSensorState();
- double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
- double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
+ //double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
+ //double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
  //double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);
 
  //std::cout<<switchState<<" "<<stateVar<<" Switch State\n";
@@ -115,7 +115,7 @@ void ShooterIntake::Periodic() {
 
         case INTAKE:
             #ifdef HAVEINTAKE
-            intakeMotor.Set(intakeVelocityIntake);
+            intakeMotor.Set(intakeVelocity);
             outakeMotor.Set(0);
             #endif
 
@@ -170,7 +170,7 @@ void ShooterIntake::Periodic() {
 
         case SHOOTING:
             #ifdef HAVEINTAKE
-            intakeMotor.Set(intakeVelocityShoot);
+            intakeMotor.Set(intakeVelocity);
             outakeMotor.Set(shooterVelocity);  
             #endif
 

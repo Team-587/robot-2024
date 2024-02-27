@@ -17,7 +17,7 @@ RobotArm::RobotArm() :
     ElbowAnglePID(ElbowAMotor.GetPIDController()),
     ElevatorEncoder(ElevatorMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor)),
     ElbowAEncoder(ElbowAMotor.GetAbsoluteEncoder(rev::SparkAbsoluteEncoder::Type::kDutyCycle)),
-    ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyOpen)),
+    ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed)),
     #endif
     ElevatorHeight(0.0),
     ElbowAngle(45.0)
@@ -144,6 +144,8 @@ void RobotArm::Periodic()
     double ElbowAEncoderValue = ElbowAEncoder.GetPosition();
 
     if(ElevatorLimit.Get()){
+      //std::cout << "Elevator Limit hit\n";
+      ElevatorEncoder.SetPosition(0);
       ElevatorEncoderValue = 0;
     }
 

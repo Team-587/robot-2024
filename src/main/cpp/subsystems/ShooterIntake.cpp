@@ -51,9 +51,9 @@ void ShooterIntake::setIntakeStart() {
     if(stateVar == STOP) {
         startIntake = true;
         stopIntake = false;
-    } else {
-        startIntake = false;
-        stopIntake = true;
+    } else if(stateVar == INTAKE) {
+        startIntake = true;
+        stopIntake = false;
     }
 }
 
@@ -62,10 +62,10 @@ void ShooterIntake::setIntakeStop() {
     if(stateVar == INTAKE) {
         stopIntake = true;
         startIntake = false;
-    } else {
+    } /*else {
         stopIntake = false;
         startIntake = true;
-    }
+    }*/
 }
 
 void ShooterIntake::setBeginShooter() {
@@ -155,7 +155,7 @@ void ShooterIntake::Periodic() {
 
                 if(beginShooter == true) {
                     stateVar = SHOOTING;
-                    delayCount = 80;
+                    delayCount = 10;
                     beginShooter = false;
 
                     std::cout<<"Shot Note\n";
@@ -180,6 +180,7 @@ void ShooterIntake::Periodic() {
                     stateVar = STOP;
                     
                     std::cout<<"Done Shooting\n";
+                    shooterVelocity = 0;
 
                 }
             break;

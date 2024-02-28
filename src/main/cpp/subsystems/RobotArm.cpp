@@ -76,11 +76,11 @@ RobotArm::RobotArm() :
     elbowPID.SetP(elbowP);
     elbowPID.SetI(elbowI);
     elbowPID.SetD(elbowD);
-    frc::SmartDashboard::PutData("elbowPID", &elbowPID);
+    //frc::SmartDashboard::PutData("elbowPID", &elbowPID);
     elevatorPID.SetP(elevatorP);
     elevatorPID.SetI(elevatorI);
     elevatorPID.SetD(elevatorD);
-    frc::SmartDashboard::PutData("elevatorPID", &elevatorPID);
+    //frc::SmartDashboard::PutData("elevatorPID", &elevatorPID);
 }
 
 

@@ -10,22 +10,23 @@
 
 #include "Constants.h"
 
-class Distances : public frc2::SubsystemBase {
+class DistanceBuckets : public frc2::SubsystemBase {
  public:
-    Distances(units::meter_t minDist,
+    DistanceBuckets(units::meter_t minDist,
               units::meter_t maxDist,
               units::meter_t shooterSpeed,
               units::meter_t intakeSpeed,
               units::meter_t elevatorHeight,
               units::angle::radians armHeight);
 
-    Distances();
+    DistanceBuckets();
 
     units::meter_t m_minDist;
     units::meter_t m_maxDist;
     units::meter_t m_shooterSpeed;
     units::meter_t m_intakeSpeed;
     units::meter_t m_elevatorHeight;
+    units::angle::radians m_armHeight;
   
   private:
     

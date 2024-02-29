@@ -42,10 +42,7 @@ RobotContainer::RobotContainer():
         m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem, 
                                 &m_drive,
                                 &m_shooter,
-                                &m_StartIntake,
-                                &m_PickUpPosition,
-                                &m_HoldPosition,
-                                &m_StopIntake} {
+                                &m_robotarm} {
   // Initialize all of your commands and subsystems here, 
   
   //  the button bindings

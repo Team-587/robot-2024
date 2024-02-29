@@ -3,23 +3,16 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/AprilTagVisionCommand.h"
+#include "RobotContainer.h"
 
 AprilTagVisionCommand::AprilTagVisionCommand(
   AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
   DriveSubsystem* pDriveSubsystem,
   ShooterIntake* pShooterIntake,
-  frc2::InstantCommand* pStartIntake,
-  frc2::InstantCommand* pPickUpPosition,
-  frc2::InstantCommand* pHoldPosition,
-  frc2::InstantCommand* pStopIntake) {
+  RobotArm* pRobotArm) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
-  m_pShooterIntake = pShooterIntake;
-  m_pStartIntake = pStartIntake;
-  m_pPickUpPosition = pPickUpPosition;
-  m_pHoldPosition = pHoldPosition;
-  m_pStopIntake = pStopIntake;
 
   AddRequirements(m_pAprilTagVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
@@ -36,7 +29,7 @@ void AprilTagVisionCommand::Initialize() {
 }
 
 
-std::optional<Distances> AprilTagVisionCommand::GetDistances(units::meter_t distance) { 
+std::optional<DistanceBuckets> AprilTagVisionCommand::GetDistances(units::meter_t distance) { 
 
     for (int i = 0; i < 10; i++) {
 
@@ -60,7 +53,6 @@ void AprilTagVisionCommand::Execute() {
   const std::optional<photon::PhotonTrackedTarget> target = m_pAprilTagVisionSubsystem->GetBestTarget();
 
   frc::SmartDashboard::PutBoolean("AprilTargets", target.has_value());
-
   if (target.has_value()) {
     
     forwardSpeed = 0;
@@ -68,7 +60,17 @@ void AprilTagVisionCommand::Execute() {
     std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance();
 
     if (distance.has_value()) {
-      GetDistances(distance.value());
+      std::optional<DistanceBuckets> distanceBuckets = GetDistances(distance.value());
+
+      if(distanceBuckets.has_value()) {
+        m_pShooterIntake->setShooterVelocity((double)distanceBuckets.value().m_shooterSpeed);
+        //distanceBuckets.value().m_intakeSpeed;
+        distanceBuckets.value().m_maxDist;
+        distanceBuckets.value().m_minDist;
+        m_pRobotArm->ElevatorHeight = (double)distanceBuckets.value().m_elevatorHeight;
+        m_pRobotArm->ElbowAngle = (double)distanceBuckets.value().m_armHeight;
+      }
+
     }
 
     rotationSpeed = m_driverController.GetRightX();

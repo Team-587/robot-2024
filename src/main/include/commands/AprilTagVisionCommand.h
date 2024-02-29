@@ -11,6 +11,14 @@
 
 #include "subsystems/AprilTagVisionSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
+<<<<<<< Updated upstream
+=======
+#include "subsystems/ShooterIntake.h"
+#include "subsystems/VisionSubsystem.h"
+#include "subsystems/DistanceBuckets.h"
+#include "subsystems/RobotArm.h"
+
+>>>>>>> Stashed changes
 /**
  * An example command.
  *
@@ -22,7 +30,17 @@ class AprilTagVisionCommand
     : public frc2::CommandHelper<frc2::Command, AprilTagVisionCommand> {
  public:
 
+<<<<<<< Updated upstream
   AprilTagVisionCommand(AprilTagVisionSubsystem* pAprilTagVisionSubsystem, DriveSubsystem* pDriveSubsystem);
+=======
+  AprilTagVisionCommand(
+    AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
+    DriveSubsystem* pDriveSubsystem,
+    ShooterIntake* pShooterIntake,
+    RobotArm* pRobotArm);
+
+   std::optional<DistanceBuckets> GetDistances(units::meter_t distance);
+>>>>>>> Stashed changes
 
   void Initialize() override;
 
@@ -35,6 +53,13 @@ class AprilTagVisionCommand
   private:
     AprilTagVisionSubsystem* m_pAprilTagVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
+<<<<<<< Updated upstream
+=======
+    ShooterIntake* m_pShooterIntake;
+    RobotArm* m_pRobotArm;
+    DistanceBuckets distArray[10];
+
+>>>>>>> Stashed changes
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
     frc::PIDController forwardController{VisionConstants::VISION_LINEAR_P, 0.0, VisionConstants::VISION_LINEAR_D};
     frc::PIDController turnController{VisionConstants::VISION_ANGULAR_P, 0.0, VisionConstants::VISION_ANGULAR_D};

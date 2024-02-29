@@ -31,6 +31,9 @@ class RobotArm : public frc2::SubsystemBase {
   static constexpr double LongShootAngle{130.0};
   static constexpr double LongShootLength{0};
 
+  double ElevatorHeight;
+  double ElbowAngle;
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
@@ -49,8 +52,5 @@ class RobotArm : public frc2::SubsystemBase {
   const double ElbowAngleMin{0.0};
   const double ElbowAngleMax{90.0};
   const double ElbowAngleMaxsafe{45.0};
-
-  double ElevatorHeight;
-  double ElbowAngle;
 
 };

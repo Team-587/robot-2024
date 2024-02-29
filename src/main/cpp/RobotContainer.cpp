@@ -141,10 +141,10 @@ void RobotContainer::ConfigureButtonBindings() {
     startButton.OnTrue(&m_ZeroHeading);
 
     frc2::JoystickButton aButton(&m_driverController, frc::XboxController::Button::kA);
-    aButton.WhileTrue(&m_StopShoot);
+    aButton.OnTrue(&m_StopShoot);
     
     frc2::JoystickButton bButton(&m_driverController, frc::XboxController::Button::kB);
-    bButton.WhileTrue(&m_Shoot);
+    bButton.OnTrue(&m_Shoot);
 
     frc2::JoystickButton yButtonDrive(&m_driverController, frc::XboxController::Button::kY);
     yButtonDrive.OnTrue(&m_trapPosition).OnTrue(&m_trapShootVelocity);

@@ -43,13 +43,13 @@ void NoteVisionCommand::Execute() {
 
   const std::optional<photon::PhotonTrackedTarget> target = m_pNoteVisionSubsystem->GetBestTarget();
 
-  forwardSpeed = -.35;
+  forwardSpeed = .1;
   frc::SmartDashboard::PutBoolean("NoteTargets", target.has_value());
 
   if (target.has_value()) {
                         
     rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
-    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
+    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 8));
 
     m_pDriveSubsystem->Drive(
       units::meters_per_second_t{forwardSpeed},

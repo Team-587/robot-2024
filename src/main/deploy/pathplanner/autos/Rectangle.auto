@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2982016619303887,
-      "y": 5.5196408968316515
+      "x": 1.335622956146197,
+      "y": 5.496252587946771
     },
     "rotation": 0
   },
@@ -12,27 +12,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Short Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Center Speaker"
+            "pathName": "New Path"
           }
         }
       ]

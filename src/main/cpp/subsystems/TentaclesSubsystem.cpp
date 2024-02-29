@@ -16,8 +16,6 @@ TentaclesSubsystem::TentaclesSubsystem() :
     #endif 
     TentacleExtend(false)
 {
-    LeftTentacleMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
-    RightTentacleMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 }
 
 void TentaclesSubsystem::allowTentacleExtend() {

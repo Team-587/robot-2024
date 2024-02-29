@@ -63,7 +63,7 @@ DriveSubsystem::DriveSubsystem(Vision* pVision)
       imuValid{false}
 {
   m_pVision = pVision;
- // frc::SmartDashboard::PutData("Field", &m_fieldSim);
+  frc::SmartDashboard::PutData("Field", &m_fieldSim);
   // Configure the AutoBuilder last
     pathplanner::AutoBuilder::configureHolonomic(
         [this](){ return GetPose(); }, // Robot pose supplier
@@ -152,11 +152,11 @@ currentPitch = m_NavX.GetPitch();
 currentRoll = m_NavX.GetRoll();
 currentYaw = -m_NavX.GetYaw();
 
-//frc::SmartDashboard::PutNumber("Speed", m_fullSpeed); 
+frc::SmartDashboard::PutNumber("Speed", m_fullSpeed); 
 frc::SmartDashboard::PutNumber("Heading", (double)m_NavX.GetRotation2d().Degrees());
-//frc::SmartDashboard::PutNumber("Pitch", currentPitch); 
+frc::SmartDashboard::PutNumber("Pitch", currentPitch); 
 frc::SmartDashboard::PutNumber("Yaw", currentYaw);
-//frc::SmartDashboard::PutNumber("Roll", currentRoll);
+frc::SmartDashboard::PutNumber("Roll", currentRoll);
 }
 
 void DriveSubsystem::driveRobotRelative(const frc::ChassisSpeeds& robotRelativeSpeeds){
@@ -199,8 +199,8 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
    // rot = rot * m_fullSpeed;
 
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
-  double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * -.8) + 1.0;
-  //double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * 0.8) + 0.2;
+  //double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * -.8) + 1.0;
+  double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * 0.8) + 0.2;
 
   xSpeed = xSpeed * rightTriggerValue;
   ySpeed = ySpeed * rightTriggerValue;
@@ -208,9 +208,9 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
    
 
 
-  //frc::SmartDashboard::PutNumber("xSpeed", (double)xSpeed);  
-  //frc::SmartDashboard::PutNumber("ySpeed", (double)ySpeed);
-  //frc::SmartDashboard::PutNumber("Rotation", (double)rot);   
+  frc::SmartDashboard::PutNumber("xSpeed", (double)xSpeed);  
+  frc::SmartDashboard::PutNumber("ySpeed", (double)ySpeed);
+  frc::SmartDashboard::PutNumber("Rotation", (double)rot);   
                        
   auto states = kDriveKinematics.ToSwerveModuleStates(
       fieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
@@ -241,14 +241,14 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
 void DriveSubsystem::SetModuleStates(
     wpi::array<frc::SwerveModuleState, 4> desiredStates) {
 
-std::cout << "Angles (" << (double)desiredStates[0].angle.Degrees() << "," 
+/*std::cout << "Angles (" << (double)desiredStates[0].angle.Degrees() << "," 
           << (double)desiredStates[1].angle.Degrees() << "," 
           << (double)desiredStates[2].angle.Degrees() << ","
           << (double)desiredStates[3].angle.Degrees() 
           << ") Speeds (" << (double)desiredStates[0].speed << ","
           << (double)desiredStates[0].speed << ","
           << (double)desiredStates[0].speed << ","
-          << (double)desiredStates[0].speed << ")";
+          << (double)desiredStates[0].speed << ")";*/
 
   kDriveKinematics.DesaturateWheelSpeeds(&desiredStates,  AutoConstants::kMaxSpeed);
   double kmaxspeed = (double)AutoConstants::kMaxSpeed;

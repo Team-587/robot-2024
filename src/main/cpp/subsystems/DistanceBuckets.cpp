@@ -2,9 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "subsystems/Distances.h"
+#include "subsystems/DistanceBuckets.h"
 
-Distances::Distances(units::meter_t minDist,
+DistanceBuckets::DistanceBuckets(units::meter_t minDist,
                      units::meter_t maxDist,
                      units::meter_t shooterSpeed,
                      units::meter_t intakeSpeed,
@@ -16,6 +16,7 @@ Distances::Distances(units::meter_t minDist,
     m_shooterSpeed = shooterSpeed;
     m_intakeSpeed = intakeSpeed;
     m_elevatorHeight = elevatorHeight;
+    m_armHeight = armHeight;
 }
 
-Distances::Distances() {}
+DistanceBuckets::DistanceBuckets() {}

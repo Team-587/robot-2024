@@ -43,7 +43,7 @@ void NoteVisionCommand::Execute() {
 
   const std::optional<photon::PhotonTrackedTarget> target = m_pNoteVisionSubsystem->GetBestTarget();
 
-  forwardSpeed = -.1;
+  forwardSpeed = .1;
   frc::SmartDashboard::PutBoolean("NoteTargets", target.has_value());
 
   if (target.has_value()) {

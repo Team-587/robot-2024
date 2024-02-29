@@ -24,8 +24,8 @@ NoteVisionCommand::NoteVisionCommand(
   AddRequirements(m_pNoteVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
 
-  turnController.SetTolerance(3, 5);
-  turnController.SetIntegratorRange(-.05, .05);
+  turnController.SetTolerance(1, 2);
+  turnController.SetIntegratorRange(-.005, .005);
   forwardController.SetTolerance(1, 3);
   forwardController.SetIntegratorRange(-.05, .05);
 }
@@ -43,18 +43,18 @@ void NoteVisionCommand::Execute() {
 
   const std::optional<photon::PhotonTrackedTarget> target = m_pNoteVisionSubsystem->GetBestTarget();
 
-  forwardSpeed = -.35;
+  forwardSpeed = -.1;
   frc::SmartDashboard::PutBoolean("NoteTargets", target.has_value());
 
   if (target.has_value()) {
                         
     rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
-    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
+    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 8));
 
     m_pDriveSubsystem->Drive(
       units::meters_per_second_t{forwardSpeed},
       units::meters_per_second_t{0},
-      units::radians_per_second_t{rotationSpeed}, true);
+      units::radians_per_second_t{rotationSpeed}, false);
 
   } else {
     rotationSpeed = 0;

@@ -178,8 +178,8 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
                            units::radians_per_second_t rot,
                            bool fieldRelative) {
 
-  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{2.0_m / 1_s / 1_s};
-  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterY{2.0_m / 1_s / 1_s};
+  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{5_m / 1_s / 1_s};
+  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterY{5_m / 1_s / 1_s};
 
   xSpeed = filterX.Calculate(xSpeed);
   ySpeed = filterY.Calculate(ySpeed);
@@ -341,11 +341,11 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
     frc::Pose2d tmpPose = GetPose();
     std::cout << "Reset Odometry start X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
     std::cout << "Reset Odometry set   X:" << (double)pose.X() << " Y:" << (double)pose.Y() << " Rot:" << (double)pose.Rotation().Degrees() << "\n";
-    //m_odometry.ResetPosition(
-    //  m_NavX.GetRotation2d(),
-    //  {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
-    //   m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
-    //  pose);
+    m_odometry.ResetPosition(
+      m_NavX.GetRotation2d(),
+      {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
+       m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
+      pose);
     /*m_poseEstimator.ResetPosition(
       m_NavX.GetRotation2d(),
       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),

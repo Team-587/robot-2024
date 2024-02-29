@@ -199,8 +199,8 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
    // rot = rot * m_fullSpeed;
 
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
-  //double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * -.8) + 1.0;
-  double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * 0.8) + 0.2;
+  double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * -.8) + 1.0;
+  //double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * 0.8) + 0.2;
 
   xSpeed = xSpeed * rightTriggerValue;
   ySpeed = ySpeed * rightTriggerValue;

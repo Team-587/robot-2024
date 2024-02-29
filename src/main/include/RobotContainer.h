@@ -14,7 +14,6 @@
 #include <frc2/command/PIDCommand.h>
 #include <frc2/command/ParallelRaceGroup.h>
 #include <frc2/command/RunCommand.h>
-#include <frc2/command/SequentialCommandGroup.h>
 #include <frc/DriverStation.h>
 
 #include "Constants.h"
@@ -87,14 +86,7 @@ class RobotContainer {
     frc2::InstantCommand m_AmpPosition{[this] {m_robotarm.ArmPosition(RobotArm::AmpAngle, RobotArm::AmpLength);}, {&m_robotarm}};
     frc2::InstantCommand m_ShortShootPosition{[this] {m_robotarm.ArmPosition(RobotArm::ShortShootAngle, RobotArm::ShortShootLength);}, {&m_robotarm}};
     frc2::InstantCommand m_LongShootPosition{[this] {m_robotarm.ArmPosition(RobotArm::LongShootAngle, RobotArm::LongShootLength);}, {&m_robotarm}}; 
-    frc2::InstantCommand m_trapPosition{[this] {m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength);}, {&m_robotarm}};
-    frc2::InstantCommand m_trapShootVelocity{[this] {m_shooter.setShooterVelocity(0.35); }, {&m_shooter}};
 
-
-    frc2::SequentialCommandGroup m_LongSetup {
-      m_LongShootPosition,
-      m_LongShootVelocity
-    };
 
     std::unique_ptr<frc2::Command> AmpNote_Note1;
     std::unique_ptr<frc2::Command> Center_Amp_Note1;

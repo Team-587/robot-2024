@@ -27,7 +27,7 @@
  */
 
 
-//#define SWERVEBASE
+#define SWERVEBASE
 
 
 namespace DriveConstants {

@@ -65,17 +65,17 @@ RobotContainer::RobotContainer():
   pathplanner::NamedCommands::registerCommand("Long Shoot Velocity", frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter}));
   pathplanner::NamedCommands::registerCommand("print hello", frc2::cmd::Print("hello"));
 
-  pathplanner::NamedCommands::registerCommand("Short Shot Setup", frc2::cmd::Sequence(
+  pathplanner::NamedCommands::registerCommand("Short Shoot Setup", frc2::cmd::Sequence(
           frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::ShortShootAngle, RobotArm::ShortShootLength);}, {&m_robotarm}), 
           frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::ShortShootVelocity); }, {&m_shooter})));
   pathplanner::NamedCommands::registerCommand("Shoot + Intake", frc2::cmd::Sequence(
           frc2::cmd::RunOnce([this] {this->m_drive.Stop();}, {&m_drive}),
           frc2::cmd::RunOnce([this] {this->m_shooter.setBeginShooter(); }, {&m_shooter}),
-          frc2::cmd::Wait(0.3_s),
+          frc2::cmd::Wait(1.5_s),
           frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength);}, {&m_robotarm}),
           frc2::cmd::RunOnce([this] {this->m_shooter.setIntakeStart(); }, {&m_shooter})));
   
-  pathplanner::NamedCommands::registerCommand("Long Shot Setup", frc2::cmd::Sequence(
+  pathplanner::NamedCommands::registerCommand("Long Shoot Setup", frc2::cmd::Sequence(
           frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::LongShootAngle, RobotArm::LongShootLength);}, {&m_robotarm}), 
           frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter})));
   // Set up default drive command
@@ -126,12 +126,12 @@ RobotContainer::RobotContainer():
    
    frc::SmartDashboard::PutNumber("Command Angle", 0);
    frc::SmartDashboard::PutNumber("Command Elevator", 0);
-   frc::SmartDashboard::PutNumber("Command Velocity", 0);
+  // frc::SmartDashboard::PutNumber("Command Velocity", 0);
 
  static frc2::InstantCommand m_MoveArm{[this] {m_robotarm.ArmPosition(frc::SmartDashboard::GetNumber("Command Angle", 0), frc::SmartDashboard::GetNumber("Command Elevator", 0));}, {&m_robotarm}};
  static frc2::InstantCommand m_ShooterVelocity{[this] {m_shooter.setShooterVelocity(frc::SmartDashboard::PutNumber("Command Velocity", 0)); }, {&m_shooter}};
 
-   frc::SmartDashboard::PutData("Velocity Cmd", &m_ShooterVelocity);
+  // frc::SmartDashboard::PutData("Velocity Cmd", &m_ShooterVelocity);
    frc::SmartDashboard::PutData("Arm Cmd", &m_MoveArm);
 }
 

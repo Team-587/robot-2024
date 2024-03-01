@@ -34,6 +34,36 @@
           "data": {
             "pathName": "Center Speaker"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "drive stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Medium Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.25
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
         }
       ]
     }

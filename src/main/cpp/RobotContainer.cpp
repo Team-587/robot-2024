@@ -71,13 +71,23 @@ RobotContainer::RobotContainer():
   pathplanner::NamedCommands::registerCommand("Shoot + Intake", frc2::cmd::Sequence(
           frc2::cmd::RunOnce([this] {this->m_drive.Stop();}, {&m_drive}),
           frc2::cmd::RunOnce([this] {this->m_shooter.setBeginShooter(); }, {&m_shooter}),
-          frc2::cmd::Wait(1.5_s),
+          frc2::cmd::Wait(1.3_s),
           frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength);}, {&m_robotarm}),
-          frc2::cmd::RunOnce([this] {this->m_shooter.setIntakeStart(); }, {&m_shooter})));
+          frc2::cmd::RunOnce([this] {this->m_shooter.setIntakeStart(); }, {&m_shooter}),
+          frc2::cmd::Wait(0.2_s)));
   
   pathplanner::NamedCommands::registerCommand("Long Shoot Setup", frc2::cmd::Sequence(
           frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::LongShootAngle, RobotArm::LongShootLength);}, {&m_robotarm}), 
           frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter})));
+
+      pathplanner::NamedCommands::registerCommand("Longer Shoot Setup", frc2::cmd::Sequence(
+          frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::LongShootAngle+8.5, RobotArm::LongShootLength);}, {&m_robotarm}), 
+          frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter})));
+
+
+     pathplanner::NamedCommands::registerCommand("Medium Shoot Setup", frc2::cmd::Sequence(
+          frc2::cmd::RunOnce([this] {this->m_robotarm.ArmPosition(RobotArm::LongShootAngle+4, RobotArm::LongShootLength);}, {&m_robotarm}), 
+          frc2::cmd::RunOnce([this] {this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter})));      
   // Set up default drive command
   // The left stick controls translation of the robot.
   // Turning is controlled by the X axis of the right stick

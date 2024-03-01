@@ -43,7 +43,7 @@ void NoteVisionCommand::Execute() {
 
   const std::optional<photon::PhotonTrackedTarget> target = m_pNoteVisionSubsystem->GetBestTarget();
 
-  forwardSpeed = .1;
+  forwardSpeed = -.2;
   frc::SmartDashboard::PutBoolean("NoteTargets", target.has_value());
 
   if (target.has_value()) {
@@ -54,7 +54,7 @@ void NoteVisionCommand::Execute() {
     m_pDriveSubsystem->Drive(
       units::meters_per_second_t{forwardSpeed},
       units::meters_per_second_t{0},
-      units::radians_per_second_t{rotationSpeed}, true);
+      units::radians_per_second_t{rotationSpeed}, false);
 
   } else {
     rotationSpeed = 0;

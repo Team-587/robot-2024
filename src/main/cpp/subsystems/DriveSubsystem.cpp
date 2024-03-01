@@ -123,13 +123,13 @@ void DriveSubsystem::Periodic() {
     //    result.value().estimatedPose.ToPose2d(), result.value().timestamp);
   //}
 
-  m_fieldSim.SetRobotPose(GetPose());
+ // m_fieldSim.SetRobotPose(GetPose());
   frc::Pose2d tmpPose = GetPose();
-  auto alliance =frc::DriverStation::GetAlliance();
+  //auto alliance =frc::DriverStation::GetAlliance();
   //frc::SmartDashboard::PutNumber("PoseX", (double)tmpPose.X());
   //frc::SmartDashboard::PutNumber("PoseY", (double)tmpPose.Y());
   //frc::SmartDashboard::PutNumber("PoseRotation", (double)tmpPose.Rotation().Degrees());
-  double fl_dist = (double)m_frontLeft.GetPosition().distance;
+  //double fl_dist = (double)m_frontLeft.GetPosition().distance;
   //frc::SmartDashboard::PutNumber("FL_pos", fl_dist);
   //frc::SmartDashboard::PutNumber("FL_angle", (double)m_frontLeft.GetPosition().angle.Degrees());
   //frc::SmartDashboard::PutBoolean("Alliance", alliance.value() != frc::DriverStation::Alliance::kRed);
@@ -165,9 +165,9 @@ void DriveSubsystem::driveRobotRelative(const frc::ChassisSpeeds& robotRelativeS
     targetSpeeds.vy = -targetSpeeds.vy;
     targetSpeeds.omega = -targetSpeeds.omega;
 
-    //if (frc::DriverStation::IsAutonomousEnabled()) {
-        //std::cout << "auto drive speed x:" << (double)targetSpeeds.vx << " y:" << (double)targetSpeeds.vy << " ang:" << (double)targetSpeeds.omega << "\n";
-    //}
+    if (frc::DriverStation::IsAutonomousEnabled()) {
+        std::cout << "auto drive speed x:" << (double)targetSpeeds.vx << " y:" << (double)targetSpeeds.vy << " ang:" << (double)targetSpeeds.omega << "\n";
+    }
     
     auto targetStates = kDriveKinematics.ToSwerveModuleStates(targetSpeeds);
     SetModuleStates(targetStates);
@@ -322,9 +322,9 @@ frc::Pose2d DriveSubsystem::GetPose() {
   //frc::Pose2d tmpPose = m_poseEstimator.GetEstimatedPosition();
   //std::cout << "Drive getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
 
-  //if (frc::DriverStation::IsAutonomousEnabled()) {
-    //std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
-  //}
+  /*if (frc::DriverStation::IsAutonomousEnabled()) {
+    std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
+  }*/
 
   return tmpPose;
 }
@@ -341,11 +341,11 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
     frc::Pose2d tmpPose = GetPose();
     std::cout << "Reset Odometry start X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
     std::cout << "Reset Odometry set   X:" << (double)pose.X() << " Y:" << (double)pose.Y() << " Rot:" << (double)pose.Rotation().Degrees() << "\n";
-    //m_odometry.ResetPosition(
-    //  m_NavX.GetRotation2d(),
-    //  {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
-    //   m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
-    //  pose);
+    m_odometry.ResetPosition(
+      m_NavX.GetRotation2d(),
+      {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
+       m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
+      pose);
     /*m_poseEstimator.ResetPosition(
       m_NavX.GetRotation2d(),
       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),

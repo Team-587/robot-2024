@@ -7,7 +7,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
 
-#define HAVETENTACLES;
+#define HAVETENTACLES
 
 class TentaclesSubsystem : public frc2::SubsystemBase {
  public:

@@ -118,6 +118,9 @@ RobotContainer::RobotContainer():
   const std::string Rectangle_Str = "Rectangle";
   const std::string Center_Note3_Note4_Str = "Center + Note 3 + Note 4";
   const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
+
+  const std::string Amp_Move_Str = "Amp Move";
+
   AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
   Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
   SourceNote_Note3 = pathplanner::PathPlannerAuto(SourceNote_Note3_Str).ToPtr().Unwrap();
@@ -125,12 +128,16 @@ RobotContainer::RobotContainer():
   Center_Note3_Note4 = pathplanner::PathPlannerAuto(Center_Note3_Note4_Str).ToPtr().Unwrap();
   Center_Note2_Note3 = pathplanner::PathPlannerAuto(Center_Note2_Note3_Str).ToPtr().Unwrap();
 
+  Amp_Move = pathplanner::PathPlannerAuto(Amp_Move_Str).ToPtr().Unwrap();
+
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
   m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
   m_chooser.AddOption(SourceNote_Note3_Str, SourceNote_Note3.get());
   m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
   m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
   m_chooser.AddOption(Rectangle_Str, Rectangle.get());
+
+  m_chooser.AddOption(Amp_Move_Str, Amp_Move.get());
 
    frc::SmartDashboard::PutData("Auto", &m_chooser);
    
@@ -172,10 +179,10 @@ void RobotContainer::ConfigureButtonBindings() {
     startButtonCoDrive.OnTrue(&m_StartTentacles);
 
     frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
-    rightBumperCoDrive.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake).OnTrue(&m_StopShoot);
+    rightBumperCoDrive.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake);
 
     frc2::JoystickButton leftBumperCoDrive{&m_codriverController, frc::XboxController::Button::kLeftBumper};
-    leftBumperCoDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
+    leftBumperCoDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake);
 
     frc2::JoystickButton aButtonCoDrive{&m_codriverController, frc::XboxController::Button::kA};
     aButtonCoDrive.OnTrue(&m_AmpPosition).OnTrue(&m_ShortShootVelocity);
@@ -187,7 +194,7 @@ void RobotContainer::ConfigureButtonBindings() {
     xButtonCoDrive.OnTrue(&m_LongSetup);
 
     frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
-    bButtonCoDrive.OnTrue(&m_Shoot);
+    bButtonCoDrive.OnTrue(&m_Shoot).OnTrue(&m_wait).OnTrue(&m_StartIntakeShoot).OnTrue(&m_wait);
 
  }
 

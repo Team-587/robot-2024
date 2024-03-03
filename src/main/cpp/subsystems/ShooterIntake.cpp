@@ -6,6 +6,7 @@
 #include "Constants.h"
 #include "iostream"
 #include <frc/smartdashboard/Smartdashboard.h>
+#include <frc/DriverStation.h>
 
 //Constructor for shooter intake
 ShooterIntake::ShooterIntake():
@@ -48,21 +49,33 @@ ShooterIntake::ShooterIntake():
 
 void ShooterIntake::setIntakeStart() {
     std::cout<<"Intake Start\n";
+    startIntake = true;
+    startIntakeShoot = false;
+    beginShooter = false;
+    /*bool switchState =  getIntakeSensorState();
+
+    if (switchState == false) {
+        stateVar = STOP;
+    }
+
     if(stateVar == STOP) {
         startIntake = true;
         stopIntake = false;
     } else if(stateVar == INTAKE) {
         startIntake = true;
         stopIntake = false;
-    }
+    }*/
 }
 
 void ShooterIntake::setIntakeStop() {
     std::cout<<"Intake Stop\n";
-    if(stateVar == INTAKE) {
+    startIntake = false;
+    startIntakeShoot = false;
+    beginShooter = false;
+    /*if(stateVar == INTAKE) {
         stopIntake = true;
         startIntake = false;
-    } /*else {
+    }*/ /*else {
         stopIntake = false;
         startIntake = true;
     }*/
@@ -70,16 +83,37 @@ void ShooterIntake::setIntakeStop() {
 
 void ShooterIntake::setBeginShooter() {
  std::cout<<"Begin Shooter\n";
- if(stateVar == SHOOTSETUP) {
+ beginShooter = true;
+ startIntakeShoot = false;
+ startIntake = true;
+ /*if(stateVar == SHOOTSETUP) {
     beginShooter = true;
-   }  else {
+   }*/  /*else {
     beginShooter = false;
-   }
+   }*/
         
 
 }
 
+void ShooterIntake::setIntakeShoot() {
+    startIntake = false;
+    startIntakeShoot = true;
+    beginShooter = true;
+    //std::cout << "switchState: " << getIntakeSensorState() << "\n";
+    //std::cout << "shooterVelocity: " << shooterVelocity << "\n";
+    //std::cout << "intakeVelocity: " << intakeVelocity << "\n";
+}
+
 void ShooterIntake::setShooterVelocity(double velocity) {
+    if (velocity > 0) {
+        beginShooter = true;
+        startIntake = false;
+        startIntakeShoot = false;
+    } else {
+        beginShooter = false;
+        startIntake = false;
+        startIntakeShoot = false;
+    }
     shooterVelocity = velocity;
     std::cout<<shooterVelocity<<" Velocity\n";
 }
@@ -87,12 +121,35 @@ void ShooterIntake::setShooterVelocity(double velocity) {
 // This method will be called once per scheduler run
 void ShooterIntake::Periodic() {
  bool switchState =  getIntakeSensorState();
+ 
+ 
+ if (startIntake && !switchState) {
+    intakeMotor.Set(intakeVelocity);
+    //std::cout << "set intake motor\n";
+    //std::cout << "switchState: " << getIntakeSensorState() << "\n";
+    //std::cout << "shooterVelocity: " << shooterVelocity << "\n";
+    //std::cout << "intakeVelocity: " << intakeVelocity << "\n";
+
+ } else if (startIntakeShoot) {
+    intakeMotor.Set(intakeShootVelocity);
+ } else {
+    //std::cout << "stop intake motor\n";
+    intakeMotor.Set(0);
+ }
+
+ if (beginShooter) {
+    ///std::cout << "set outtake motor\n";
+    outakeMotor.Set(shooterVelocity);
+ } else {
+    //std::cout << "stop outake motor\n";
+    outakeMotor.Set(0);
+ }
  //double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
  //double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
  //double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);
 
  //std::cout<<switchState<<" "<<stateVar<<" Switch State\n";
-
+/*
   switch(stateVar) {
         case STOP:
             #ifdef HAVEINTAKE
@@ -180,14 +237,13 @@ void ShooterIntake::Periodic() {
                     stateVar = STOP;
                     
                     std::cout<<"Done Shooting\n";
-                    shooterVelocity = 0;
+                    //if(frc::DriverStation::IsAutonomousEnabled()){
+                        shooterVelocity = 0;
+                    //}
 
                 }
             break;
-/*        case REVERSE:
-            
-            break;
-*/
-  }
 
+  }
+*/
 }

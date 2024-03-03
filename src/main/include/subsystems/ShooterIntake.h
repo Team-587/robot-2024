@@ -24,7 +24,7 @@ class ShooterIntake : public frc2::SubsystemBase {
   void setShooterVelocity(double velocity);
 
   bool getIntakeSensorState() { return !intakeSwitch.Get(); };
-  
+  void setIntakeShoot();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -34,8 +34,8 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double LongShootVelocity{0.7};
   static constexpr double StopShootVelocity{0.0};
 
-  static constexpr double intakeVelocity{0.21};
-  static constexpr double intakeShootVelocity{0.45};
+  static constexpr double intakeVelocity{0.2};
+  static constexpr double intakeShootVelocity{0.6};
 
 
  private:
@@ -66,6 +66,7 @@ class ShooterIntake : public frc2::SubsystemBase {
 
 //Used to turn on intake
  bool startIntake;
+ bool startIntakeShoot;
 
 //Used to turn off intake
  bool stopIntake;

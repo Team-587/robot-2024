@@ -18,6 +18,13 @@ TentaclesSubsystem::TentaclesSubsystem() :
 {
     LeftTentacleMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     RightTentacleMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+
+    LeftTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
+    LeftTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 100);
+    LeftTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 100); 
+    RightTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
+    RightTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 100);
+    RightTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 100);  
 }
 
 void TentaclesSubsystem::allowTentacleExtend() {

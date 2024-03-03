@@ -22,8 +22,8 @@ class RobotArm : public frc2::SubsystemBase {
   void Periodic() override;
 
   static constexpr double PickUpAngle{3.0};
-  static constexpr double PickUpLength{9.0};
-  static constexpr double HoldAngle{20.0};
+  static constexpr double PickUpLength{8.1};
+  static constexpr double HoldAngle{26.0};
   static constexpr double HoldLength{0.0};
   static constexpr double AmpAngle{100.0};
   static constexpr double AmpLength{7.0};

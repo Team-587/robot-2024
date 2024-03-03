@@ -5,6 +5,7 @@
 #include "subsystems/Lights.h"
 #include <frc/DriverStation.h>
 #include <frc/DigitalInput.h>
+#include "subsystems/ShooterIntake.h"
 
 Lights::Lights()
 {
@@ -41,7 +42,7 @@ void Lights::Periodic() {
 
     frc::DigitalInput intakeSwitch {DriveConstants::kIntakeSwitchPort + 1};
     bool temp = !intakeSwitch.Get();
-     if(temp == true && haveNoteLight == false) {
+     if(temp == true) {
         for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
         {
             haveNoteLight = temp;

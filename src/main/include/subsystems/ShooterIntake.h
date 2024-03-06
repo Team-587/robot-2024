@@ -17,6 +17,8 @@ class ShooterIntake : public frc2::SubsystemBase {
 
   void setIntakeStart();
 
+  //void setIntakeStart(double leftXValue, double rightXValue);
+
   void setIntakeStop();
 
   void setBeginShooter(); 

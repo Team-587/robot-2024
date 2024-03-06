@@ -106,11 +106,22 @@ RobotContainer::RobotContainer():
 
   m_tentacle.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_tentacle.moveTentacles(
+        m_tentacle.moveTentacles( 
             m_codriverController.GetLeftY(),
             m_codriverController.GetRightY());
       },
       {&m_tentacle}));
+
+  /*m_shooter.SetDefaultCommand(frc2::RunCommand(
+    [this] {
+        m_shooter.setIntakeStart(
+            m_codriverController.GetLeftY(),
+            m_codriverController.GetRightY());
+          m_shooter.setIntakeStart();
+          m_codriverController.GetLeftY();
+          m_codriverController.GetRightY();
+    },
+    {&m_shooter}));*/
 
   const std::string AmpNote_Note1_Str = "Amp note + Note 1";
   const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";

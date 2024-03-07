@@ -25,6 +25,7 @@
 #include "subsystems/AprilTagVisionSubsystem.h"
 #include "commands/NoteVisionCommand.h"
 #include "commands/AprilTagVisionCommand.h"
+#include "commands/ShootCommand.h"
 #include "subsystems/ShooterIntake.h"
 #include "subsystems/RobotArm.h"
 #include "subsystems/TentaclesSubsystem.h"
@@ -60,6 +61,7 @@ class RobotContainer {
   NoteVisionCommand m_NoteVisionCommand;
   AprilTagVisionCommand m_AprilTagVisionCommand;
   IntakeCommand m_IntakeCommand;
+  ShootCommand m_ShootCommand;
 
   ShooterIntake m_shooter;
 

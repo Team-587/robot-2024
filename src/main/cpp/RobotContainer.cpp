@@ -115,16 +115,6 @@ RobotContainer::RobotContainer():
       },
       {&m_tentacle}));
 
-  /*m_shooter.SetDefaultCommand(frc2::RunCommand(
-    [this] {
-        m_shooter.setIntakeStart(
-            m_codriverController.GetLeftY(),
-            m_codriverController.GetRightY());
-          m_shooter.setIntakeStart();
-          m_codriverController.GetLeftY();
-          m_codriverController.GetRightY();
-    },
-    {&m_shooter}));*/
     m_shooter.SetDefaultCommand(frc2::RunCommand(
         [this] {
             m_shooter.setIntakeVelocity(m_codriverController.GetLeftY());

@@ -47,7 +47,8 @@ RobotContainer::RobotContainer():
                                 &m_PickUpPosition,
                                 &m_HoldPosition,
                                 &m_StopIntake},
-        m_IntakeCommand{&m_shooter} {
+        m_IntakeCommand{&m_shooter},
+        m_ShootCommand{&m_shooter} {
   // Initialize all of your commands and subsystems here, 
   
   //  the button bindings
@@ -201,8 +202,8 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
     rightBumperCoDrive.WhileTrue(&m_IntakeCommand);
 
-    frc::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
-    bButton.whileTrue(&m_ShootCommand);
+    frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
+    bButton.WhileTrue(&m_ShootCommand);
 
  }
 

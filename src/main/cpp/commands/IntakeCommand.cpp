@@ -23,9 +23,11 @@ void IntakeCommand::Initialize() {
 void IntakeCommand::Execute() {}
 
 // Called once the command ends or is interrupted.
-void IntakeCommand::End(bool interrupted) {}
+void IntakeCommand::End(bool interrupted) {
+  m_pShooterIntake->setIntakeVelocity(0);
+}
 
 // Returns true when the command should end.
 bool IntakeCommand::IsFinished() {
-  return false;
+  return m_pShooterIntake->getIntakeSensorState();
 }

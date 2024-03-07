@@ -8,7 +8,7 @@
 #include "Constants.h"
 
 ShootCommand::ShootCommand(
-  ShooterIntake* pShooterIntake;
+  ShooterIntake* pShooterIntake
 ) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pShooterIntake = pShooterIntake;
@@ -25,8 +25,10 @@ void ShootCommand::Initialize() {
 void ShootCommand::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ShootCommand::End(bool interrupted) {}
-
+void ShootCommand::End(bool interrupted) {
+  m_pShooterIntake->setIntakeVelocity(0);
+}
+  
 // Returns true when the command should end.
 bool ShootCommand::IsFinished() {
   return false;

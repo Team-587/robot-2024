@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
+#include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/ShooterIntake.h"
 
 /**
  * An example command.
@@ -15,11 +16,9 @@
  * Command will *not* work!
  */
 class ShootCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ShootCommand> {
+    : public frc2::CommandHelper<frc2::Command, ShootCommand> {
  public:
-  ShootCommand(
-    ShooterIntake* pShooterintake;
-  );
+  ShootCommand(ShooterIntake* pShooterIntake);
 
   void Initialize() override;
 

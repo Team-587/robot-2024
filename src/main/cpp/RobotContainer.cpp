@@ -206,7 +206,7 @@ void RobotContainer::ConfigureButtonBindings() {
     bButtonCoDrive.OnTrue(&m_Shoot).OnTrue(&m_wait).OnTrue(&m_StartIntakeShoot).OnTrue(&m_wait);
 */
     frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
-    rightBumperCoDrive.WhileTrue(&m_IntakeCommand);
+    rightBumperCoDrive.WhileTrue(&m_IntakeCommand).OnTrue(&m_PickUpPosition).OnFalse(&m_HoldPosition);
 
     frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
     bButton.WhileTrue(&m_ShootCommand);

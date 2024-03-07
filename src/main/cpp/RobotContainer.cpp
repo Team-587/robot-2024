@@ -22,6 +22,7 @@
 #include <frc/smartdashboard/Smartdashboard.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <frc/filter/SlewRateLimiter.h>
+#include <commands/IntakeCommand.h>
 
 
 #include "Constants.h"
@@ -45,7 +46,8 @@ RobotContainer::RobotContainer():
                                 &m_StartIntake,
                                 &m_PickUpPosition,
                                 &m_HoldPosition,
-                                &m_StopIntake} {
+                                &m_StopIntake},
+        m_IntakeCommand{&m_shooter} {
   // Initialize all of your commands and subsystems here, 
   
   //  the button bindings
@@ -111,7 +113,7 @@ RobotContainer::RobotContainer():
             m_codriverController.GetRightY());
       },
       {&m_tentacle}));
-
+ 
   const std::string AmpNote_Note1_Str = "Amp note + Note 1";
   const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";
   const std::string SourceNote_Note3_Str = "Source Note + Note 3";
@@ -178,8 +180,8 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton startButtonCoDrive{&m_codriverController, frc::XboxController::Button::kStart};
     startButtonCoDrive.OnTrue(&m_StartTentacles);
 
-    frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
-    rightBumperCoDrive.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake);
+    //frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
+    //rightBumperCoDrive.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake);
 
     frc2::JoystickButton leftBumperCoDrive{&m_codriverController, frc::XboxController::Button::kLeftBumper};
     leftBumperCoDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake);
@@ -195,6 +197,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
     frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
     bButtonCoDrive.OnTrue(&m_Shoot).OnTrue(&m_wait).OnTrue(&m_StartIntakeShoot).OnTrue(&m_wait);
+
+    frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
+    rightBumperCoDrive.WhileTrue(&m_IntakeCommand);
 
  }
 

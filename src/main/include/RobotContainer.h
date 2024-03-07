@@ -29,6 +29,7 @@
 #include "subsystems/RobotArm.h"
 #include "subsystems/TentaclesSubsystem.h"
 #include "subsystems/Lights.h"
+#include "commands/IntakeCommand.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -58,6 +59,7 @@ class RobotContainer {
   AprilTagVisionSubsystem m_AprilTagVisionSubsystem;
   NoteVisionCommand m_NoteVisionCommand;
   AprilTagVisionCommand m_AprilTagVisionCommand;
+  IntakeCommand m_IntakeCommand;
 
   ShooterIntake m_shooter;
 

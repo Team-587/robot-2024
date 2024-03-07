@@ -124,7 +124,7 @@ void DriveSubsystem::Periodic() {
   //}
 
  // m_fieldSim.SetRobotPose(GetPose());
-  frc::Pose2d tmpPose = GetPose();
+  //frc::Pose2d tmpPose = GetPose();
   //auto alliance =frc::DriverStation::GetAlliance();
   //frc::SmartDashboard::PutNumber("PoseX", (double)tmpPose.X());
   //frc::SmartDashboard::PutNumber("PoseY", (double)tmpPose.Y());

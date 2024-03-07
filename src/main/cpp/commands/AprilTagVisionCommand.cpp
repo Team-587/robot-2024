@@ -42,12 +42,9 @@ std::optional<Distances> AprilTagVisionCommand::GetDistances(units::meter_t dist
 
       if (distance >= distArray[i].m_minDist && distance <= distArray[i].m_maxDist) {
         return std::make_optional(distArray[i]);
-
-      } else {
-        return std::nullopt;
-
       }
     }
+    return std::nullopt;
   } 
 
 // Called repeatedly when this Command is scheduled to run

@@ -103,11 +103,11 @@ class Vision {
                 if (result.HasTargets()) {
                     //std::cout << "I am here 4\n";
                     // First calculate range
-                    units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
+                    /*units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
                         VisionConstants::CAMERA_HEIGHT_NOTE, 
                         VisionConstants::TARGET_HEIGHT_NOTE, 
                         VisionConstants::CAMERA_PITCH_NOTE,
-                        units::degree_t{result.GetBestTarget().GetPitch()});
+                        units::degree_t{result.GetBestTarget().GetPitch()});*/
                         //std::cout << "I am here 5\n";
 
                     // Use this range as the measurement we give to the PID controller.
@@ -138,11 +138,11 @@ class Vision {
                 if (result.HasTargets()) {
                     //std::cout << "I am here 10\n";
                     // First calculate range
-                    units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
+                    /*units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
                         VisionConstants::CAMERA_HEIGHT_AT, 
                         VisionConstants::TARGET_HEIGHT_AT, 
                         VisionConstants::CAMERA_PITCH_AT,
-                        units::degree_t{result.GetBestTarget().GetPitch()});
+                        units::degree_t{result.GetBestTarget().GetPitch()});*/
                     //std::cout << "I am here 11\n";
                     
                     //Range should help us decide how to angle the shooter and how fast it should be running.

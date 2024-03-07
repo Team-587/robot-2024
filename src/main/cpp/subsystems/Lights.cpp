@@ -100,13 +100,13 @@ void Lights::Periodic() {
     else {
         double matchTime = (double)frc::DriverStation::GetMatchTime();
         double totalMatchTime = 135;
-        bool autoEnabled = false;
+        //bool autoEnabled = false;
         bool endgame = false;
         if(frc::DriverStation::IsAutonomousEnabled()){
             totalMatchTime = 15;
-            autoEnabled = true;
+            //autoEnabled = true;
         }else{
-            autoEnabled = false;
+            //autoEnabled = false;
             if(matchTime <= 15){
                 totalMatchTime = 15;
                 endgame = true;

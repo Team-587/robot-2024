@@ -41,6 +41,13 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double intakeVelocity{0.2};
   static constexpr double intakeShootVelocity{0.6};
 
+  bool getEndgame() {
+    return endgameToggle;
+  }
+
+  void setEndgame() {
+    endgameToggle = !endgameToggle;
+  }
 
  private:
 
@@ -53,6 +60,8 @@ class ShooterIntake : public frc2::SubsystemBase {
     SHOOTING,
     //REVERSE
  };
+
+ bool endgameToggle = false;
  //Creating variable for state of motors
  stateType stateVar;
 

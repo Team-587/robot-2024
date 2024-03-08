@@ -8,6 +8,7 @@ NoteVisionCommand::NoteVisionCommand(
   NoteVisionSubsystem* pNoteVisionSubsystem, 
   DriveSubsystem* pDriveSubsystem,
   ShooterIntake* pShooterIntake,
+  IntakeCommand* pIntakeCommand,
   frc2::InstantCommand* pStartIntake,
   frc2::InstantCommand* pPickUpPosition,
   frc2::InstantCommand* pHoldPosition,
@@ -16,6 +17,7 @@ NoteVisionCommand::NoteVisionCommand(
   m_pNoteVisionSubsystem = pNoteVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
   m_pShooterIntake = pShooterIntake;
+  m_pIntakeCommand = pIntakeCommand;
   m_pStartIntake = pStartIntake;
   m_pPickUpPosition = pPickUpPosition;
   m_pHoldPosition = pHoldPosition;
@@ -33,7 +35,8 @@ NoteVisionCommand::NoteVisionCommand(
 // Called when the command is initially scheduled.
 void NoteVisionCommand::Initialize() {
   m_pPickUpPosition->Schedule();
-  m_pStartIntake->Schedule();
+  //m_pStartIntake->Schedule();
+  m_pIntakeCommand->Schedule();
 }
 
 
@@ -65,6 +68,7 @@ void NoteVisionCommand::Execute() {
 void NoteVisionCommand::End(bool interrupted) {
   m_pStopIntake->Schedule();
   m_pHoldPosition->Schedule();
+  m_pIntakeCommand->Cancel();
 }
 
 // Returns true when the command should end.

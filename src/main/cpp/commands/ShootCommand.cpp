@@ -9,15 +9,18 @@
 
 ShootCommand::ShootCommand(
   ShooterIntake* pShooterIntake
+
 ) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pShooterIntake = pShooterIntake;
+  AddRequirements(m_pShooterIntake);
 }
 
 // Called when the command is initially scheduled.
 void ShootCommand::Initialize() {
 
   m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeShootVelocity);
+  std::cout << "shootcommand init/n";
 
 }
 
@@ -27,6 +30,7 @@ void ShootCommand::Execute() {}
 // Called once the command ends or is interrupted.
 void ShootCommand::End(bool interrupted) {
   m_pShooterIntake->setIntakeVelocity(0);
+  std::cout << "shootcommand end/n";
 }
   
 // Returns true when the command should end.

@@ -12,6 +12,7 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/NoteVisionSubsystem.h"
 #include "subsystems/ShooterIntake.h"
+#include "commands/IntakeCommand.h"
 
 /**
  * An example command.
@@ -27,6 +28,7 @@ class NoteVisionCommand
     NoteVisionSubsystem* pNoteVisionSubsystem, 
     DriveSubsystem* pDriveSubsystem,
     ShooterIntake* pShooterintake,
+    IntakeCommand* pIntakeCommand,
     frc2::InstantCommand* pStartIntake,
     frc2::InstantCommand* pPickUpPosition,
     frc2::InstantCommand* pHoldPosition,
@@ -44,6 +46,7 @@ class NoteVisionCommand
     NoteVisionSubsystem* m_pNoteVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;
+    IntakeCommand* m_pIntakeCommand;
     frc2::InstantCommand* m_pStartIntake;
     frc2::InstantCommand* m_pPickUpPosition;
     frc2::InstantCommand* m_pHoldPosition;

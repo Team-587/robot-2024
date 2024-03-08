@@ -127,7 +127,7 @@ void ShooterIntake::Periodic() {
  bool switchState =  getIntakeSensorState();
  
  
- if (startIntake && !switchState) {
+ /*if (startIntake && !switchState) {
     intakeMotor.Set(intakeVelocity);
     //std::cout << "set intake motor\n";
     //std::cout << "switchState: " << getIntakeSensorState() << "\n";
@@ -140,7 +140,7 @@ void ShooterIntake::Periodic() {
     //std::cout << "stop intake motor\n";
     intakeMotor.Set(0);
  }
-
+*/
  if (beginShooter) {
     ///std::cout << "set outtake motor\n";
     outakeMotor.Set(shooterVelocity);

@@ -26,7 +26,7 @@ class TentaclesSubsystem : public frc2::SubsystemBase {
 
  private:
 
- bool TentacleExtend;
+ bool TentacleExtend = false;
 
   #ifdef HAVETENTACLES
   rev::CANSparkMax RightTentacleMotor;

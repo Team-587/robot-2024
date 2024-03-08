@@ -77,9 +77,9 @@ class RobotContainer {
   void ConfigureButtonBindings();
 
     frc2::InstantCommand m_ZeroHeading{[this] {m_drive.ZeroHeading(); }, {&m_drive}};
-    frc2::InstantCommand m_StartTentacles{[this] {m_tentacle.allowTentacleExtend(); }, {&m_tentacle}};
+    frc2::InstantCommand m_StartTentacles{[this] {m_tentacle.allowTentacleExtend();}, {&m_tentacle}};
+    frc2::InstantCommand m_StartEndgame{[this] {m_shooter.setEndgame(); }, {&m_shooter}};
     frc2::InstantCommand m_DriveStop{[this] {m_drive.Stop(); }, {&m_drive}};
-
     
   //Setting up commands from the Shooter
 

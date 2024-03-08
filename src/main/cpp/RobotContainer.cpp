@@ -34,6 +34,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                    m_NoteVisionCommand{&m_NoteVisionSubsystem,
                                                        &m_drive,
                                                        &m_shooter,
+                                                       &m_IntakeCommand,
                                                        &m_StartIntake,
                                                        &m_PickUpPosition,
                                                        &m_HoldPosition,
@@ -166,7 +167,12 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_shooter.SetDefaultCommand(frc2::RunCommand(
       [this]
       {
-        m_shooter.setIntakeVelocity(m_codriverController.GetLeftY());
+        double y = m_codriverController.GetLeftY();
+        if (!m_shooter.getEndgame() && fabs(y) > .1) {
+          m_shooter.setIntakeVelocity(y);
+        } else {
+          m_shooter.setIntakeVelocity(0);
+        }
       },
       {&m_shooter}));
 
@@ -239,7 +245,7 @@ void RobotContainer::ConfigureButtonBindings()
   leftBumperDriver.WhileTrue(&m_NoteVisionCommand);
 
   frc2::JoystickButton startButtonCoDrive{&m_codriverController, frc::XboxController::Button::kStart};
-  startButtonCoDrive.OnTrue(&m_StartTentacles);
+  startButtonCoDrive.OnTrue(&m_StartTentacles).OnTrue(&m_StartEndgame);
 
   // frc2::JoystickButton rightBumperCoDrive{&m_codriverController, frc::XboxController::Button::kRightBumper};
   // rightBumperCoDrive.OnTrue(&m_PickUpPosition).OnTrue(&m_StartIntake);
@@ -263,7 +269,7 @@ void RobotContainer::ConfigureButtonBindings()
   rightBumperCoDrive.WhileTrue(&m_IntakeCommand).OnTrue(&m_PickUpPosition).OnFalse(&m_HoldPosition);
 
   frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
-  bButton.WhileTrue(&m_ShootCommand);
+  bButtonCoDrive.WhileTrue(&m_ShootCommand);
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()

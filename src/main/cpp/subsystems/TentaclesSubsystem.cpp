@@ -28,7 +28,7 @@ TentaclesSubsystem::TentaclesSubsystem() :
 }
 
 void TentaclesSubsystem::allowTentacleExtend() {
-    TentacleExtend = true;
+    TentacleExtend = !TentacleExtend;
     
 }
 

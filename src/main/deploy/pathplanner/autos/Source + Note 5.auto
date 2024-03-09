@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2982016619303887,
-      "y": 5.5196408968316515
+      "x": 0.4702555274013229,
+      "y": 4.165457812392099
     },
     "rotation": 0
   },
@@ -20,19 +20,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
+            "waitTime": 0.5
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Center Speaker"
+            "pathName": "Source Start"
           }
         },
         {
@@ -44,13 +38,31 @@
         {
           "type": "named",
           "data": {
-            "name": "Medium Shoot Setup"
+            "name": "Shoot + Intake"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 2.25
+            "pathName": "Source - Note 5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "drive stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 5"
           }
         },
         {

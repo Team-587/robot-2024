@@ -68,7 +68,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot + Intake"
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         }
       ]

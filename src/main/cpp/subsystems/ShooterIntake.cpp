@@ -18,6 +18,10 @@ ShooterIntake::ShooterIntake():
     motorSpeedPID(outakeMotor.GetPIDController()),
     #endif
     intakeSwitch(DriveConstants::kIntakeSwitchPort),
+    #ifdef HAVEBEAMBREAK
+    frontSwitch(DriveConstants::kfrontSwitchPort),
+    backSwitch(DriveConstants::kbackSwitchPort),
+    #endif
     startIntake(false),
     stopIntake(false),
     shooterVelocity(0),

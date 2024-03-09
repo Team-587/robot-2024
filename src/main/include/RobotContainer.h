@@ -107,10 +107,10 @@ class RobotContainer {
     std::unique_ptr<frc2::Command> AmpNote_Note1;
     std::unique_ptr<frc2::Command> Center_Amp_Note1;
     std::unique_ptr<frc2::Command> SourceNote_Note3;
-    std::unique_ptr<frc2::Command> Rectangle;
+    std::unique_ptr<frc2::Command> FourPiece;
     std::unique_ptr<frc2::Command> Center_Note3_Note4;
     std::unique_ptr<frc2::Command> Center_Note2_Note3;
-
+    std::unique_ptr<frc2::Command> Source_Note5;
     std::unique_ptr<frc2::Command> Amp_Move;
 
 };

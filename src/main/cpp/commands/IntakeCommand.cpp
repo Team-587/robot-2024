@@ -21,7 +21,29 @@ void IntakeCommand::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakeCommand::Execute() {}
+void IntakeCommand::Execute() {
+  bool intakeSwitchGet = m_pShooterIntake->getIntakeSensorState();
+  #ifdef HAVEBEAMBREAK
+
+  bool frontSwitchGet = m_pShooterIntake->getFrontSensorState();
+  bool backSwitchGet = m_pShooterIntake->getBackSensorState();
+
+  if(frontSwitchGet == true && intakeSwitchGet == false && backSwitchGet == false){
+    m_pShooterIntake->setIntakeVelocity(ShooterIntake::slowIntakeVelocity);
+
+  } else if(frontSwitchGet == true && intakeSwitchGet == true && backSwitchGet == false){
+    m_pShooterIntake->setIntakeVelocity(0);
+
+  }else if(frontSwitchGet == true && intakeSwitchGet == true && backSwitchGet == true){
+    m_pShooterIntake->setIntakeVelocity(ShooterIntake::backwardsIntakeVelocity);
+
+  }
+  #else
+  if(intakeSwitchGet == true){
+    m_pShooterIntake->setIntakeVelocity(0);
+  }
+  #endif
+}
 
 // Called once the command ends or is interrupted.
 void IntakeCommand::End(bool interrupted) {
@@ -30,5 +52,15 @@ void IntakeCommand::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool IntakeCommand::IsFinished() {
+  #ifdef HAVEBEAMBREAK
+  if(m_pShooterIntake->getFrontSensorState() == true 
+    && m_pShooterIntake->getIntakeSensorState() == true 
+    && m_pShooterIntake->getBackSensorState() == false){
+    return true;
+  } else {
+    return false;
+  }
+  #else
   return m_pShooterIntake->getIntakeSensorState();
+  #endif
 }

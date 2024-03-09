@@ -179,19 +179,19 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string AmpNote_Note1_Str = "Amp note + Note 1";
   const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";
   const std::string SourceNote_Note3_Str = "Source Note + Note 3";
-  const std::string Rectangle_Str = "Rectangle";
+  const std::string FourPiece_Str = "4 Piece";
   const std::string Center_Note3_Note4_Str = "Center + Note 3 + Note 4";
   const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
-
+  const std::string Source_Note5_Str = "Source + Note 5";
   const std::string Amp_Move_Str = "Amp Move";
 
   AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
   Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
   SourceNote_Note3 = pathplanner::PathPlannerAuto(SourceNote_Note3_Str).ToPtr().Unwrap();
-  Rectangle = pathplanner::PathPlannerAuto(Rectangle_Str).ToPtr().Unwrap();
+  FourPiece = pathplanner::PathPlannerAuto(FourPiece_Str).ToPtr().Unwrap();
   Center_Note3_Note4 = pathplanner::PathPlannerAuto(Center_Note3_Note4_Str).ToPtr().Unwrap();
   Center_Note2_Note3 = pathplanner::PathPlannerAuto(Center_Note2_Note3_Str).ToPtr().Unwrap();
-
+  Source_Note5 = pathplanner::PathPlannerAuto(Source_Note5_Str).ToPtr().Unwrap();
   Amp_Move = pathplanner::PathPlannerAuto(Amp_Move_Str).ToPtr().Unwrap();
 
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
@@ -199,8 +199,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(SourceNote_Note3_Str, SourceNote_Note3.get());
   m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
   m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
-  m_chooser.AddOption(Rectangle_Str, Rectangle.get());
-
+  m_chooser.AddOption(FourPiece_Str, FourPiece.get());
+  m_chooser.AddOption(Source_Note5_Str, Source_Note5.get());
   m_chooser.AddOption(Amp_Move_Str, Amp_Move.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);

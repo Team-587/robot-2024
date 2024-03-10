@@ -129,13 +129,14 @@ constexpr int kCoDriverControllerPort = 1;
 }  // namespace OIConstants
 
 namespace ShooterIntakeConstants {
-    static constexpr double intakeVelocity{0.2};
+    static constexpr double intakeVelocity{0.8};
     static constexpr double intakeShootVelocity{0.6};
 }
 
 namespace VisionConstants {
     const std::string cameraOne = "Microsoft_LifeCam_HD-3000";
     const int colorPipeline = 0;
+
     const int aprilTagPipeline = 1;
 
     const int blueAprilTag = 7;

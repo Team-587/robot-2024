@@ -43,6 +43,7 @@ class NoteVisionCommand
   bool IsFinished() override;
 
   private:
+  
     NoteVisionSubsystem* m_pNoteVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;

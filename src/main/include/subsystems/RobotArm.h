@@ -21,13 +21,14 @@ class RobotArm : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
-  static constexpr double PickUpAngle{3.0};
+  static constexpr double PickUpAngle{1.0};
   static constexpr double PickUpLength{8.1};
   static constexpr double HoldAngle{26.0};
   static constexpr double HoldLength{0.0};
   static constexpr double AmpAngle{100.0};
   static constexpr double AmpLength{7.0};
-  static constexpr double ShortShootAngle{14.0};
+  //static constexpr double ShortShootAngle{14.0};
+  static constexpr double ShortShootAngle{12.0};
   static constexpr double ShortShootLength{0.0};
   static constexpr double LongShootAngle{26.0};
   static constexpr double LongShootLength{0};
@@ -48,7 +49,7 @@ class RobotArm : public frc2::SubsystemBase {
   #endif
 
   const double ElevatorMin{0.0};
-  const double ElevatorMax{9.1};
+  const double ElevatorMax{8.0};
   const double ElevatorMaxsafe{5.0};
   const double ElbowAngleMin{0.0};
   const double ElbowAngleMax{105.0};

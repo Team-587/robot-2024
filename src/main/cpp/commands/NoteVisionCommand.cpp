@@ -53,11 +53,11 @@ void NoteVisionCommand::Execute() {
                         
     rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
     rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 8));
-
+    double x = m_driverController.GetRightX();
     m_pDriveSubsystem->Drive(
       units::meters_per_second_t{forwardSpeed},
       units::meters_per_second_t{0},
-      units::radians_per_second_t{rotationSpeed}, false);
+      units::radians_per_second_t{fabs(x) > .1 ? x : rotationSpeed}, false);
 
   } else {
     rotationSpeed = 0;

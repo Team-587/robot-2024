@@ -8,11 +8,12 @@
 #include "Constants.h"
 
 ShootCommand::ShootCommand(
-  ShooterIntake* pShooterIntake
-
+  ShooterIntake* pShooterIntake,
+  int wait
 ) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pShooterIntake = pShooterIntake;
+  if(wait > 0) m_pWait = new frc2::WaitCommand(units::second_t(wait));
   AddRequirements(m_pShooterIntake);
 }
 
@@ -21,6 +22,7 @@ void ShootCommand::Initialize() {
 
   m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeShootVelocity);
   std::cout << "shootcommand init/n";
+  if(m_pWait) m_pWait->Schedule();
 
 }
 
@@ -35,5 +37,5 @@ void ShootCommand::End(bool interrupted) {
   
 // Returns true when the command should end.
 bool ShootCommand::IsFinished() {
-  return false;
+  return m_pWait && m_pWait->IsFinished();
 }

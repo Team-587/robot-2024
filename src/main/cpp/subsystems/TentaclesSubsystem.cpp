@@ -11,8 +11,8 @@ using namespace std;
 TentaclesSubsystem::TentaclesSubsystem() :
 
     #ifdef HAVETENTACLES
-    LeftTentacleMotor(DriveConstants::kLeftTentacleMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     RightTentacleMotor(DriveConstants::kRightTentacleMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
+    LeftTentacleMotor(DriveConstants::kLeftTentacleMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     #endif 
     TentacleExtend(false)
 {

@@ -35,17 +35,20 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                        &m_drive,
                                                        &m_shooter,
                                                        &m_IntakeCommand,
-                                                       &m_StartIntake,
+                                                       //&m_StartIntake,
                                                        &m_PickUpPosition,
-                                                       &m_HoldPosition,
-                                                       &m_StopIntake},
+                                                       &m_HoldPosition//,
+                                                       //&m_StopIntake
+                                                       },
                                    m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem,
                                                            &m_drive,
                                                            &m_shooter,
-                                                           &m_StartIntake,
-                                                           &m_PickUpPosition,
-                                                           &m_HoldPosition,
-                                                           &m_StopIntake},
+                                                           &m_robotarm
+                                                           //&m_StartIntake,
+                                                           //&m_PickUpPosition,
+                                                           //&m_HoldPosition,
+                                                           //&m_StopIntake
+                                                           },
                                    m_IntakeCommand{&m_shooter},
                                    m_ShootCommand{&m_shooter}
 {
@@ -103,8 +106,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_drive.Stop(); },
                                                                                        {&m_drive}),
-                                                                   frc2::cmd::RunOnce([this]
-                                                                                       { this->m_shooter.setBeginShooter(); },                
+                                                                    frc2::cmd::RunOnce([this]
+                                                                                       { this->m_shooter.setBeginShooter(); },
+                                                                                       {&m_shooter}),                
                                                                     frc2::cmd::Wait(1.3_s),
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength); },

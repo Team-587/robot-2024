@@ -8,19 +8,13 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
   DriveSubsystem* pDriveSubsystem,
   ShooterIntake* pShooterIntake,
-  frc2::InstantCommand* pStartIntake,
-  frc2::InstantCommand* pPickUpPosition,
-  frc2::InstantCommand* pHoldPosition,
-  frc2::InstantCommand* pStopIntake) {
+  RobotArm* pRobotArm) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
   m_pShooterIntake = pShooterIntake;
-  m_pStartIntake = pStartIntake;
-  m_pPickUpPosition = pPickUpPosition;
-  m_pHoldPosition = pHoldPosition;
-  m_pStopIntake = pStopIntake;
-
+  m_pRobotArm = pRobotArm;
+  
   AddRequirements(m_pAprilTagVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
 
@@ -28,6 +22,9 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   turnController.SetIntegratorRange(-.05, .05);
   forwardController.SetTolerance(1, 3);
   forwardController.SetIntegratorRange(-.05, .05);
+
+  std::cout << "AprilTagVisionCommand" << m_pAprilTagVisionSubsystem->GetCamera()->GetCameraTable().get()->GetPath() << "\n";
+  
 }
 
 // Called when the command is initially scheduled.
@@ -36,12 +33,12 @@ void AprilTagVisionCommand::Initialize() {
 }
 
 
-std::optional<Distances> AprilTagVisionCommand::GetDistances(units::meter_t distance) { 
+std::optional<DistanceBucket> AprilTagVisionCommand::GetDistanceBucket(double distance) { 
 
     for (int i = 0; i < 10; i++) {
 
-      if (distance >= distArray[i].m_minDist && distance <= distArray[i].m_maxDist) {
-        return std::make_optional(distArray[i]);
+      if (distance >= m_DistanceBuckets[i].m_minDist && distance <= m_DistanceBuckets[i].m_maxDist) {
+        return std::make_optional(m_DistanceBuckets[i]);
       }
     }
     return std::nullopt;
@@ -65,15 +62,15 @@ void AprilTagVisionCommand::Execute() {
     std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance();
 
     if (distance.has_value()) {
-      GetDistances(distance.value());
+      std::optional<DistanceBucket> distanceBucket = GetDistanceBucket((double)distance.value());
+      if(distanceBucket.has_value()) {
+        m_pShooterIntake->setShooterVelocity(distanceBucket.value().m_shooterSpeed);
+        m_pRobotArm->ArmPosition(distanceBucket.value().m_armAngle, distanceBucket.value().m_elevatorHeight);
+      }
     }
 
-    rotationSpeed = m_driverController.GetRightX();
-    if ((alliance.value() == frc::DriverStation::Alliance::kRed && aprilTagID == VisionConstants::redAprilTag) || 
-        (alliance.value() == frc::DriverStation::Alliance::kBlue && aprilTagID == VisionConstants::blueAprilTag)) { 
-        rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
-        rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5));
-    } 
+    rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
+    rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5)); 
     
     m_pDriveSubsystem->Drive(
         units::meters_per_second_t{m_driverController.GetLeftY()},

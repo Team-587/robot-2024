@@ -84,7 +84,7 @@ class RobotContainer {
   //Setting up commands from the Shooter
 
     frc2::InstantCommand m_StartIntake{[this] {m_shooter.setIntakeStart(); }, {&m_shooter}};
-    frc2::InstantCommand m_StartIntakeShoot{[this] {m_shooter.setIntakeShoot(); }, {&m_shooter}};
+    //frc2::InstantCommand m_StartIntakeShoot{[this] {m_shooter.setIntakeShoot(); }, {&m_shooter}};
     frc2::InstantCommand m_StopIntake{[this] {m_shooter.setIntakeStop(); }, {&m_shooter}};
     frc2::InstantCommand m_Shoot{[this] {m_shooter.setBeginShooter(); }, {&m_shooter}};
     frc2::InstantCommand m_StopShoot{[this] {m_shooter.setShooterVelocity(ShooterIntake::StopShootVelocity); }, {&m_shooter}};

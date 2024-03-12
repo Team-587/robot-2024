@@ -84,6 +84,10 @@ void ShooterIntake::setShooterVelocity(double velocity) {
     std::cout<<shooterVelocity<<" Velocity\n";
 }
 
+void ShooterIntake::setIntakeVelocity(double velocity) {
+    intakeMotor.Set(velocity);
+}
+
 // This method will be called once per scheduler run
 void ShooterIntake::Periodic() {
  bool switchState =  getIntakeSensorState();

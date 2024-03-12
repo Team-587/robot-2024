@@ -15,7 +15,8 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterIntake.h"
 #include "subsystems/VisionSubsystem.h"
-#include "subsystems/Distances.h"
+#include "subsystems/DistanceBucket.h"
+#include "subsystems/RobotArm.h"
 /**
  * An example command.
  *
@@ -31,12 +32,9 @@ class AprilTagVisionCommand
     AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
     DriveSubsystem* pDriveSubsystem,
     ShooterIntake* pShooterIntake,
-    frc2::InstantCommand* pStartIntake,
-    frc2::InstantCommand* pPickUpPosition,
-    frc2::InstantCommand* pHoldPosition,
-    frc2::InstantCommand* pStopIntake);
+    RobotArm *pRobotArm);
 
-   std::optional<Distances> GetDistances(units::meter_t distance);
+   std::optional<DistanceBucket> GetDistanceBucket(double distance);
 
   void Initialize() override;
 
@@ -50,11 +48,9 @@ class AprilTagVisionCommand
     AprilTagVisionSubsystem* m_pAprilTagVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;
-    frc2::InstantCommand* m_pStartIntake;
-    frc2::InstantCommand* m_pPickUpPosition;
-    frc2::InstantCommand* m_pHoldPosition;
-    frc2::InstantCommand* m_pStopIntake;
-    Distances distArray[10];
+    RobotArm* m_pRobotArm;
+    
+    DistanceBucket m_DistanceBuckets[10];
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 

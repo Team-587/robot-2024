@@ -9,6 +9,7 @@
 #include <photon/PhotonCamera.h>
 #include <photon/PhotonUtils.h>
 #include <chrono>
+#include <frc/DriverStation.h>
 
 #include "Constants.h"
 #include "VisionSubsystem.h"
@@ -30,9 +31,14 @@ class AprilTagVisionSubsystem : public VisionSubsystem {
 
   uint64_t GetMaxTargetLatency() override { return VisionConstants::MAX_TARGET_LATENCY; };
 
+  std::optional<photon::PhotonTrackedTarget> GetBestTarget();
+
  private:
 
     photon::PhotonCamera camera{VisionConstants::cameraAprilTag};
+
+    std::optional<frc::DriverStation::Alliance> alliance;
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -29,10 +29,11 @@ class NoteVisionCommand
     DriveSubsystem* pDriveSubsystem,
     ShooterIntake* pShooterintake,
     IntakeCommand* pIntakeCommand,
-    frc2::InstantCommand* pStartIntake,
+    //frc2::InstantCommand* pStartIntake,
     frc2::InstantCommand* pPickUpPosition,
-    frc2::InstantCommand* pHoldPosition,
-    frc2::InstantCommand* pStopIntake);
+    frc2::InstantCommand* pHoldPosition
+    //frc2::InstantCommand* pStopIntake
+    );
 
   void Initialize() override;
 
@@ -48,10 +49,10 @@ class NoteVisionCommand
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;
     IntakeCommand* m_pIntakeCommand;
-    frc2::InstantCommand* m_pStartIntake;
+    //frc2::InstantCommand* m_pStartIntake;
     frc2::InstantCommand* m_pPickUpPosition;
     frc2::InstantCommand* m_pHoldPosition;
-    frc2::InstantCommand* m_pStopIntake;
+    //frc2::InstantCommand* m_pStopIntake;
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 

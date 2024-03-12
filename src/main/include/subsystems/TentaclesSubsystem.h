@@ -26,12 +26,13 @@ class TentaclesSubsystem : public frc2::SubsystemBase {
 
  private:
 
- bool TentacleExtend = false;
-
   #ifdef HAVETENTACLES
   rev::CANSparkMax RightTentacleMotor;
   rev::CANSparkMax LeftTentacleMotor;
   #endif
+
+  bool TentacleExtend = false;
+  
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

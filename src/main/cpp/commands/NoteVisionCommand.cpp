@@ -9,19 +9,20 @@ NoteVisionCommand::NoteVisionCommand(
   DriveSubsystem* pDriveSubsystem,
   ShooterIntake* pShooterIntake,
   IntakeCommand* pIntakeCommand,
-  frc2::InstantCommand* pStartIntake,
+  //frc2::InstantCommand* pStartIntake,
   frc2::InstantCommand* pPickUpPosition,
-  frc2::InstantCommand* pHoldPosition,
-  frc2::InstantCommand* pStopIntake) {
+  frc2::InstantCommand* pHoldPosition
+  //frc2::InstantCommand* pStopIntake
+) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pNoteVisionSubsystem = pNoteVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
   m_pShooterIntake = pShooterIntake;
   m_pIntakeCommand = pIntakeCommand;
-  m_pStartIntake = pStartIntake;
+  //m_pStartIntake = pStartIntake;
   m_pPickUpPosition = pPickUpPosition;
   m_pHoldPosition = pHoldPosition;
-  m_pStopIntake = pStopIntake;
+  //m_pStopIntake = pStopIntake;
 
   AddRequirements(m_pNoteVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
@@ -66,7 +67,7 @@ void NoteVisionCommand::Execute() {
 
 // Called once the command ends or is interrupted.
 void NoteVisionCommand::End(bool interrupted) {
-  m_pStopIntake->Schedule();
+  //m_pStopIntake->Schedule();
   m_pHoldPosition->Schedule();
   m_pIntakeCommand->Cancel();
 }

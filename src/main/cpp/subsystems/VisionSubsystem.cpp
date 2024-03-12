@@ -15,7 +15,7 @@ std::optional<photon::PhotonTrackedTarget> VisionSubsystem::GetBestTarget() {
     currentTarget = std::make_optional(result.GetBestTarget());
     currentTargetTime = GetTimeMillisec();
     return currentTarget;
-  } else if (currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency()) {
+  } else if (currentTarget == std::nullopt && currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency()) {
     return currentTarget;
   } else {
     currentTarget = std::nullopt;

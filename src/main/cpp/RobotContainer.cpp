@@ -103,9 +103,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_drive.Stop(); },
                                                                                        {&m_drive}),
-                                                                    frc2::cmd::RunOnce([this]
-                                                                                       { this->m_shooter.setBeginShooter(); },
-                                                                                       {&m_shooter}),
+                                                                   frc2::cmd::RunOnce([this]
+                                                                                       { this->m_shooter.setBeginShooter(); },                
                                                                     frc2::cmd::Wait(1.3_s),
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength); },
@@ -238,7 +237,7 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton xButtonDrive(&m_driverController, frc::XboxController::Button::kX);
   xButtonDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
 
-  frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightBumper};
+  frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightStick};
   rightBumperDriver.WhileTrue(&m_AprilTagVisionCommand);
 
   frc2::JoystickButton leftBumperDriver{&m_driverController, frc::XboxController::Button::kLeftBumper};

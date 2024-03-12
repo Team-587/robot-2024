@@ -32,7 +32,7 @@ class AprilTagVisionSubsystem : public VisionSubsystem {
 
  private:
 
-    photon::PhotonCamera camera{VisionConstants::cameraOne};
+    photon::PhotonCamera camera{VisionConstants::cameraAprilTag};
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

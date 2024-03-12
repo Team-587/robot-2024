@@ -20,7 +20,7 @@
 
 class Vision {
     private:
-        photon::PhotonCamera camera{VisionConstants::cameraOne};
+        photon::PhotonCamera camera{VisionConstants::cameraNote};
         //frc::XboxController xboxController{0};
         frc::XboxController xboxController{OIConstants::kDriverControllerPort};
 

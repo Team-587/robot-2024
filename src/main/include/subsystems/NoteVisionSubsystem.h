@@ -32,6 +32,6 @@ class NoteVisionSubsystem : public VisionSubsystem {
 
  private:
   
-    photon::PhotonCamera camera{VisionConstants::cameraOne};
+    photon::PhotonCamera camera{VisionConstants::cameraNote};
 
 };

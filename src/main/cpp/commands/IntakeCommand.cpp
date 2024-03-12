@@ -29,13 +29,13 @@ void IntakeCommand::Execute() {
   bool backSwitchGet = m_pShooterIntake->getBackSensorState();
 
   if(frontSwitchGet == true && intakeSwitchGet == false && backSwitchGet == false){
-    m_pShooterIntake->setIntakeVelocity(ShooterIntake::slowIntakeVelocity);
+    m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::slowIntakeVelocity);
 
   } else if(frontSwitchGet == true && intakeSwitchGet == true && backSwitchGet == false){
     m_pShooterIntake->setIntakeVelocity(0);
 
   }else if(frontSwitchGet == true && intakeSwitchGet == true && backSwitchGet == true){
-    m_pShooterIntake->setIntakeVelocity(ShooterIntake::backwardsIntakeVelocity);
+    m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::backwardsIntakeVelocity);
 
   }
   #else

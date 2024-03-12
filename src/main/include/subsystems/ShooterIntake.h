@@ -10,7 +10,6 @@
 #include <rev/CANSparkFlex.h>
 
 #define HAVEINTAKE
-//#define HAVEBEAMBREAK
 
 class ShooterIntake : public frc2::SubsystemBase {
  public:
@@ -18,22 +17,14 @@ class ShooterIntake : public frc2::SubsystemBase {
 
   void setIntakeStart();
 
-  //void setIntakeStart(double leftXValue, double rightXValue);
-
   void setIntakeStop();
 
   void setBeginShooter(); 
 
-  void setIntakeVelocity(double velocity);
-
   void setShooterVelocity(double velocity);
 
   bool getIntakeSensorState() { return !intakeSwitch.Get(); };
-  #ifdef HAVEBEAMBREAK
-  bool getFrontSensorState() { return !frontSwitch.Get(); };
-  bool getBackSensorState() { return !backSwitch.Get(); };
-  #endif
-  void setIntakeShoot();
+  
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -43,18 +34,9 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double LongShootVelocity{0.7};
   static constexpr double StopShootVelocity{0.0};
 
-  static constexpr double intakeVelocity{0.2};
-  static constexpr double slowIntakeVelocity{0.1};
-  static constexpr double backwardsIntakeVelocity{-0.1};
-  static constexpr double intakeShootVelocity{0.6};
+  static constexpr double intakeVelocity{0.21};
+  static constexpr double intakeShootVelocity{0.45};
 
-  bool getEndgame() {
-    return endgameToggle;
-  }
-
-  void setEndgame() {
-    endgameToggle = !endgameToggle;
-  }
 
  private:
 
@@ -67,8 +49,6 @@ class ShooterIntake : public frc2::SubsystemBase {
     SHOOTING,
     //REVERSE
  };
-
- bool endgameToggle = false;
  //Creating variable for state of motors
  stateType stateVar;
 
@@ -84,14 +64,8 @@ class ShooterIntake : public frc2::SubsystemBase {
 //Declaring the switch to detect notes
  frc::DigitalInput intakeSwitch;
 
- #ifdef HAVEBEAMBREAK
- frc::DigitalInput frontSwitch;
- frc::DigitalInput backSwitch;
- #endif
-
 //Used to turn on intake
  bool startIntake;
- bool startIntakeShoot;
 
 //Used to turn off intake
  bool stopIntake;

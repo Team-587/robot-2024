@@ -7,9 +7,10 @@
 #include "subsystems/ShooterIntake.h"
 #include "Constants.h"
 
-IntakeCommand::IntakeCommand(ShooterIntake* pShooterIntake) {
+IntakeCommand::IntakeCommand(ShooterIntake* pShooterIntake, int wait) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pShooterIntake = pShooterIntake;
+  if(wait > 0) m_pWait = new frc2::WaitCommand(units::second_t(wait));
   AddRequirements(m_pShooterIntake);
 }
 
@@ -17,7 +18,7 @@ IntakeCommand::IntakeCommand(ShooterIntake* pShooterIntake) {
 void IntakeCommand::Initialize() {
   
   m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeVelocity);
-
+  if(m_pWait) m_pWait->Schedule();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -61,6 +62,6 @@ bool IntakeCommand::IsFinished() {
     return false;
   }
   #else
-  return m_pShooterIntake->getIntakeSensorState();
+  return m_pShooterIntake->getIntakeSensorState() || (m_pWait && m_pWait->IsFinished());
   #endif
 }

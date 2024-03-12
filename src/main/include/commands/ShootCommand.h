@@ -6,6 +6,7 @@
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/WaitCommand.h>
 #include "subsystems/ShooterIntake.h"
 
 /**
@@ -18,7 +19,7 @@
 class ShootCommand
     : public frc2::CommandHelper<frc2::Command, ShootCommand> {
  public:
-  ShootCommand(ShooterIntake* pShooterIntake);
+  ShootCommand(ShooterIntake* pShooterIntake, int wait = 0);
 
   void Initialize() override;
 
@@ -30,4 +31,5 @@ class ShootCommand
 
   private:
     ShooterIntake* m_pShooterIntake;
+    frc2::WaitCommand* m_pWait;
 };

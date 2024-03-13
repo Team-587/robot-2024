@@ -7,10 +7,18 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/AddressableLED.h>
 #include "Constants.h"
+#include "AprilTagVisionSubsystem.h"
+#include "NoteVisionSubsystem.h"
+#include "ShooterIntake.h"
 
 class Lights : public frc2::SubsystemBase {
  public:
-  Lights();
+  Lights(
+    AprilTagVisionSubsystem* pAprilTagVisionSubsystem,
+    NoteVisionSubsystem* pNoteVisionSubsystem,
+    ShooterIntake* pShooterIntake);
+
+
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -18,6 +26,10 @@ class Lights : public frc2::SubsystemBase {
   void Periodic() override;
 
  private:
+AprilTagVisionSubsystem* m_pAprilTagVisionSubsystem;
+NoteVisionSubsystem* m_pNoteVisionSubsystem;
+ShooterIntake* m_pShooterIntake;
+
 bool blueActive;
 int ledLoopCount;
 int disableLoopCount;

@@ -50,7 +50,11 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                            //&m_StopIntake
                                                            },
                                    m_IntakeCommand{&m_shooter},
-                                   m_ShootCommand{&m_shooter}
+                                   m_ShootCommand{&m_shooter},
+                                   m_lights{&m_AprilTagVisionSubsystem,
+                                            &m_NoteVisionSubsystem,
+                                            &m_shooter}
+                                  
 {
   // Initialize all of your commands and subsystems here,
 

@@ -17,6 +17,8 @@
 #include "subsystems/VisionSubsystem.h"
 #include "subsystems/DistanceBucket.h"
 #include "subsystems/RobotArm.h"
+#include "commands/ShootCommand.h"
+#include <frc2/command/WaitCommand.h>
 /**
  * An example command.
  *
@@ -32,7 +34,8 @@ class AprilTagVisionCommand
     AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
     DriveSubsystem* pDriveSubsystem,
     ShooterIntake* pShooterIntake,
-    RobotArm *pRobotArm);
+    RobotArm *pRobotArm,
+    ShootCommand* pShootCommand);
 
    std::optional<DistanceBucket*> GetDistanceBucket(double distance);
 
@@ -49,6 +52,8 @@ class AprilTagVisionCommand
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;
     RobotArm* m_pRobotArm;
+    ShootCommand* m_pShootCommand;
+    frc2::WaitCommand m_WaitCommand{2_s};
     
     DistanceBucket* m_DistanceBuckets[10];
 

@@ -43,7 +43,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                    m_AprilTagVisionCommand{&m_AprilTagVisionSubsystem,
                                                            &m_drive,
                                                            &m_shooter,
-                                                           &m_robotarm
+                                                           &m_robotarm,
+                                                           &m_ShootCommand
                                                            //&m_StartIntake,
                                                            //&m_PickUpPosition,
                                                            //&m_HoldPosition,
@@ -241,8 +242,8 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton xButtonDrive(&m_driverController, frc::XboxController::Button::kX);
   xButtonDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
 
-  frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightBumper};
-  rightBumperDriver.WhileTrue(&m_AprilTagVisionCommand);
+  frc2::JoystickButton RightTriggerCoDriver{&m_codriverController, frc::XboxController::Axis::kRightTrigger};
+  RightTriggerCoDriver.WhileTrue(&m_AprilTagVisionCommand).OnFalse(&m_HoldPosition);
 
   frc2::JoystickButton leftBumperDriver{&m_driverController, frc::XboxController::Button::kLeftBumper};
   leftBumperDriver.WhileTrue(&m_NoteVisionCommand);
@@ -262,8 +263,10 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton yButtonCoDrive{&m_codriverController, frc::XboxController::Button::kY};
   yButtonCoDrive.OnTrue(&m_ShortShootPosition).OnTrue(&m_ShortShootVelocity);
 
+
   frc2::JoystickButton xButtonCoDrive{&m_codriverController, frc::XboxController::Button::kX};
   xButtonCoDrive.OnTrue(&m_LongSetup);
+
   /*
       frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};
       bButtonCoDrive.OnTrue(&m_Shoot).OnTrue(&m_wait).OnTrue(&m_StartIntakeShoot).OnTrue(&m_wait);

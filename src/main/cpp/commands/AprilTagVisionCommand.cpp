@@ -8,12 +8,14 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   AprilTagVisionSubsystem* pAprilTagVisionSubsystem, 
   DriveSubsystem* pDriveSubsystem,
   ShooterIntake* pShooterIntake,
-  RobotArm* pRobotArm) {
+  RobotArm* pRobotArm,
+  ShootCommand* pShootCommand) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
   m_pShooterIntake = pShooterIntake;
   m_pRobotArm = pRobotArm;
+  m_pShootCommand = pShootCommand;
   
   AddRequirements(m_pAprilTagVisionSubsystem);
   AddRequirements(m_pDriveSubsystem);
@@ -42,6 +44,7 @@ void AprilTagVisionCommand::Initialize() {
   frc::SmartDashboard::PutNumber("SV", 0);
   frc::SmartDashboard::PutNumber("AA", 45);
   frc::SmartDashboard::PutNumber("EH", 0);
+  m_WaitCommand.Schedule();
 }
 
 
@@ -95,11 +98,17 @@ void AprilTagVisionCommand::Execute() {
         units::meters_per_second_t{m_driverController.GetLeftY()},
         units::meters_per_second_t{m_driverController.GetLeftX()},
         units::radians_per_second_t{rotationSpeed}, true);
+
+    if(m_WaitCommand.IsFinished() && !m_pShootCommand->IsScheduled()){
+      m_pShootCommand->Schedule();
+    }
   }
 }
 
 // Called once the command ends or is interrupted.
-void AprilTagVisionCommand::End(bool interrupted) {}
+void AprilTagVisionCommand::End(bool interrupted) {
+  m_pShootCommand->Cancel();
+}
 
 // Returns true when the command should end.
 bool AprilTagVisionCommand::IsFinished() {

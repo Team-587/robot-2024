@@ -13,6 +13,7 @@
 
 #include "Constants.h"
 #include "VisionSubsystem.h"
+#include "commands/NoteVisionCommand.h"
 
 class AprilTagVisionSubsystem : public VisionSubsystem {
  public:

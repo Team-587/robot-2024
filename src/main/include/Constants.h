@@ -147,9 +147,9 @@ namespace VisionConstants {
     const units::meter_t TARGET_HEIGHT_NOTE = 5_ft;
     const units::radian_t CAMERA_PITCH_NOTE = 0_deg;
 
-    const units::meter_t CAMERA_HEIGHT_APRILTAG = 24_in;
-    const units::meter_t TARGET_HEIGHT_APRILTAG = 5_ft;
-    const units::radian_t CAMERA_PITCH_APRILTAG = 0_deg;
+    const units::meter_t CAMERA_HEIGHT_APRILTAG = 7.2_in;
+    const units::meter_t TARGET_HEIGHT_APRILTAG = 53.88_in;
+    const units::radian_t CAMERA_PITCH_APRILTAG = 23_deg;
 
     const units::meter_t CAMERA_HEIGHT_AT = 24_in;
     const units::meter_t TARGET_HEIGHT_AT = 5_ft;

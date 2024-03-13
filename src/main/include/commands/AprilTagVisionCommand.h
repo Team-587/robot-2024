@@ -34,7 +34,7 @@ class AprilTagVisionCommand
     ShooterIntake* pShooterIntake,
     RobotArm *pRobotArm);
 
-   std::optional<DistanceBucket> GetDistanceBucket(double distance);
+   std::optional<DistanceBucket*> GetDistanceBucket(double distance);
 
   void Initialize() override;
 
@@ -50,7 +50,7 @@ class AprilTagVisionCommand
     ShooterIntake* m_pShooterIntake;
     RobotArm* m_pRobotArm;
     
-    DistanceBucket m_DistanceBuckets[10];
+    DistanceBucket* m_DistanceBuckets[10];
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 
@@ -63,4 +63,5 @@ class AprilTagVisionCommand
     int aprilTagID;
 
     std::optional<frc::DriverStation::Alliance> alliance;
+
 };

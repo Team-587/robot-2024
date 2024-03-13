@@ -10,7 +10,7 @@
 IntakeCommand::IntakeCommand(ShooterIntake* pShooterIntake, int wait) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pShooterIntake = pShooterIntake;
-  if(wait > 0) m_pWait = new frc2::WaitCommand(units::second_t(wait));
+  //if(wait > 0) m_pWait = new frc2::WaitCommand(units::second_t(wait));
   AddRequirements(m_pShooterIntake);
 }
 
@@ -62,6 +62,6 @@ bool IntakeCommand::IsFinished() {
     return false;
   }
   #else
-  return m_pShooterIntake->getIntakeSensorState() || (m_pWait && m_pWait->IsFinished());
+  return m_pShooterIntake->getIntakeSensorState();// || (m_pWait && m_pWait->IsFinished());
   #endif
 }

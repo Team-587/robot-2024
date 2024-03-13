@@ -241,7 +241,7 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton xButtonDrive(&m_driverController, frc::XboxController::Button::kX);
   xButtonDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
 
-  frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightStick};
+  frc2::JoystickButton rightBumperDriver{&m_driverController, frc::XboxController::Button::kRightBumper};
   rightBumperDriver.WhileTrue(&m_AprilTagVisionCommand);
 
   frc2::JoystickButton leftBumperDriver{&m_driverController, frc::XboxController::Button::kLeftBumper};

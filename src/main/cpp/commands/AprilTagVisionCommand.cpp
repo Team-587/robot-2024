@@ -22,22 +22,34 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   turnController.SetIntegratorRange(-.05, .05);
   forwardController.SetTolerance(1, 3);
   forwardController.SetIntegratorRange(-.05, .05);
-
-  std::cout << "AprilTagVisionCommand" << m_pAprilTagVisionSubsystem->GetCamera()->GetCameraTable().get()->GetPath() << "\n";
   
+  int count = 0;
+  m_DistanceBuckets[count++] = new DistanceBucket(1.57, 1.705, .6, 0, 0, 15);
+  m_DistanceBuckets[count++] = new DistanceBucket(1.705, 1.955, .6, 0, 0, 18);
+  m_DistanceBuckets[count++] = new DistanceBucket(1.955, 2.24, .7, 0, 0, 21);
+  m_DistanceBuckets[count++] = new DistanceBucket(2.24, 2.59, .7, 0, 0, 24);
+  m_DistanceBuckets[count++] = new DistanceBucket(2.59, 2.91, .6, 0, 0, 26);
+  m_DistanceBuckets[count++] = new DistanceBucket(2.91, 3.2, .7, 0, 0, 28);
+  m_DistanceBuckets[count++] = new DistanceBucket(3.2, 3.495, .7, 0, 0, 30);
+  m_DistanceBuckets[count++] = new DistanceBucket(3.495, 3.785, .7, 0, 0, 32);
+  m_DistanceBuckets[count++] = new DistanceBucket(3.785, 3.93, .75, 0, 0, 34);
 }
 
 // Called when the command is initially scheduled.
 void AprilTagVisionCommand::Initialize() {
   alliance = frc::DriverStation::GetAlliance();
+  std::cout << "AprilTagVisionCommand" << m_pAprilTagVisionSubsystem->GetCamera()->GetCameraTable().get()->GetPath() << "\n";
+  frc::SmartDashboard::PutNumber("SV", 0);
+  frc::SmartDashboard::PutNumber("AA", 45);
+  frc::SmartDashboard::PutNumber("EH", 0);
 }
 
 
-std::optional<DistanceBucket> AprilTagVisionCommand::GetDistanceBucket(double distance) { 
+std::optional<DistanceBucket*> AprilTagVisionCommand::GetDistanceBucket(double distance) { 
 
     for (int i = 0; i < 10; i++) {
 
-      if (distance >= m_DistanceBuckets[i].m_minDist && distance <= m_DistanceBuckets[i].m_maxDist) {
+      if (distance >= m_DistanceBuckets[i]->m_minDist && distance <= m_DistanceBuckets[i]->m_maxDist) {
         return std::make_optional(m_DistanceBuckets[i]);
       }
     }
@@ -60,12 +72,19 @@ void AprilTagVisionCommand::Execute() {
     forwardSpeed = 0;
     aprilTagID = target.value().GetFiducialId();
     std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance();
+    //frc::SmartDashboard::PutNumber("Distance", (double)distance.value());
+    //std::cout << "Distance: " << (double)distance.value() << "\n";
+    //double SV = frc::SmartDashboard::GetNumber("SV", 0);
+    //double AA = frc::SmartDashboard::GetNumber("AA", 45);
+    //double EH = frc::SmartDashboard::GetNumber("EH", 0);
+    //m_pShooterIntake->setShooterVelocity(SV);
+    //m_pRobotArm->ArmPosition(AA, EH);
 
     if (distance.has_value()) {
-      std::optional<DistanceBucket> distanceBucket = GetDistanceBucket((double)distance.value());
+      std::optional<DistanceBucket*> distanceBucket = GetDistanceBucket((double)distance.value());
       if(distanceBucket.has_value()) {
-        m_pShooterIntake->setShooterVelocity(distanceBucket.value().m_shooterSpeed);
-        m_pRobotArm->ArmPosition(distanceBucket.value().m_armAngle, distanceBucket.value().m_elevatorHeight);
+        m_pShooterIntake->setShooterVelocity(distanceBucket.value()->m_shooterSpeed);
+        m_pRobotArm->ArmPosition(distanceBucket.value()->m_armAngle, distanceBucket.value()->m_elevatorHeight);
       }
     }
 

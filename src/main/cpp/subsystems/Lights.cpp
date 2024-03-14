@@ -7,8 +7,16 @@
 #include <frc/DigitalInput.h>
 #include "subsystems/ShooterIntake.h"
 
-Lights::Lights()
+Lights::Lights(
+    AprilTagVisionSubsystem* pAprilTagVisionSubsystem,
+    NoteVisionSubsystem* pNoteVisionSubsystem,
+    ShooterIntake* pShooterIntake)
 {
+
+m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
+m_pNoteVisionSubsystem = pNoteVisionSubsystem;
+m_pShooterIntake = pShooterIntake;
+
   for (int i = 0; i < DriveConstants::kLEDtotalLength; i = i + 3) {
     //topLEDArray[i].SetRGB(0, 255, 0);
     //0, 133, 202
@@ -40,9 +48,9 @@ void Lights::Periodic() {
 
     ledLoopCount = 9;
 
-    frc::DigitalInput intakeSwitch {DriveConstants::kIntakeSwitchPort + 1};
-    bool temp = !intakeSwitch.Get();
-     if(temp == true) {
+    //frc::DigitalInput intakeSwitch {DriveConstants::kIntakeSwitchPort + 1};
+    bool temp = !m_pShooterIntake->getIntakeSensorState();
+    if(temp == true) {
         for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
         {
             haveNoteLight = temp;
@@ -55,11 +63,37 @@ void Lights::Periodic() {
             LEDbackArray[i].SetRGB(167, 3, 255);
         }
       
-     } else if(temp == false && haveNoteLight == true){
-        haveNoteLight = false;
-     }
+    } else if(m_pAprilTagVisionSubsystem->HasTargets() == true) {
 
-    else if(frc::DriverStation::IsDisabled() == true) {
+        for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
+        {
+            haveNoteLight = m_pAprilTagVisionSubsystem->HasTargets();
+            LEDsideArray[i].SetRGB(0, 133, 202);
+        }
+
+        for (int i = 0; i < DriveConstants::kLEDbackLength; i++)
+        {
+            haveNoteLight = m_pAprilTagVisionSubsystem->HasTargets();
+            LEDbackArray[i].SetRGB(0, 133, 202);
+        }
+
+    } else if(m_pNoteVisionSubsystem->HasTargets() == true) {
+
+        for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
+        {
+            haveNoteLight = m_pAprilTagVisionSubsystem->HasTargets();
+            LEDsideArray[i].SetRGB(0, 255, 0);
+        }
+
+        for (int i = 0; i < DriveConstants::kLEDbackLength; i++)
+        {
+            haveNoteLight = m_pAprilTagVisionSubsystem->HasTargets();
+            LEDbackArray[i].SetRGB(0, 255, 0);
+        }
+
+    } else if(temp == false && haveNoteLight == true){
+        haveNoteLight = false;
+    } else if(frc::DriverStation::IsDisabled() == true) {
         disableLoopCount--;
 
         if(disableLoopCount > 0){

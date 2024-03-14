@@ -34,6 +34,8 @@ class VisionSubsystem : public frc2::SubsystemBase {
     return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
   }
 
+  bool HasTargets();
+
  protected:
   
   std::optional<photon::PhotonTrackedTarget> currentTarget;

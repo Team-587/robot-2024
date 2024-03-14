@@ -23,6 +23,11 @@ std::optional<photon::PhotonTrackedTarget> VisionSubsystem::GetBestTarget() {
   }
 }
 
+bool VisionSubsystem::HasTargets() 
+{
+    return currentTarget == std::nullopt && currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency();
+}
+
 std::optional<units::meter_t> VisionSubsystem::GetDistance() {
   if(!currentTarget.has_value()) {
     return std::nullopt;
@@ -33,4 +38,6 @@ std::optional<units::meter_t> VisionSubsystem::GetDistance() {
       GetCameraPitch(),
       units::degree_t{currentTarget.value().GetPitch()});
   return std::make_optional(range);
+
+   
 }

@@ -20,7 +20,7 @@ RobotArm::RobotArm() :
     ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed)),
     #endif
     ElevatorHeight(0.0),
-    ElbowAngle(48.0)
+    ElbowAngle(60.0)
 
 {
     #ifdef HAVEARM

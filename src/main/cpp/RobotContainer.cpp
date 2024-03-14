@@ -100,7 +100,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                                           { this->m_robotarm.ArmPosition(RobotArm::ShortShootAngle, RobotArm::ShortShootLength); },
                                                                                           {&m_robotarm}),
                                                                        frc2::cmd::RunOnce([this]
-                                                                                          { this->m_shooter.setShooterVelocity(ShooterIntake::ShortShootVelocity); },
+                                                                                          { this->m_shooter.setShooterVelocity(ShooterIntake::ShortShootVelocity + .2); },
                                                                                           {&m_shooter})));
   pathplanner::NamedCommands::registerCommand("Shoot + Intake", frc2::cmd::Sequence(
                                                                     frc2::cmd::RunOnce([this]
@@ -116,7 +116,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_shooter.setIntakeStart(); },
                                                                                        {&m_shooter}),
-                                                                    frc2::cmd::Wait(0.2_s)));
+                                                                    frc2::cmd::Wait(0.3_s)));
 
   pathplanner::NamedCommands::registerCommand("Long Shoot Setup", frc2::cmd::Sequence(
                                                                       frc2::cmd::RunOnce([this]

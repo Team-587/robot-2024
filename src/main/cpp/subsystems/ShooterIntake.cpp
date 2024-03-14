@@ -204,7 +204,7 @@ void ShooterIntake::Periodic() {
 
             case SHOOTING:
                 #ifdef HAVEINTAKE
-                intakeMotor.Set(intakeVelocity);
+                intakeMotor.Set(intakeShootVelocity);
                 outakeMotor.Set(shooterVelocity);  
                 #endif
 

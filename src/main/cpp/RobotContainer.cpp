@@ -69,7 +69,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                                 { this->m_robotarm.ArmPosition(RobotArm::ShortShootAngle, RobotArm::ShortShootLength); },
                                                                                 {&m_robotarm}));
   pathplanner::NamedCommands::registerCommand("Long Shoot", frc2::cmd::RunOnce([this]
-                                                                               { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle, RobotArm::LongShootLength); },
+                                                                               { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle-20, RobotArm::LongShootLength); },
                                                                                {&m_robotarm}));
   pathplanner::NamedCommands::registerCommand("Pick Up Position", frc2::cmd::RunOnce([this]
                                                                                      { this->m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength); },
@@ -125,7 +125,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
 
   pathplanner::NamedCommands::registerCommand("Long Shoot Setup", frc2::cmd::Sequence(
                                                                       frc2::cmd::RunOnce([this]
-                                                                                         { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle, RobotArm::LongShootLength); },
+                                                                                         { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle - 7, RobotArm::LongShootLength); },
                                                                                          {&m_robotarm}),
                                                                       frc2::cmd::RunOnce([this]
                                                                                          { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
@@ -133,7 +133,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
 
   pathplanner::NamedCommands::registerCommand("Longer Shoot Setup", frc2::cmd::Sequence(
                                                                         frc2::cmd::RunOnce([this]
-                                                                                           { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle + 8.5, RobotArm::LongShootLength); },
+                                                                                           { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle + 3, RobotArm::LongShootLength); },
                                                                                            {&m_robotarm}),
                                                                         frc2::cmd::RunOnce([this]
                                                                                            { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
@@ -246,7 +246,7 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton xButtonDrive(&m_driverController, frc::XboxController::Button::kX);
   xButtonDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
 
-  frc2::JoystickButton RightTriggerCoDriver{&m_codriverController, frc::XboxController::Axis::kRightTrigger};
+  frc2::JoystickButton RightTriggerCoDriver{&m_codriverController, frc::XboxController::Button::kRightStick};
   RightTriggerCoDriver.WhileTrue(&m_AprilTagVisionCommand).OnFalse(&m_HoldPosition);
 
   frc2::JoystickButton leftBumperDriver{&m_driverController, frc::XboxController::Button::kLeftBumper};

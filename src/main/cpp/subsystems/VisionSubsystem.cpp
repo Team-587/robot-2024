@@ -15,7 +15,7 @@ std::optional<photon::PhotonTrackedTarget> VisionSubsystem::GetBestTarget() {
     currentTarget = std::make_optional(result.GetBestTarget());
     currentTargetTime = GetTimeMillisec();
     return currentTarget;
-  } else if (currentTarget == std::nullopt && currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency()) {
+  } else if (currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime < GetMaxTargetLatency()) {
     return currentTarget;
   } else {
     currentTarget = std::nullopt;
@@ -25,7 +25,7 @@ std::optional<photon::PhotonTrackedTarget> VisionSubsystem::GetBestTarget() {
 
 bool VisionSubsystem::HasTargets() 
 {
-    return currentTarget == std::nullopt && currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency();
+    return currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime < GetMaxTargetLatency();
 }
 
 std::optional<units::meter_t> VisionSubsystem::GetDistance() {

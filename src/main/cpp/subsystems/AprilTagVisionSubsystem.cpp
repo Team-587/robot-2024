@@ -20,7 +20,7 @@ void AprilTagVisionSubsystem::Periodic() {
 std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarget() {
   //std::cout << "GetTarget: \n";
   const photon::PhotonPipelineResult result = GetCamera()->GetLatestResult();
-  //std::cout << "HasTarget: " << result.HasTargets() << "\n";
+  std::cout << "HasTarget: " << result.HasTargets() << "\n";
   if(result.HasTargets()) {
 
     const std::span<const photon::PhotonTrackedTarget> targets = result.GetTargets();
@@ -33,9 +33,7 @@ std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarge
             return currentTarget;
         }
     }
-  }
-
-  if (currentTarget != std::nullopt && currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency()) {
+  } else if (currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime  < GetMaxTargetLatency()) {
     return currentTarget;
   } else {
     currentTarget = std::nullopt;

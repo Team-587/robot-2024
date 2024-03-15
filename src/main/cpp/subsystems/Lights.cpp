@@ -49,7 +49,7 @@ void Lights::Periodic() {
     ledLoopCount = 9;
 
     //frc::DigitalInput intakeSwitch {DriveConstants::kIntakeSwitchPort + 1};
-    bool temp = !m_pShooterIntake->getIntakeSensorState();
+    bool temp = m_pShooterIntake->getIntakeSensorState();
     if(temp == true) {
         for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
         {

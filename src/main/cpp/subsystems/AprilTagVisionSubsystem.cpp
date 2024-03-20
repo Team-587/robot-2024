@@ -35,8 +35,7 @@ std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarge
     }
   } else if (currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime  < GetMaxTargetLatency()) {
     return currentTarget;
-  } else {
-    currentTarget = std::nullopt;
-    return std::nullopt;
   }
+  currentTarget = std::nullopt;
+  return std::nullopt;
 }

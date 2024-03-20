@@ -11,15 +11,24 @@ using namespace std;
 TentaclesSubsystem::TentaclesSubsystem() :
 
     #ifdef HAVETENTACLES
-    LeftTentacleMotor(DriveConstants::kLeftTentacleMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     RightTentacleMotor(DriveConstants::kRightTentacleMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
+    LeftTentacleMotor(DriveConstants::kLeftTentacleMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     #endif 
     TentacleExtend(false)
 {
+    LeftTentacleMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+    RightTentacleMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+
+    LeftTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
+    LeftTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 100);
+    LeftTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 100); 
+    RightTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
+    RightTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 100);
+    RightTentacleMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 100);  
 }
 
 void TentaclesSubsystem::allowTentacleExtend() {
-    TentacleExtend = true;
+    TentacleExtend = !TentacleExtend;
     
 }
 

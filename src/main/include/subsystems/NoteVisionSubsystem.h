@@ -11,8 +11,9 @@
 #include <chrono>
 
 #include "Constants.h"
+#include "VisionSubsystem.h"
 
-class NoteVisionSubsystem : public frc2::SubsystemBase {
+class NoteVisionSubsystem : public VisionSubsystem {
  public:
   NoteVisionSubsystem();
 
@@ -21,23 +22,16 @@ class NoteVisionSubsystem : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
-  std::optional<photon::PhotonTrackedTarget> GetBestTarget();
-  
-  std::optional<units::meter_t> GetDistance();
+  photon::PhotonCamera* GetCamera() override { return &camera; }
 
-  uint64_t GetTimeMillisec() {
-    using namespace std::chrono;
-    return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-  }
+  units::meter_t GetCameraHeight() override { return VisionConstants::CAMERA_HEIGHT_NOTE; };
+  units::meter_t GetTargetHeight() override { return VisionConstants::TARGET_HEIGHT_NOTE; };
+  units::radian_t GetCameraPitch() override { return VisionConstants::CAMERA_PITCH_NOTE; };
 
-  photon::PhotonCamera* GetCamera() {
-    return &camera;
-  }
+  uint64_t GetMaxTargetLatency() override { return VisionConstants::MAX_TARGET_LATENCY; };
 
  private:
-  photon::PhotonCamera camera{VisionConstants::cameraOne};
-
-  std::optional<photon::PhotonTrackedTarget> currentTarget;
-  uint64_t currentTargetTime = 0;
+  
+    photon::PhotonCamera camera{VisionConstants::cameraNote};
 
 };

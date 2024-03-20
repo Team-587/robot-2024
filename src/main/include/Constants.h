@@ -32,7 +32,9 @@
 
 namespace DriveConstants {
 
-constexpr int kLEDLength = 9;
+constexpr int kLEDsideLength = 26;
+constexpr int kLEDbackLength = 36; 
+constexpr int kLEDtotalLength = kLEDsideLength + kLEDsideLength + kLEDbackLength;
 constexpr int kLEDPort = 0;
 
 constexpr int kLeftTentacleMotorPort = 2;
@@ -41,6 +43,8 @@ constexpr int kRightTentacleMotorPort = 3;
 constexpr int kIntakeMotorPort = 4;
 constexpr int kOutakeMotorPort = 5;
 constexpr int kIntakeSwitchPort = 0; //DIO port
+constexpr int kfrontSwitchPort = 2;
+constexpr int kbackSwitchPort = 3;
 
 constexpr int kElevatorMotorPort = 6;
 constexpr int kElbowAMotorPort = 7;
@@ -124,9 +128,16 @@ constexpr int kDriverControllerPort = 0;
 constexpr int kCoDriverControllerPort = 1;
 }  // namespace OIConstants
 
+namespace ShooterIntakeConstants {
+    static constexpr double intakeVelocity{0.4};
+    static constexpr double intakeShootVelocity{0.6};
+}
+
 namespace VisionConstants {
-    const std::string cameraOne = "Microsoft_LifeCam_HD-3000";
+    const std::string cameraNote = "Microsoft_LifeCam_HD-3000";
+    const std::string cameraAprilTag = "Microsoft_LifeCam_HD-3001";
     const int colorPipeline = 0;
+
     const int aprilTagPipeline = 1;
 
     const int blueAprilTag = 7;
@@ -135,6 +146,10 @@ namespace VisionConstants {
     const units::meter_t CAMERA_HEIGHT_NOTE = 24_in;
     const units::meter_t TARGET_HEIGHT_NOTE = 5_ft;
     const units::radian_t CAMERA_PITCH_NOTE = 0_deg;
+
+    const units::meter_t CAMERA_HEIGHT_APRILTAG = 7.2_in;
+    const units::meter_t TARGET_HEIGHT_APRILTAG = 53.88_in;
+    const units::radian_t CAMERA_PITCH_APRILTAG = 23_deg;
 
     const units::meter_t CAMERA_HEIGHT_AT = 24_in;
     const units::meter_t TARGET_HEIGHT_AT = 5_ft;
@@ -149,5 +164,5 @@ namespace VisionConstants {
     const double VISION_ANGULAR_P = 0.1;
     const double VISION_ANGULAR_D = 0.0;
 
-    const int MAX_TARGET_LATENCY = 1 * 1000;
+    const uint64_t MAX_TARGET_LATENCY = 1 * 1000;
 }

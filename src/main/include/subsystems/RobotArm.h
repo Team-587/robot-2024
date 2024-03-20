@@ -21,15 +21,16 @@ class RobotArm : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
-  static constexpr double PickUpAngle{0.0};
-  static constexpr double PickUpLength{9.0};
-  static constexpr double HoldAngle{20.0};
+  static constexpr double PickUpAngle{1.0};
+  static constexpr double PickUpLength{8.1};
+  static constexpr double HoldAngle{26.0};
   static constexpr double HoldLength{0.0};
-  static constexpr double AmpAngle{90.0};
+  static constexpr double AmpAngle{100.0};
   static constexpr double AmpLength{7.0};
-  static constexpr double ShortShootAngle{30.0};
+  //static constexpr double ShortShootAngle{14.0};
+  static constexpr double ShortShootAngle{12.0};
   static constexpr double ShortShootLength{0.0};
-  static constexpr double LongShootAngle{40.0};
+  static constexpr double LongShootAngle{26.0};
   static constexpr double LongShootLength{0};
 
  private:
@@ -43,14 +44,16 @@ class RobotArm : public frc2::SubsystemBase {
   rev::SparkPIDController ElbowAnglePID;
   rev::SparkRelativeEncoder ElevatorEncoder;
   rev::SparkAbsoluteEncoder ElbowAEncoder;
+
+  rev::SparkLimitSwitch ElevatorLimit;
   #endif
 
   const double ElevatorMin{0.0};
-  const double ElevatorMax{9.1};
+  const double ElevatorMax{8.0};
   const double ElevatorMaxsafe{5.0};
   const double ElbowAngleMin{0.0};
-  const double ElbowAngleMax{90.0};
-  const double ElbowAngleMaxsafe{19.0};
+  const double ElbowAngleMax{105.0};
+  const double ElbowAngleMaxsafe{14.0};
 
   frc::PIDController elbowPID{elbowP, elbowI, elbowD};
   double elbowP = 0.035;

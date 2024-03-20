@@ -4,11 +4,41 @@
 
 #include "subsystems/AprilTagVisionSubsystem.h"
 
-AprilTagVisionSubsystem::AprilTagVisionSubsystem() {
+/*AprilTagVisionSubsystem::AprilTagVisionSubsystem() {
     
-};
+};*/
+AprilTagVisionSubsystem::AprilTagVisionSubsystem():
+    VisionSubsystem() {
+    alliance = frc::DriverStation::GetAlliance();
+}
 
 // This method will be called once per scheduler run
 void AprilTagVisionSubsystem::Periodic() {
 
+}
+
+std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarget() {
+  //std::cout << "GetTarget: \n";
+  const photon::PhotonPipelineResult result = GetCamera()->GetLatestResult();
+  //std::cout << "HasTarget: " << result.HasTargets() << "\n";
+  if(result.HasTargets()) {
+
+    const std::span<const photon::PhotonTrackedTarget> targets = result.GetTargets();
+    for (const auto& target : targets) { 
+        int id = target.GetFiducialId();
+        if ((alliance.value() == frc::DriverStation::Alliance::kRed && id == VisionConstants::redAprilTag) || 
+            (alliance.value() == frc::DriverStation::Alliance::kBlue && id == VisionConstants::blueAprilTag)) { 
+            currentTarget = std::make_optional(target);
+            currentTargetTime = GetTimeMillisec();
+            return currentTarget;
+        }
+    }
+  }
+
+  if (currentTarget != std::nullopt && currentTargetTime - GetTimeMillisec() < GetMaxTargetLatency()) {
+    return currentTarget;
+  } else {
+    currentTarget = std::nullopt;
+    return std::nullopt;
+  }
 }

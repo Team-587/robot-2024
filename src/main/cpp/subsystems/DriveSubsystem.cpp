@@ -17,6 +17,7 @@
 #include <pathplanner/lib/util/PIDConstants.h>
 #include <pathplanner/lib/util/ReplanningConfig.h>
 #include <frc/DriverStation.h>
+#include <frc/filter/SlewRateLimiter.h>
 
 
 #include "Constants.h"
@@ -62,7 +63,7 @@ DriveSubsystem::DriveSubsystem(Vision* pVision)
       imuValid{false}
 {
   m_pVision = pVision;
-  frc::SmartDashboard::PutData("Field", &m_fieldSim);
+ // frc::SmartDashboard::PutData("Field", &m_fieldSim);
   // Configure the AutoBuilder last
     pathplanner::AutoBuilder::configureHolonomic(
         [this](){ return GetPose(); }, // Robot pose supplier
@@ -122,13 +123,13 @@ void DriveSubsystem::Periodic() {
     //    result.value().estimatedPose.ToPose2d(), result.value().timestamp);
   //}
 
-  m_fieldSim.SetRobotPose(GetPose());
-  frc::Pose2d tmpPose = GetPose();
-  auto alliance =frc::DriverStation::GetAlliance();
+ // m_fieldSim.SetRobotPose(GetPose());
+  //frc::Pose2d tmpPose = GetPose();
+  //auto alliance =frc::DriverStation::GetAlliance();
   //frc::SmartDashboard::PutNumber("PoseX", (double)tmpPose.X());
   //frc::SmartDashboard::PutNumber("PoseY", (double)tmpPose.Y());
   //frc::SmartDashboard::PutNumber("PoseRotation", (double)tmpPose.Rotation().Degrees());
-  double fl_dist = (double)m_frontLeft.GetPosition().distance;
+  //double fl_dist = (double)m_frontLeft.GetPosition().distance;
   //frc::SmartDashboard::PutNumber("FL_pos", fl_dist);
   //frc::SmartDashboard::PutNumber("FL_angle", (double)m_frontLeft.GetPosition().angle.Degrees());
   //frc::SmartDashboard::PutBoolean("Alliance", alliance.value() != frc::DriverStation::Alliance::kRed);
@@ -151,11 +152,11 @@ currentPitch = m_NavX.GetPitch();
 currentRoll = m_NavX.GetRoll();
 currentYaw = -m_NavX.GetYaw();
 
-frc::SmartDashboard::PutNumber("Speed", m_fullSpeed); 
+//frc::SmartDashboard::PutNumber("Speed", m_fullSpeed); 
 frc::SmartDashboard::PutNumber("Heading", (double)m_NavX.GetRotation2d().Degrees());
-frc::SmartDashboard::PutNumber("Pitch", currentPitch); 
+//frc::SmartDashboard::PutNumber("Pitch", currentPitch); 
 frc::SmartDashboard::PutNumber("Yaw", currentYaw);
-frc::SmartDashboard::PutNumber("Roll", currentRoll);
+//frc::SmartDashboard::PutNumber("Roll", currentRoll);
 }
 
 void DriveSubsystem::driveRobotRelative(const frc::ChassisSpeeds& robotRelativeSpeeds){
@@ -164,9 +165,9 @@ void DriveSubsystem::driveRobotRelative(const frc::ChassisSpeeds& robotRelativeS
     targetSpeeds.vy = -targetSpeeds.vy;
     targetSpeeds.omega = -targetSpeeds.omega;
 
-    //if (frc::DriverStation::IsAutonomousEnabled()) {
-        //std::cout << "auto drive speed x:" << (double)targetSpeeds.vx << " y:" << (double)targetSpeeds.vy << " ang:" << (double)targetSpeeds.omega << "\n";
-    //}
+    if (frc::DriverStation::IsAutonomousEnabled()) {
+        std::cout << "auto drive speed x:" << (double)targetSpeeds.vx << " y:" << (double)targetSpeeds.vy << " ang:" << (double)targetSpeeds.omega << "\n";
+    }
     
     auto targetStates = kDriveKinematics.ToSwerveModuleStates(targetSpeeds);
     SetModuleStates(targetStates);
@@ -176,7 +177,12 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
                            units::meters_per_second_t ySpeed,
                            units::radians_per_second_t rot,
                            bool fieldRelative) {
-  
+
+  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterX{6_m / 1_s / 1_s};
+  static frc::SlewRateLimiter<units::velocity::meters_per_second> filterY{6_m / 1_s / 1_s};
+
+  xSpeed = filterX.Calculate(xSpeed);
+  ySpeed = filterY.Calculate(ySpeed);
   
   if ((double)xSpeed < 0.1 && (double)xSpeed > -0.1){
     xSpeed = (units::meters_per_second_t)0.0;
@@ -194,6 +200,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
 
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
   double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * -.8) + 1.0;
+  //double rightTriggerValue = (m_driverController.GetRightTriggerAxis() * 0.8) + 0.2;
 
   xSpeed = xSpeed * rightTriggerValue;
   ySpeed = ySpeed * rightTriggerValue;
@@ -201,9 +208,9 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
    
 
 
-  frc::SmartDashboard::PutNumber("xSpeed", (double)xSpeed);  
-  frc::SmartDashboard::PutNumber("ySpeed", (double)ySpeed);
-  frc::SmartDashboard::PutNumber("Rotation", (double)rot);   
+  //frc::SmartDashboard::PutNumber("xSpeed", (double)xSpeed);  
+  //frc::SmartDashboard::PutNumber("ySpeed", (double)ySpeed);
+  //frc::SmartDashboard::PutNumber("Rotation", (double)rot);   
                        
   auto states = kDriveKinematics.ToSwerveModuleStates(
       fieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
@@ -234,14 +241,14 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
 void DriveSubsystem::SetModuleStates(
     wpi::array<frc::SwerveModuleState, 4> desiredStates) {
 
-/*std::cout << "Angles (" << (double)desiredStates[0].angle.Degrees() << "," 
+std::cout << "Angles (" << (double)desiredStates[0].angle.Degrees() << "," 
           << (double)desiredStates[1].angle.Degrees() << "," 
           << (double)desiredStates[2].angle.Degrees() << ","
           << (double)desiredStates[3].angle.Degrees() 
           << ") Speeds (" << (double)desiredStates[0].speed << ","
           << (double)desiredStates[0].speed << ","
           << (double)desiredStates[0].speed << ","
-          << (double)desiredStates[0].speed << ")";*/
+          << (double)desiredStates[0].speed << ")";
 
   kDriveKinematics.DesaturateWheelSpeeds(&desiredStates,  AutoConstants::kMaxSpeed);
   double kmaxspeed = (double)AutoConstants::kMaxSpeed;
@@ -315,9 +322,9 @@ frc::Pose2d DriveSubsystem::GetPose() {
   //frc::Pose2d tmpPose = m_poseEstimator.GetEstimatedPosition();
   //std::cout << "Drive getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
 
-  //if (frc::DriverStation::IsAutonomousEnabled()) {
-    //std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
-  //}
+  /*if (frc::DriverStation::IsAutonomousEnabled()) {
+    std::cout << "getPose X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Radians() << "\n";
+  }*/
 
   return tmpPose;
 }
@@ -334,11 +341,11 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
     frc::Pose2d tmpPose = GetPose();
     std::cout << "Reset Odometry start X:" << (double)tmpPose.X() << " Y:" << (double)tmpPose.Y() << " Rot:" << (double)tmpPose.Rotation().Degrees() << "\n";
     std::cout << "Reset Odometry set   X:" << (double)pose.X() << " Y:" << (double)pose.Y() << " Rot:" << (double)pose.Rotation().Degrees() << "\n";
-    //m_odometry.ResetPosition(
-    //  m_NavX.GetRotation2d(),
-    //  {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
-    //   m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
-    //  pose);
+    m_odometry.ResetPosition(
+      m_NavX.GetRotation2d(),
+      {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
+       m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
+      pose);
     /*m_poseEstimator.ResetPosition(
       m_NavX.GetRotation2d(),
       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),

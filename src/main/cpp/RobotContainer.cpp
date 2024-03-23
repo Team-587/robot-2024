@@ -31,6 +31,8 @@
 using namespace DriveConstants;
 
 RobotContainer::RobotContainer() : m_drive{&m_vision},
+                                   m_robotarm{},
+                                   m_shooter{&m_robotarm},
                                    m_NoteVisionCommand{&m_NoteVisionSubsystem,
                                                        &m_drive,
                                                        &m_shooter,
@@ -192,6 +194,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
   const std::string Source_Note5_Str = "Source + Note 5";
   const std::string Amp_Move_Str = "Amp Move";
+  const std::string Feeder_Str = "Feeding";
+  const std::string Amp_Str = "Amp";
+  const std::string Destroy_Str = "destroy";
 
   AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
   Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
@@ -201,6 +206,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   Center_Note2_Note3 = pathplanner::PathPlannerAuto(Center_Note2_Note3_Str).ToPtr().Unwrap();
   Source_Note5 = pathplanner::PathPlannerAuto(Source_Note5_Str).ToPtr().Unwrap();
   Amp_Move = pathplanner::PathPlannerAuto(Amp_Move_Str).ToPtr().Unwrap();
+  Feeder = pathplanner::PathPlannerAuto(Feeder_Str).ToPtr().Unwrap();
+  Amp = pathplanner::PathPlannerAuto(Amp_Str).ToPtr().Unwrap();
+  Destroy = pathplanner::PathPlannerAuto(Destroy_Str).ToPtr().Unwrap();
 
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
   m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
@@ -210,6 +218,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(FourPiece_Str, FourPiece.get());
   m_chooser.AddOption(Source_Note5_Str, Source_Note5.get());
   m_chooser.AddOption(Amp_Move_Str, Amp_Move.get());
+  m_chooser.AddOption(Feeder_Str, Feeder.get());
+  m_chooser.AddOption(Amp_Str, Amp.get());
+  m_chooser.AddOption(Destroy_Str, Destroy.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
 

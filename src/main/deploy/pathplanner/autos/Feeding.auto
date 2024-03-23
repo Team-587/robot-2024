@@ -1,0 +1,109 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7711791505007954,
+      "y": 4.4910909160240715
+    },
+    "rotation": -60.96039732331831
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Feed Note 5 From Source Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Longer Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Feed Note 5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Feed Note 4 From 5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Longer Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Feed Note 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Feed Note 3 From 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Longer Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Feed Note 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

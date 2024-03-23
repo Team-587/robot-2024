@@ -8,12 +8,13 @@
 #include <rev/CANSparkMax.h>
 #include <frc/DigitalInput.h>
 #include <rev/CANSparkFlex.h>
+#include "subsystems/RobotArm.h"
 
 #define HAVEINTAKE
 
 class ShooterIntake : public frc2::SubsystemBase {
  public:
-  ShooterIntake();
+  ShooterIntake(RobotArm* arm);
 
   void setIntakeStart();
 
@@ -37,6 +38,7 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double StopShootVelocity{0.0};
 
   static constexpr double intakeVelocity{0.21};
+  static constexpr double groundIntakeVelocity{0.3};
   static constexpr double intakeShootVelocity{0.45};
 
   bool getEndgame() {
@@ -68,6 +70,7 @@ class ShooterIntake : public frc2::SubsystemBase {
 //Seting up motors
  rev::CANSparkFlex intakeMotor;
  rev::CANSparkFlex outakeMotor;
+ rev::CANSparkFlex groundIntakeMotor;
 
 //Using PID to set motor speed for intake/outake
  rev::SparkPIDController motorSpeedPID;
@@ -92,4 +95,6 @@ double shooterVelocity;
 
 //How many times the loops get runs before shooting.
 int delayCount;
+
+RobotArm* p_robotarm;
 };

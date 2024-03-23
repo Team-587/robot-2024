@@ -55,6 +55,8 @@ class RobotContainer {
   public:
   // The robot's subsystems
   DriveSubsystem m_drive;
+  RobotArm m_robotarm;
+  ShooterIntake m_shooter;
   Vision m_vision;
   NoteVisionSubsystem m_NoteVisionSubsystem;
   AprilTagVisionSubsystem m_AprilTagVisionSubsystem;
@@ -62,10 +64,6 @@ class RobotContainer {
   AprilTagVisionCommand m_AprilTagVisionCommand;
   IntakeCommand m_IntakeCommand;
   ShootCommand m_ShootCommand;
-
-  ShooterIntake m_shooter;
-
-  RobotArm m_robotarm;
 
   TentaclesSubsystem m_tentacle;
 
@@ -112,5 +110,8 @@ class RobotContainer {
     std::unique_ptr<frc2::Command> Center_Note2_Note3;
     std::unique_ptr<frc2::Command> Source_Note5;
     std::unique_ptr<frc2::Command> Amp_Move;
+    std::unique_ptr<frc2::Command> Feeder;
+    std::unique_ptr<frc2::Command> Amp;
+    std::unique_ptr<frc2::Command> Destroy;
 
 };

@@ -9,19 +9,21 @@
 #include <frc/DriverStation.h>
 
 //Constructor for shooter intake
-ShooterIntake::ShooterIntake():
+ShooterIntake::ShooterIntake(RobotArm* arm):
 
     stateVar(STOP),
     #ifdef HAVEINTAKE
     intakeMotor(DriveConstants::kIntakeMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     outakeMotor(DriveConstants::kOutakeMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
+    groundIntakeMotor(DriveConstants::kGroundIntakeMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     motorSpeedPID(outakeMotor.GetPIDController()),
     #endif
     intakeSwitch(DriveConstants::kIntakeSwitchPort),
     startIntake(false),
     stopIntake(false),
     shooterVelocity(0),
-    delayCount(0)
+    delayCount(0),
+    p_robotarm(arm)
 {
     #ifdef HAVEINTAKE
     intakeMotor.SetSmartCurrentLimit(50);
@@ -33,14 +35,23 @@ ShooterIntake::ShooterIntake():
     outakeMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
     outakeMotor.EnableVoltageCompensation(12);
     outakeMotor.SetInverted(true);
+    groundIntakeMotor.SetSmartCurrentLimit(50);
+    groundIntakeMotor.SetSecondaryCurrentLimit(80);
+    groundIntakeMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+    groundIntakeMotor.EnableVoltageCompensation(12);
+    groundIntakeMotor.SetInverted(false);
     intakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
     intakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 50);
     intakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 50);
     outakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
     outakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 50);
     outakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 50);
+    groundIntakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus0, 100);
+    groundIntakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus1, 50);
+    groundIntakeMotor.SetPeriodicFramePeriod(rev::CANSparkLowLevel::PeriodicFrame::kStatus2, 50);
     intakeMotor.Set(0);
     outakeMotor.Set(0);
+    groundIntakeMotor.Set(0);
     frc::SmartDashboard::PutNumber("Intake Velocity Intake", 0.4);
     frc::SmartDashboard::PutNumber("Intake Velocity Shoot", 0.4);
     frc::SmartDashboard::PutNumber("Shooter Velocity Shoot", 0.4);
@@ -105,6 +116,23 @@ void ShooterIntake::setShooterVelocity(double velocity) {
 }
 
 void ShooterIntake::setIntakeVelocity(double velocity) {
+    double ArmHeight;
+    double ArmAngle;
+
+    p_robotarm->GetArmPos(ArmAngle, ArmHeight);
+
+    if(ArmAngle < RobotArm::PickUpAngle + 5.0 && ArmHeight < RobotArm::PickUpLength + 1.0) {
+
+        if(velocity <= 0){
+            groundIntakeMotor.Set(0);
+        }else{
+            groundIntakeMotor.Set(groundIntakeVelocity);
+        }
+
+    } else {
+        groundIntakeMotor.Set(0);
+    }
+
     intakeMotor.Set(velocity);
 }
 
@@ -131,6 +159,7 @@ void ShooterIntake::Periodic() {
             case STOP:
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(0);
+                groundIntakeMotor.Set(0);
                 outakeMotor.Set(0);
                 #endif
 
@@ -149,8 +178,22 @@ void ShooterIntake::Periodic() {
 
             case INTAKE:
                 #ifdef HAVEINTAKE
-                intakeMotor.Set(intakeVelocity);
-                outakeMotor.Set(0);
+
+                double ArmHeight;
+                double ArmAngle;
+
+                p_robotarm->GetArmPos(ArmAngle, ArmHeight);
+                
+                if (ArmAngle < RobotArm::PickUpAngle + 5.0 && ArmHeight < RobotArm::PickUpLength + 1.0) {
+                    intakeMotor.Set(intakeVelocity);
+                    groundIntakeMotor.Set(groundIntakeVelocity);
+                    outakeMotor.Set(0);
+                } else {
+                    intakeMotor.Set(0);
+                    groundIntakeMotor.Set(0);
+                    outakeMotor.Set(0);
+                }
+
                 #endif
 
                     if(switchState == true) {
@@ -170,6 +213,7 @@ void ShooterIntake::Periodic() {
             case HAVENOTE:
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(0);
+                groundIntakeMotor.Set(0);
                 outakeMotor.Set(0);
                 #endif
 
@@ -185,6 +229,7 @@ void ShooterIntake::Periodic() {
                 #ifdef HAVEINTAKE
                 outakeMotor.Set(shooterVelocity);
                 intakeMotor.Set(0);
+                groundIntakeMotor.Set(0);
                 #endif
 
                     if(beginShooter == true) {
@@ -205,6 +250,7 @@ void ShooterIntake::Periodic() {
             case SHOOTING:
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(intakeShootVelocity);
+                groundIntakeMotor.Set(0);
                 outakeMotor.Set(shooterVelocity);  
                 #endif
 

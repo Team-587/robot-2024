@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.4234789096358818,
+      "y": 6.922939429924444
+    },
+    "rotation": -1.5878595597802474
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Speaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp Position"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Velocity"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

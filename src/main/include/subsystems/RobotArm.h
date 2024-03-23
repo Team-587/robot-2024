@@ -16,22 +16,24 @@ class RobotArm : public frc2::SubsystemBase {
 
   void ArmPosition(double angle, double height);
 
+  void GetArmPos(double &angle, double &height);
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
 
-  static constexpr double PickUpAngle{1.0};
-  static constexpr double PickUpLength{8.1};
-  static constexpr double HoldAngle{26.0};
-  static constexpr double HoldLength{0.0};
-  static constexpr double AmpAngle{100.0};
-  static constexpr double AmpLength{7.0};
+  static constexpr double PickUpAngle{0.2};
+  static constexpr double PickUpLength{0.2};
+  static constexpr double HoldAngle{0.2};
+  static constexpr double HoldLength{0.2};
+  static constexpr double AmpAngle{87.0};
+  static constexpr double AmpLength{7.5};
   //static constexpr double ShortShootAngle{14.0};
   static constexpr double ShortShootAngle{12.0};
-  static constexpr double ShortShootLength{0.0};
+  static constexpr double ShortShootLength{0.2};
   static constexpr double LongShootAngle{25.0};
-  static constexpr double LongShootLength{0};
+  static constexpr double LongShootLength{0.2};
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -42,17 +44,18 @@ class RobotArm : public frc2::SubsystemBase {
   rev::CANSparkMax ElbowBMotor;
   rev::SparkPIDController ElevatorHeightPID;
   rev::SparkPIDController ElbowAnglePID;
-  rev::SparkRelativeEncoder ElevatorEncoder;
+  //rev::SparkRelativeEncoder ElevatorEncoder;
+  rev::SparkAbsoluteEncoder ElevatorEncoder;
   rev::SparkAbsoluteEncoder ElbowAEncoder;
 
   rev::SparkLimitSwitch ElevatorLimit;
   #endif
 
   const double ElevatorMin{0.0};
-  const double ElevatorMax{8.0};
+  const double ElevatorMax{7.9};
   const double ElevatorMaxsafe{5.0};
   const double ElbowAngleMin{0.0};
-  const double ElbowAngleMax{105.0};
+  const double ElbowAngleMax{91.0};
   const double ElbowAngleMaxsafe{14.0};
 
   frc::PIDController elbowPID{elbowP, elbowI, elbowD};
@@ -67,5 +70,7 @@ class RobotArm : public frc2::SubsystemBase {
 
   double ElevatorHeight;
   double ElbowAngle;
+  double CurElevatorHeight;
+  double CurElbowAngle;
 
 };

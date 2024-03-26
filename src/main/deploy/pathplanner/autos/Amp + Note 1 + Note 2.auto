@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4,
-      "y": 5.5
+      "x": 0.7502903555425439,
+      "y": 6.600859206807472
     },
-    "rotation": 0
+    "rotation": 59.51256320306741
   },
   "command": {
     "type": "sequential",
@@ -18,9 +18,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.5
+            "pathName": "Amp Start"
           }
         },
         {
@@ -32,13 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center Speaker"
+            "pathName": "Amp - Note 1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 1 - Amp"
           }
         },
         {
@@ -50,49 +56,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center note + Amp note"
+            "pathName": "Amp - Note 2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
+            "name": "Short Shoot Setup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Amp Note + Note 1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Setup"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Shoot Note 1"
+            "pathName": "Shoot Amp - Note 2"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]

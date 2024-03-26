@@ -56,6 +56,36 @@
         {
           "type": "named",
           "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp + Center Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Score 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp Position"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Velocity"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Shoot"
           }
         }

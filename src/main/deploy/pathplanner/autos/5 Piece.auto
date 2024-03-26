@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.4,
-      "y": 5.5
+      "y": 5.5196408968316515
     },
     "rotation": 0
   },
@@ -20,7 +20,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 1.3
           }
         },
         {
@@ -38,7 +38,19 @@
         {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "drive stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Center Note"
           }
         },
         {
@@ -50,13 +62,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center note + Amp note"
+            "pathName": "Center - Amp"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "drive stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Amp Center"
           }
         },
         {
@@ -68,7 +92,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp Note + Note 1"
+            "pathName": "Center - Source"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "drive stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Source Center"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center - Note 2"
           }
         },
         {
@@ -80,19 +134,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Shoot Note 1"
+            "pathName": "Shoot Note 2"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]

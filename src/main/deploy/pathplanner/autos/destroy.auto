@@ -46,6 +46,18 @@
           "data": {
             "pathName": "p4"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "p5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "p6"
+          }
         }
       ]
     }

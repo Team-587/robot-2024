@@ -129,8 +129,7 @@ void ShooterIntake::setIntakeVelocity(double velocity) {
 
     p_robotarm->GetArmPos(ArmAngle, ArmHeight);
 
-    if(ArmAngle < RobotArm::PickUpAngle + 5.0 && ArmHeight < RobotArm::PickUpLength + 1.0 || ArmAngle > 358.0 && ArmHeight < RobotArm::PickUpLength + 1.0) {
-
+    if(((ArmAngle < RobotArm::PickUpAngle + 5.0) || (ArmAngle > 350.0)) && ((ArmHeight < RobotArm::PickUpLength + 0.5)) || ( ArmHeight > 10)) {
         if(velocity <= 0){
             groundIntakeMotor.Set(0);
             intakespeed = 0;
@@ -157,7 +156,8 @@ void ShooterIntake::Periodic() {
         motorSpeedPID.SetReference(shooterVelocity, rev::CANSparkMax::ControlType::kVelocity);
     } else {
         //std::cout << "stop outake motor\n";
-        motorSpeedPID.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
+        //motorSpeedPID.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
+        outakeMotor.Set(0);
     }
  } else {
     //double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
@@ -171,7 +171,7 @@ void ShooterIntake::Periodic() {
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(0);
                 groundIntakeMotor.Set(0);
-                motorSpeedPID.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
+                outakeMotor.Set(0);
                 #endif
 
                     if(switchState == true) {
@@ -195,14 +195,14 @@ void ShooterIntake::Periodic() {
 
                 p_robotarm->GetArmPos(ArmAngle, ArmHeight);
                 
-                if (ArmAngle < RobotArm::PickUpAngle + 5.0 && ArmHeight < RobotArm::PickUpLength + 1.0) {
+                if(((ArmAngle < RobotArm::PickUpAngle + 5.0) || (ArmAngle > 350.0)) && ((ArmHeight < RobotArm::PickUpLength + 0.5) || ( ArmHeight > 10))) {
                     intakeMotor.Set(intakeVelocity);
                     groundIntakeMotor.Set(groundIntakeVelocity);
-                    motorSpeedPID.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
+                    outakeMotor.Set(0);
                 } else {
                     intakeMotor.Set(0);
                     groundIntakeMotor.Set(0);
-                    motorSpeedPID.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
+                    outakeMotor.Set(0);
                 }
 
                 #endif
@@ -225,7 +225,7 @@ void ShooterIntake::Periodic() {
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(0);
                 groundIntakeMotor.Set(0);
-                motorSpeedPID.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
+                outakeMotor.Set(0);
                 #endif
 
                     if(shooterVelocity > 0) {

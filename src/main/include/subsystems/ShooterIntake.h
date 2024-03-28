@@ -38,9 +38,9 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double AmpShootVelocity{3500.00};
   static constexpr double StopShootVelocity{0.0};
 
-  static constexpr double intakeVelocity{0.21};
+  static constexpr double intakeVelocity{0.45};
   static constexpr double groundIntakeVelocity{0.3};
-  static constexpr double intakeShootVelocity{0.45};
+  static constexpr double intakeShootVelocity{1.0};
 
 
   bool getEndgame() {
@@ -71,7 +71,7 @@ class ShooterIntake : public frc2::SubsystemBase {
 #ifdef HAVEINTAKE
 //Seting up motors
  rev::CANSparkFlex intakeMotor;
- rev::CANSparkFlex outakeMotor;
+ rev::CANSparkMax outakeMotor;
  rev::CANSparkFlex groundIntakeMotor;
 
 //Using PID to set motor speed for intake/outake

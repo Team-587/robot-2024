@@ -163,7 +163,11 @@ void ShooterIntake::Periodic() {
     //double intakeVelocityIntake = frc::SmartDashboard::GetNumber("Intake Velocity Intake", 0.2);
     //double intakeVelocityShoot = frc::SmartDashboard::GetNumber("Intake Velocity Shoot", 0.8);
     //double shooterVelocityShoot = frc::SmartDashboard::GetNumber("Shooter Velocity Shoot", 0.4);
-
+    if(shooterVelocity == 0){
+        outakeMotor.Set(0);
+    } else{
+        motorSpeedPID.SetReference(shooterVelocity, rev::CANSparkMax::ControlType::kVelocity);
+    }
     //std::cout<<switchState<<" "<<stateVar<<" Switch State\n";
     
     switch(stateVar) {
@@ -171,7 +175,7 @@ void ShooterIntake::Periodic() {
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(0);
                 groundIntakeMotor.Set(0);
-                outakeMotor.Set(0);
+                //outakeMotor.Set(0);
                 #endif
 
                     if(switchState == true) {
@@ -202,7 +206,7 @@ void ShooterIntake::Periodic() {
                 } else {
                     intakeMotor.Set(0);
                     groundIntakeMotor.Set(0);
-                    outakeMotor.Set(0);
+                    //outakeMotor.Set(0);
                 }
 
                 #endif
@@ -262,7 +266,7 @@ void ShooterIntake::Periodic() {
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(intakeShootVelocity);
                 groundIntakeMotor.Set(0);
-                motorSpeedPID.SetReference(shooterVelocity, rev::CANSparkMax::ControlType::kVelocity); 
+                //motorSpeedPID.SetReference(shooterVelocity, rev::CANSparkMax::ControlType::kVelocity); 
                 #endif
 
                 delayCount--;

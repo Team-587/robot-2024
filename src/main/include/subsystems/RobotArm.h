@@ -24,16 +24,16 @@ class RobotArm : public frc2::SubsystemBase {
   void Periodic() override;
 
   static constexpr double PickUpAngle{0.2};
-  static constexpr double PickUpLength{0.2};
+  static constexpr double PickUpLength{0.6};
   static constexpr double HoldAngle{0.2};
-  static constexpr double HoldLength{0.2};
+  static constexpr double HoldLength{0.6};
   static constexpr double AmpAngle{87.0};
-  static constexpr double AmpLength{7.5};
+  static constexpr double AmpLength{7.9};
   //static constexpr double ShortShootAngle{14.0};
   static constexpr double ShortShootAngle{3.0};
-  static constexpr double ShortShootLength{0.2};
+  static constexpr double ShortShootLength{0.6};
   static constexpr double LongShootAngle{19.0};
-  static constexpr double LongShootLength{0.2};
+  static constexpr double LongShootLength{0.6};
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -48,11 +48,11 @@ class RobotArm : public frc2::SubsystemBase {
   rev::SparkAbsoluteEncoder ElevatorEncoder;
   rev::SparkAbsoluteEncoder ElbowAEncoder;
 
-  rev::SparkLimitSwitch ElevatorLimit;
+  //,k==================  SparkLimitSwitch ElevatorLimit;
   #endif
 
-  const double ElevatorMin{0.0};
-  const double ElevatorMax{7.9};
+  const double ElevatorMin{0.4};
+  const double ElevatorMax{8.3};
   const double ElevatorMaxsafe{5.0};
   const double ElbowAngleMin{0.0};
   const double ElbowAngleMax{91.0};
@@ -64,7 +64,7 @@ class RobotArm : public frc2::SubsystemBase {
   double elbowD = 0;
 
   frc::PIDController elevatorPID{elevatorP, elevatorI, elevatorD};
-  double elevatorP = 0.34;
+  double elevatorP = 0.5;
   double elevatorI = 0.0;
   double elevatorD = 0.0;
 

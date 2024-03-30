@@ -39,7 +39,7 @@ class ShooterIntake : public frc2::SubsystemBase {
   static constexpr double StopShootVelocity{0.0};
 
   static constexpr double intakeVelocity{0.45};
-  static constexpr double groundIntakeVelocity{0.3};
+  static constexpr double groundIntakeVelocity{0.35};
   static constexpr double intakeShootVelocity{1.0};
 
 

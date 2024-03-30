@@ -20,7 +20,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.3
+            "waitTime": 1.0
           }
         },
         {
@@ -42,9 +42,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "Longer Shoot Setup"
           }
         },
         {
@@ -72,9 +78,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "Longer Shoot Setup"
           }
         },
         {
@@ -102,9 +114,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "Longer Shoot Setup"
           }
         },
         {

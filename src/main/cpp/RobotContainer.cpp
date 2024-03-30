@@ -116,7 +116,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_shooter.setBeginShooter(); },
                                                                                        {&m_shooter}),                
-                                                                    frc2::cmd::Wait(1.3_s),
+                                                                    frc2::cmd::Wait(0.8_s),
                                                                     frc2::cmd::RunOnce([this]
                                                                                        { this->m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength); },
                                                                                        {&m_robotarm}),

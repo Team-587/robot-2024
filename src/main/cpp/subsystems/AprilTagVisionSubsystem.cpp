@@ -24,7 +24,7 @@ std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarge
   if(result.HasTargets()) {
 
     const std::span<const photon::PhotonTrackedTarget> targets = result.GetTargets();
-    for (const auto& target : targets) { 
+    for (const photon::PhotonTrackedTarget& target : targets) { 
         int id = target.GetFiducialId();
         if ((alliance.value() == frc::DriverStation::Alliance::kRed && id == VisionConstants::redAprilTag) || 
             (alliance.value() == frc::DriverStation::Alliance::kBlue && id == VisionConstants::blueAprilTag)) { 

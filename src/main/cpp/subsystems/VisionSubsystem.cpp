@@ -10,7 +10,7 @@ VisionSubsystem::VisionSubsystem() = default;
 void VisionSubsystem::Periodic() {}
 
 std::optional<photon::PhotonTrackedTarget> VisionSubsystem::GetBestTarget() {
-  const auto& result = GetCamera()->GetLatestResult();
+  const photon::PhotonPipelineResult& result = GetCamera()->GetLatestResult();
   if(result.HasTargets()) {
     currentTarget = std::make_optional(result.GetBestTarget());
     currentTargetTime = GetTimeMillisec();

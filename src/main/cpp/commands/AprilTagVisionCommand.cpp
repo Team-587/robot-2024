@@ -87,10 +87,11 @@ void AprilTagVisionCommand::Execute() {
         double SV = frc::SmartDashboard::GetNumber("SV", 0);
         double AA = frc::SmartDashboard::GetNumber("AA", 45);
         double EH = frc::SmartDashboard::GetNumber("EH", 0);
+        std::cout << "AprilTagVisionCommand - Shoot: " << SV << ", Arm: " << AA << ", Elevator: " << EH <<"\n";
         m_pShooterIntake->setShooterVelocity(SV);
         m_pRobotArm->ArmPosition(AA, EH);
         if(m_WaitCommand.IsFinished() && !m_pShootCommand->IsScheduled()){
-          std::cout << "AprilTagVisionCommand14\n";
+          std::cout << "AprilTagVisionCommand - Shoot Test\n";
           m_pShootCommand->Schedule();
         }
       } else {

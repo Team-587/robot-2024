@@ -78,25 +78,27 @@ void AprilTagVisionCommand::Execute() {
 //    std::cout << "AprilTagVisionCommand5\n";
     std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance();
 //    std::cout << "AprilTagVisionCommand6\n";
-    frc::SmartDashboard::PutNumber("Distance", (double)distance.value());
-//    std::cout << "AprilTagVisionCommand7\n";
-    //std::cout << "Distance: " << (double)distance.value() << "\n";
-    //double SV = frc::SmartDashboard::GetNumber("SV", 0);
-    //double AA = frc::SmartDashboard::GetNumber("AA", 45);
-    //double EH = frc::SmartDashboard::GetNumber("EH", 0);
-    //m_pShooterIntake->setShooterVelocity(SV);
-    //m_pRobotArm->ArmPosition(AA, EH);
+    
 
     if (distance.has_value()) {
-      std::cout << "AprilTagVisionCommand8\n";
+      frc::SmartDashboard::PutNumber("Distance", (double)distance.value());
+      //std::cout << "AprilTagVisionCommand7\n";
+      //std::cout << "Distance: " << (double)distance.value() << "\n";
+      //double SV = frc::SmartDashboard::GetNumber("SV", 0);
+      //double AA = frc::SmartDashboard::GetNumber("AA", 45);
+      //double EH = frc::SmartDashboard::GetNumber("EH", 0);
+      //m_pShooterIntake->setShooterVelocity(SV);
+      //m_pRobotArm->ArmPosition(AA, EH);
+      
+      //std::cout << "AprilTagVisionCommand8\n";
       std::optional<DistanceBucket*> distanceBucket = GetDistanceBucket((double)distance.value());
-      std::cout << "AprilTagVisionCommand9\n";
+      //std::cout << "AprilTagVisionCommand9\n";
       if(distanceBucket.has_value()) {
-        std::cout << "AprilTagVisionCommand10\n";
-std::cout << "AprilTagVisionCommand shooter speed: " << distanceBucket.value()->m_shooterSpeed << "\n";
-        m_pShooterIntake->setShooterVelocity(distanceBucket.value()->m_shooterSpeed);
+        //std::cout << "AprilTagVisionCommand10\n";
+        std::cout << "AprilTagVisionCommand shooter speed: " << distanceBucket.value()->m_shooterSpeed << "\n";
+        //m_pShooterIntake->setShooterVelocity(distanceBucket.value()->m_shooterSpeed);
         std::cout << "AprilTagVisionCommand11\n";
-        m_pRobotArm->ArmPosition(distanceBucket.value()->m_armAngle, distanceBucket.value()->m_elevatorHeight);
+        //m_pRobotArm->ArmPosition(distanceBucket.value()->m_armAngle, distanceBucket.value()->m_elevatorHeight);
         std::cout << "AprilTagVisionCommand12\n";
         if(m_WaitCommand.IsFinished() && !m_pShootCommand->IsScheduled()){
       std::cout << "AprilTagVisionCommand14\n";

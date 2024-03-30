@@ -30,12 +30,15 @@ std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarge
             (alliance.value() == frc::DriverStation::Alliance::kBlue && id == VisionConstants::blueAprilTag)) { 
             currentTarget = std::make_optional(target);
             currentTargetTime = GetTimeMillisec();
+            std::cout << "Found Target" << "\n";
             return currentTarget;
         }
     }
   } else if (currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime  < GetMaxTargetLatency()) {
+    std::cout << "Found Old Target" << "\n";
     return currentTarget;
   }
+  std::cout << "No Target" << "\n";
   currentTarget = std::nullopt;
   return std::nullopt;
 }

@@ -198,7 +198,7 @@ void ShooterIntake::Periodic() {
                 if(((ArmAngle < RobotArm::PickUpAngle + 5.0) || (ArmAngle > 350.0)) && ((ArmHeight < RobotArm::PickUpLength + 0.5) || ( ArmHeight > 10))) {
                     intakeMotor.Set(intakeVelocity);
                     groundIntakeMotor.Set(groundIntakeVelocity);
-                    outakeMotor.Set(0);
+                    //outakeMotor.Set(0);
                 } else {
                     intakeMotor.Set(0);
                     groundIntakeMotor.Set(0);
@@ -225,7 +225,7 @@ void ShooterIntake::Periodic() {
                 #ifdef HAVEINTAKE
                 intakeMotor.Set(0);
                 groundIntakeMotor.Set(0);
-                outakeMotor.Set(0);
+                //outakeMotor.Set(0);
                 #endif
 
                     if(shooterVelocity > 0) {

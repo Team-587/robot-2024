@@ -230,9 +230,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
 
-  frc::SmartDashboard::PutNumber("Command Angle", 0);
-  frc::SmartDashboard::PutNumber("Command Elevator", 0);
-  frc::SmartDashboard::PutNumber("Command Velocity", 0);
+  //frc::SmartDashboard::PutNumber("Command Angle", 0);
+  //frc::SmartDashboard::PutNumber("Command Elevator", 0);
+  //frc::SmartDashboard::PutNumber("Command Velocity", 0);
 
   static frc2::InstantCommand m_MoveArm{[this]
                                         { m_robotarm.ArmPosition(frc::SmartDashboard::GetNumber("Command Angle", 0), frc::SmartDashboard::GetNumber("Command Elevator", 0)); },
@@ -241,8 +241,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                 { m_shooter.setShooterVelocity(frc::SmartDashboard::PutNumber("Command Velocity", 0)); },
                                                 {&m_shooter}};
 
-  frc::SmartDashboard::PutData("Velocity Cmd", &m_ShooterVelocity);
-  frc::SmartDashboard::PutData("Arm Cmd", &m_MoveArm);
+  //frc::SmartDashboard::PutData("Velocity Cmd", &m_ShooterVelocity);
+  //frc::SmartDashboard::PutData("Arm Cmd", &m_MoveArm);
 }
 
 void RobotContainer::ConfigureButtonBindings()

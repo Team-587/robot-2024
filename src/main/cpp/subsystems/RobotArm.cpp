@@ -18,9 +18,9 @@ RobotArm::RobotArm() :
     //ElevatorEncoder(ElevatorMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor)),
     ElevatorEncoder(ElevatorMotor.GetAbsoluteEncoder(rev::SparkAbsoluteEncoder::Type::kDutyCycle)),
     ElbowAEncoder(ElbowAMotor.GetAbsoluteEncoder(rev::SparkAbsoluteEncoder::Type::kDutyCycle)),
-    ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed)),
+    //ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed)),
     #endif
-    ElevatorHeight(0.2),
+    ElevatorHeight(0.6),
     ElbowAngle(0.2),
     CurElevatorHeight(0.0),
     CurElbowAngle(0.0)
@@ -36,15 +36,15 @@ RobotArm::RobotArm() :
 
     ElevatorHeightPID.SetFeedbackDevice(ElevatorEncoder);
     ElevatorHeightPID.SetPositionPIDWrappingEnabled(false);
-    ElevatorHeightPID.SetPositionPIDWrappingMinInput(0);
-    ElevatorHeightPID.SetPositionPIDWrappingMaxInput(10);
+    ElevatorHeightPID.SetPositionPIDWrappingMinInput(0.4);
+    ElevatorHeightPID.SetPositionPIDWrappingMaxInput(11);
     ElevatorHeightPID.SetP(elevatorP);
     ElevatorHeightPID.SetI(elevatorI);
     ElevatorHeightPID.SetD(elevatorD);
     ElevatorHeightPID.SetFF(0);
     ElevatorHeightPID.SetOutputRange(-1.0, 1.0);
     ElevatorMotor.SetInverted(true);
-    ElevatorMotor.SetOpenLoopRampRate(0.5);
+    //ElevatorMotor.SetOpenLoopRampRate(0.5);
     ElevatorMotor.SetSmartCurrentLimit(60);
     ElevatorMotor.SetSoftLimit(rev::CANSparkMax::SoftLimitDirection::kForward, ElevatorMax);
     ElevatorMotor.SetSoftLimit(rev::CANSparkMax::SoftLimitDirection::kReverse, ElevatorMin);
@@ -86,11 +86,11 @@ RobotArm::RobotArm() :
     elbowPID.SetP(elbowP);
     elbowPID.SetI(elbowI);
     elbowPID.SetD(elbowD);
-    //frc::SmartDashboard::PutData("elbowPID", &elbowPID);
+    frc::SmartDashboard::PutData("elbowPID", &elbowPID);
     elevatorPID.SetP(elevatorP);
     elevatorPID.SetI(elevatorI);
     elevatorPID.SetD(elevatorD);
-    //frc::SmartDashboard::PutData("elevatorPID", &elevatorPID);
+    frc::SmartDashboard::PutData("elevatorPID", &elevatorPID);
 }
 
 
@@ -118,21 +118,21 @@ void RobotArm::GetArmPos(double &angle, double &height)
 void RobotArm::Periodic() 
 {
 
-    frc::XboxController m_codriverController{OIConstants::kCoDriverControllerPort};
+    /*frc::XboxController m_codriverController{OIConstants::kCoDriverControllerPort};
     if(m_codriverController.GetBackButton()){
       double coLeftY = m_codriverController.GetLeftY();
       if(coLeftY > -0.1 && coLeftY < 0.1){
         coLeftY = 0;
-      }
+      }*/
       
       //ElbowAngle = ElbowAngle + coLeftY*4.0; 
       //if (ElbowAngle > ElbowAngleMax) ElbowAngle = ElbowAngleMax;
       //if (ElbowAngle < ElbowAngleMin) ElbowAngle = ElbowAngleMin;
 
-      ElevatorHeight = ElevatorHeight + coLeftY * 1.0; 
+      /*(ElevatorHeight = ElevatorHeight + coLeftY * 1.0; 
       if (ElevatorHeight > ElevatorHeight) ElevatorHeight = ElevatorMax;
-      if (ElevatorHeight < ElevatorHeight) ElevatorHeight = ElevatorMin;
-    }  
+      if (ElevatorHeight < ElevatorHeight) ElevatorHeight = ElevatorMin;*/
+    //}  
 
   if (elevatorP != elevatorPID.GetP() || elevatorI != elevatorPID.GetI() || elevatorD != elevatorPID.GetD()) {
     elevatorP = elevatorPID.GetP();

@@ -30,6 +30,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Velocity"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Center Speaker"
@@ -38,13 +44,25 @@
         {
           "type": "named",
           "data": {
-            "name": "drive stop"
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Short Shoot Setup"
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Velocity"
           }
         },
         {
@@ -56,7 +74,25 @@
         {
           "type": "named",
           "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Velocity"
           }
         },
         {
@@ -68,61 +104,19 @@
         {
           "type": "named",
           "data": {
-            "name": "drive stop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Short Shoot Setup"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Shoot Amp Center"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center - Source"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "drive stop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Short Shoot Setup"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Shoot Source Center"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "name": "Long Shoot Setup"
           }
         },
         {
           "type": "wait",
           "data": {
             "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
           }
         }
       ]

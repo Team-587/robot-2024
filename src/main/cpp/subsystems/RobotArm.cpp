@@ -15,19 +15,29 @@ RobotArm::RobotArm() :
     ElbowBMotor(DriveConstants::kElbowBMotorPort, rev::CANSparkLowLevel::MotorType::kBrushless),
     ElevatorHeightPID(ElevatorMotor.GetPIDController()),
     ElbowAnglePID(ElbowAMotor.GetPIDController()),
-    ElevatorEncoder(ElevatorMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor)),
+    //ElevatorEncoder(ElevatorMotor.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor)),
+    ElevatorEncoder(ElevatorMotor.GetAbsoluteEncoder(rev::SparkAbsoluteEncoder::Type::kDutyCycle)),
     ElbowAEncoder(ElbowAMotor.GetAbsoluteEncoder(rev::SparkAbsoluteEncoder::Type::kDutyCycle)),
     ElevatorLimit(ElevatorMotor.GetReverseLimitSwitch(rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed)),
     #endif
-    ElevatorHeight(0.0),
-    ElbowAngle(60.0)
+    ElevatorHeight(0.2),
+    ElbowAngle(0.2),
+    CurElevatorHeight(0.0),
+    CurElbowAngle(0.0)
 
 {
     #ifdef HAVEARM
-    ElevatorEncoder.SetPositionConversionFactor((std::numbers::pi * 1.88) / 15.0);
-    ElevatorEncoder.SetVelocityConversionFactor((std::numbers::pi * 1.88) / 15.0 / 60.0);
-    ElevatorEncoder.SetPosition(0);
+    //ElevatorEncoder.SetPositionConversionFactor((std::numbers::pi * 1.88) / 15.0);
+    //ElevatorEncoder.SetVelocityConversionFactor((std::numbers::pi * 1.88) / 15.0 / 60.0);
 
+    ElevatorEncoder.SetPositionConversionFactor(10.2);
+    ElevatorEncoder.SetVelocityConversionFactor(10.2 / 60.0);
+    //ElevatorEncoder.SetPosition(0);
+
+    ElevatorHeightPID.SetFeedbackDevice(ElevatorEncoder);
+    ElevatorHeightPID.SetPositionPIDWrappingEnabled(false);
+    ElevatorHeightPID.SetPositionPIDWrappingMinInput(0);
+    ElevatorHeightPID.SetPositionPIDWrappingMaxInput(10);
     ElevatorHeightPID.SetP(elevatorP);
     ElevatorHeightPID.SetI(elevatorI);
     ElevatorHeightPID.SetD(elevatorD);
@@ -98,6 +108,12 @@ void RobotArm::ArmPosition(double angle, double height)
   std::cout<<ElbowAngle<<" Change Arm Angle\n";
 }
 
+void RobotArm::GetArmPos(double &angle, double &height)
+{
+  angle = CurElbowAngle;
+  height = CurElevatorHeight;
+}
+
 // This method will be called once per scheduler run
 void RobotArm::Periodic() 
 {
@@ -109,9 +125,13 @@ void RobotArm::Periodic()
         coLeftY = 0;
       }
       
-      ElbowAngle = ElbowAngle + coLeftY*4.0; 
-      if (ElbowAngle > ElbowAngleMax) ElbowAngle = ElbowAngleMax;
-      if (ElbowAngle < ElbowAngleMin) ElbowAngle = ElbowAngleMin;
+      //ElbowAngle = ElbowAngle + coLeftY*4.0; 
+      //if (ElbowAngle > ElbowAngleMax) ElbowAngle = ElbowAngleMax;
+      //if (ElbowAngle < ElbowAngleMin) ElbowAngle = ElbowAngleMin;
+
+      ElevatorHeight = ElevatorHeight + coLeftY * 1.0; 
+      if (ElevatorHeight > ElevatorHeight) ElevatorHeight = ElevatorMax;
+      if (ElevatorHeight < ElevatorHeight) ElevatorHeight = ElevatorMin;
     }  
 
   if (elevatorP != elevatorPID.GetP() || elevatorI != elevatorPID.GetI() || elevatorD != elevatorPID.GetD()) {
@@ -143,11 +163,14 @@ void RobotArm::Periodic()
     double ElevatorEncoderValue = ElevatorEncoder.GetPosition();
     double ElbowAEncoderValue = ElbowAEncoder.GetPosition();
 
-    if(ElevatorLimit.Get()){
+    CurElevatorHeight = ElevatorEncoderValue;
+    CurElbowAngle = ElbowAEncoderValue;
+
+    /*if(ElevatorLimit.Get()){
       //std::cout << "Elevator Limit hit\n";
-      ElevatorEncoder.SetPosition(0);
+      //ElevatorEncoder.SetPosition(0);
       ElevatorEncoderValue = 0;
-    }
+    }*/
 
     frc::SmartDashboard::PutNumber("Cur Elbow Angle", ElbowAEncoderValue);
     frc::SmartDashboard::PutNumber("Set Elbow Angle", ElbowAngle);
@@ -162,7 +185,7 @@ void RobotArm::Periodic()
     bool DesElevatorLong = ElevatorHeight >= ElevatorMaxsafe;
     bool DesElbowHigh = ElbowAngle >= ElbowAngleMaxsafe;
 
-    if(CurElevatorLong == true && DesElevatorLong == false && CurElbowHigh == false){
+    /*if(CurElevatorLong == true && DesElevatorLong == false && CurElbowHigh == false){
        ElevatorHeightPID.SetReference(ElevatorMaxsafe, rev::CANSparkMax::ControlType::kPosition);
        ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);
     }else if(CurElevatorLong == false && CurElbowHigh == true && DesElbowHigh == false){
@@ -171,7 +194,9 @@ void RobotArm::Periodic()
     }else{
         ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);
         ElevatorHeightPID.SetReference(ElevatorHeight, rev::CANSparkMax::ControlType::kPosition);
-    }
+    }*/
+    ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);
+    ElevatorHeightPID.SetReference(ElevatorHeight, rev::CANSparkMax::ControlType::kPosition);
     #endif
     
 

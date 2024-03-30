@@ -42,6 +42,7 @@ constexpr int kRightTentacleMotorPort = 3;
 
 constexpr int kIntakeMotorPort = 4;
 constexpr int kOutakeMotorPort = 5;
+constexpr int kGroundIntakeMotorPort = 9;
 constexpr int kIntakeSwitchPort = 0; //DIO port
 constexpr int kfrontSwitchPort = 2;
 constexpr int kbackSwitchPort = 3;

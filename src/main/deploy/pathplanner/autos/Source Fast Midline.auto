@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.4702555274013229,
-      "y": 4.165457812392099
+      "x": 0.8442899328546756,
+      "y": 4.39709133871194
     },
-    "rotation": 0
+    "rotation": -59.48976259388447
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.1
+            "waitTime": 0.5
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Source Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "drive stop"
           }
         },
         {
@@ -42,21 +48,9 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Shoot Note 5"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "Longer Shoot Setup"
+            "name": "drive stop"
           }
         },
         {
@@ -68,7 +62,25 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot + Intake"
+            "name": "Short Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot Note 5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         }
       ]

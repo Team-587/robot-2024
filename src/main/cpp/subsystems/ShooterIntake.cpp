@@ -275,7 +275,7 @@ void ShooterIntake::Periodic() {
                         stateVar = STOP;
                         
                         std::cout<<"Done Shooting\n";
-                        shooterVelocity = 0;
+                        //shooterVelocity = 0;
 
                     }
                 break;

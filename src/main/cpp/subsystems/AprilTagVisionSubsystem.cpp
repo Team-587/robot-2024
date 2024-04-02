@@ -22,23 +22,27 @@ std::optional<photon::PhotonTrackedTarget> AprilTagVisionSubsystem::GetBestTarge
   const photon::PhotonPipelineResult result = GetCamera()->GetLatestResult();
   std::cout << "HasTarget: " << result.HasTargets() << "\n";
   if(result.HasTargets()) {
-
+    //std::cout << "Found Target1" << "\n";
     const std::span<const photon::PhotonTrackedTarget> targets = result.GetTargets();
+    //std::cout << "Found Target2" << "\n";
     for (const photon::PhotonTrackedTarget& target : targets) { 
+      //std::cout << "Found Target3" << "\n";
         int id = target.GetFiducialId();
         if ((alliance.value() == frc::DriverStation::Alliance::kRed && id == VisionConstants::redAprilTag) || 
             (alliance.value() == frc::DriverStation::Alliance::kBlue && id == VisionConstants::blueAprilTag)) { 
+            //std::cout << "Found Target4" << "\n";
             currentTarget = std::make_optional(target);
             currentTargetTime = GetTimeMillisec();
-            std::cout << "Found Target" << "\n";
+            //std::cout << "Found Target5" << "\n";
             return currentTarget;
         }
     }
   } else if (currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime  < GetMaxTargetLatency()) {
     std::cout << "Found Old Target" << "\n";
     return currentTarget;
+  } else {
+    std::cout << "No Target" << "\n";
+    currentTarget = std::nullopt;
+    return std::nullopt;
   }
-  std::cout << "No Target" << "\n";
-  currentTarget = std::nullopt;
-  return std::nullopt;
 }

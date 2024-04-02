@@ -32,7 +32,7 @@ void ShootCommand::Execute() {}
 // Called once the command ends or is interrupted.
 void ShootCommand::End(bool interrupted) {
   m_pShooterIntake->setIntakeVelocity(0);
-  std::cout << "shootcommand end/n";
+  //std::cout << "shootcommand end/n";
 }
   
 // Returns true when the command should end.

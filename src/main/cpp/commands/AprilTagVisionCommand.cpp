@@ -9,7 +9,8 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   DriveSubsystem* pDriveSubsystem,
   ShooterIntake* pShooterIntake,
   RobotArm* pRobotArm,
-  ShootCommand* pShootCommand) {
+  ShootCommand* pShootCommand) :
+    m_VisionThread{"AprilTag", pAprilTagVisionSubsystem} {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
   m_pDriveSubsystem = pDriveSubsystem;
@@ -18,12 +19,13 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   m_pShootCommand = pShootCommand;
   
   AddRequirements(m_pAprilTagVisionSubsystem);
-  //AddRequirements(m_pDriveSubsystem);
+  AddRequirements(m_pShooterIntake);
+  AddRequirements(m_pDriveSubsystem);
 
-  turnController.SetTolerance(3, 5);
-  turnController.SetIntegratorRange(-.05, .05);
-  forwardController.SetTolerance(1, 3);
-  forwardController.SetIntegratorRange(-.05, .05);
+  //turnController.SetTolerance(3, 5);
+  //turnController.SetIntegratorRange(-.05, .05);
+  //forwardController.SetTolerance(1, 3);
+  //forwardController.SetIntegratorRange(-.05, .05);
   
   int count = 0;
   m_DistanceBuckets[count++] = new DistanceBucket(1.57, 1.705, .6, 0, 0, 15);
@@ -36,17 +38,19 @@ AprilTagVisionCommand::AprilTagVisionCommand(
   m_DistanceBuckets[count++] = new DistanceBucket(3.495, 3.785, .7, 0, 0, 32);
   m_DistanceBuckets[count++] = new DistanceBucket(3.785, 3.93, .75, 0, 0, 34);
 
-  frc::SmartDashboard::PutNumber("SV", 0);
-  frc::SmartDashboard::PutNumber("AA", 45);
+  frc::SmartDashboard::PutNumber("SV", 4200);
+  frc::SmartDashboard::PutNumber("AA", 25);
   frc::SmartDashboard::PutNumber("EH", 0);
-  frc::SmartDashboard::PutNumber("EnableTest", 0);
+  frc::SmartDashboard::PutNumber("EnableTest", 1);
+  m_VisionThread.Start();
 }
 
 // Called when the command is initially scheduled.
 void AprilTagVisionCommand::Initialize() {
-  alliance = frc::DriverStation::GetAlliance();
+  //alliance = frc::DriverStation::GetAlliance();
   std::cout << "AprilTagVisionCommand" << m_pAprilTagVisionSubsystem->GetCamera()->GetCameraTable().get()->GetPath() << "\n";
   m_WaitCommand.Schedule();
+  m_VisionThread.Enable(true);
 }
 
 
@@ -64,6 +68,48 @@ std::optional<DistanceBucket*> AprilTagVisionCommand::GetDistanceBucket(double d
 // Called repeatedly when this Command is scheduled to run
 void AprilTagVisionCommand::Execute() {
 
+  double rotationSpeed = m_driverController.GetRightX();
+  photon::PhotonTrackedTarget *pTarget = m_VisionThread.GetTarget();
+  if(pTarget) {
+    std::optional<units::meter_t> distance = m_pAprilTagVisionSubsystem->GetDistance(pTarget);
+    if (distance.has_value()) {
+      frc::SmartDashboard::PutNumber("Distance", (double)distance.value());
+      double ET = frc::SmartDashboard::GetNumber("EnableTest", 1);
+      if(ET > 0) {
+        double SV = frc::SmartDashboard::GetNumber("SV", 4200);
+        double AA = frc::SmartDashboard::GetNumber("AA", 25);
+        double EH = frc::SmartDashboard::GetNumber("EH", 0);
+        std::cout << "AprilTagVisionCommand - Shoot: " << SV << ", Arm: " << AA << ", Elevator: " << EH <<"\n";
+        m_pShooterIntake->setShooterVelocity(SV);
+        m_pRobotArm->ArmPosition(AA, EH);
+        if(m_WaitCommand.IsFinished()){
+          m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeShootVelocity);
+        }
+      } else {
+        std::optional<DistanceBucket*> distanceBucket = GetDistanceBucket((double)distance.value());
+        if(distanceBucket.has_value()) {
+          std::cout << "AprilTagVisionCommand - Shoot: " << distanceBucket.value()->m_shooterSpeed << ", Arm: " << distanceBucket.value()->m_armAngle << ", Elevator: " << distanceBucket.value()->m_elevatorHeight <<"\n";
+          m_pShooterIntake->setShooterVelocity(distanceBucket.value()->m_shooterSpeed);
+          m_pRobotArm->ArmPosition(distanceBucket.value()->m_armAngle, distanceBucket.value()->m_elevatorHeight);
+          if(m_WaitCommand.IsFinished()){
+            m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeShootVelocity);
+          }
+        }
+      }
+      if (fabs(pTarget->GetYaw()) > 3) {
+        rotationSpeed = pTarget->GetYaw() > 0 ? .1 : -.1;
+        std::cout << "AprilTagVisionCommand - Yaw: " << pTarget->GetYaw() << ", Rotation: " << rotationSpeed << "\n";
+      } else {
+        rotationSpeed = 0;
+      }
+    }
+  }
+  m_pDriveSubsystem->Drive(
+        units::meters_per_second_t{m_driverController.GetLeftY()},
+        units::meters_per_second_t{m_driverController.GetLeftX()},
+        units::radians_per_second_t{rotationSpeed}, true);
+
+/*
   //std::cout << "AprilTagVisionCommand\n";
   const std::optional<photon::PhotonTrackedTarget> target = m_pAprilTagVisionSubsystem->GetBestTarget();
   //std::cout << "AprilTagVisionCommand1\n";
@@ -82,17 +128,19 @@ void AprilTagVisionCommand::Execute() {
       //std::cout << "AprilTagVisionCommand7\n";
       //std::cout << "Distance: " << (double)distance.value() << "\n";
       //std::cout << "AprilTagVisionCommand8\n";
-      double ET = frc::SmartDashboard::GetNumber("EnableTest", 0);
+      double ET = frc::SmartDashboard::GetNumber("EnableTest", 1);
       if(ET > 0) {
-        double SV = frc::SmartDashboard::GetNumber("SV", 0);
-        double AA = frc::SmartDashboard::GetNumber("AA", 45);
+        double SV = frc::SmartDashboard::GetNumber("SV", 4200);
+        double AA = frc::SmartDashboard::GetNumber("AA", 25);
         double EH = frc::SmartDashboard::GetNumber("EH", 0);
         std::cout << "AprilTagVisionCommand - Shoot: " << SV << ", Arm: " << AA << ", Elevator: " << EH <<"\n";
         m_pShooterIntake->setShooterVelocity(SV);
         m_pRobotArm->ArmPosition(AA, EH);
-        if(m_WaitCommand.IsFinished() && !m_pShootCommand->IsScheduled()){
-          std::cout << "AprilTagVisionCommand - Shoot Test\n";
-          m_pShootCommand->Schedule();
+        //std::cout << "AprilTagVisionCommand - check wait\n";
+        if(m_WaitCommand.IsFinished()){// && !m_pShootCommand->IsScheduled()){
+          //std::cout << "AprilTagVisionCommand - Shoot Test\n";
+          //m_pShootCommand->Schedule();
+          m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeShootVelocity);
         }
       } else {
         std::optional<DistanceBucket*> distanceBucket = GetDistanceBucket((double)distance.value());
@@ -105,19 +153,22 @@ void AprilTagVisionCommand::Execute() {
           //m_pRobotArm->ArmPosition(distanceBucket.value()->m_armAngle, distanceBucket.value()->m_elevatorHeight);
           //std::cout << "AprilTagVisionCommand12\n";
 
-          if(m_WaitCommand.IsFinished() && !m_pShootCommand->IsScheduled()){
-            std::cout << "AprilTagVisionCommand14\n";
-            m_pShootCommand->Schedule();
+          if(m_WaitCommand.IsFinished()){// && !m_pShootCommand->IsScheduled()){
+            //std::cout << "AprilTagVisionCommand14\n";
+            //m_pShootCommand->Schedule();
+            m_pShooterIntake->setIntakeVelocity(ShooterIntakeConstants::intakeShootVelocity);
           }
         }
+      }
+      if (fabs(target.value().GetYaw()) > 1) {
+        rotationSpeed = target.value().GetYaw() > 0 ? .2 : -.2;
+        std::cout << "AprilTagVisionCommand - Yaw: " << target.value().GetYaw() << ", Rotation: " << rotationSpeed << "\n";
       }
     }
 
     //rotationSpeed = -turnController.Calculate(target.value().GetYaw(), 0);
     //rotationSpeed = std::fmin(1, std::fmax(-1, rotationSpeed / 5)); 
-    //if (fabs(target.value().GetYaw()) > 1) {
-    //  rotationSpeed = target.value().GetYaw() ? -.1 : .1;
-    //}
+    
     
     //rotationSpeed = target.value().GetYaw() ? -.1 : .1;
     
@@ -128,15 +179,21 @@ void AprilTagVisionCommand::Execute() {
   } //else {
     //rotationSpeed = m_driverController.GetRightX();
   //}
-  //m_pDriveSubsystem->Drive(
-  //      units::meters_per_second_t{m_driverController.GetLeftY()},
-  //      units::meters_per_second_t{m_driverController.GetLeftX()},
-  //      units::radians_per_second_t{rotationSpeed}, true);
+  m_pDriveSubsystem->Drive(
+        units::meters_per_second_t{m_driverController.GetLeftY()},
+        units::meters_per_second_t{m_driverController.GetLeftX()},
+        units::radians_per_second_t{rotationSpeed}, true);
+*/
 }
 
 // Called once the command ends or is interrupted.
 void AprilTagVisionCommand::End(bool interrupted) {
-  m_pShootCommand->Cancel();
+  //if(m_pShootCommand->IsScheduled())
+  //  m_pShootCommand->Cancel();
+  //std::cout << "AprilTagVisionCommand - End\n";
+  m_pShooterIntake->setIntakeVelocity(0);
+  m_VisionThread.Enable(false);
+  
 }
 
 // Returns true when the command should end.

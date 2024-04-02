@@ -141,7 +141,7 @@ void ShooterIntake::setIntakeVelocity(double velocity) {
     } else {
         groundIntakeMotor.Set(0);
     }
-
+    //std::cout << "intake velocity: " << velocity << "\n";
     intakeMotor.Set(velocity);
 }
 

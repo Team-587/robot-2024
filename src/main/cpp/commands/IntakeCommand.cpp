@@ -41,6 +41,7 @@ void IntakeCommand::Execute() {
   }
   #else
   if(intakeSwitchGet == true){
+    //std::cout << "IntakeCommand - End\n";
     m_pShooterIntake->setIntakeVelocity(0);
   }
   #endif
@@ -48,6 +49,7 @@ void IntakeCommand::Execute() {
 
 // Called once the command ends or is interrupted.
 void IntakeCommand::End(bool interrupted) {
+  //std::cout << "IntakeCommand - End\n";
   m_pShooterIntake->setIntakeVelocity(0);
 }
 

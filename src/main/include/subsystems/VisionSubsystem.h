@@ -27,7 +27,7 @@ class VisionSubsystem : public frc2::SubsystemBase {
 
   std::optional<photon::PhotonTrackedTarget> GetBestTarget();
   
-  std::optional<units::meter_t> GetDistance();
+  std::optional<units::meter_t> GetDistance(photon::PhotonTrackedTarget *pTarget);
 
   uint64_t GetTimeMillisec() {
     using namespace std::chrono;

@@ -13,6 +13,7 @@
 #include "subsystems/NoteVisionSubsystem.h"
 #include "subsystems/ShooterIntake.h"
 #include "commands/IntakeCommand.h"
+#include "VisionThread.h"
 
 /**
  * An example command.
@@ -45,6 +46,7 @@ class NoteVisionCommand
 
   private:
   
+    VisionThread m_VisionThread;
     NoteVisionSubsystem* m_pNoteVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;
@@ -56,9 +58,9 @@ class NoteVisionCommand
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 
-    frc::PIDController forwardController{VisionConstants::VISION_LINEAR_P, 0.0, VisionConstants::VISION_LINEAR_D};
-    frc::PIDController turnController{VisionConstants::VISION_ANGULAR_P, 0.0, VisionConstants::VISION_ANGULAR_D};
+    //frc::PIDController forwardController{VisionConstants::VISION_LINEAR_P, 0.0, VisionConstants::VISION_LINEAR_D};
+    //frc::PIDController turnController{VisionConstants::VISION_ANGULAR_P, 0.0, VisionConstants::VISION_ANGULAR_D};
 
-    double rotationSpeed;
-    double forwardSpeed;
+    //double rotationSpeed;
+    //double forwardSpeed;
 };

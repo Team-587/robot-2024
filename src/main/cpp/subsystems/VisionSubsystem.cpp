@@ -28,15 +28,15 @@ bool VisionSubsystem::HasTargets()
     return currentTarget != std::nullopt && GetTimeMillisec() - currentTargetTime < GetMaxTargetLatency();
 }
 
-std::optional<units::meter_t> VisionSubsystem::GetDistance() {
-  if(!currentTarget.has_value()) {
+std::optional<units::meter_t> VisionSubsystem::GetDistance(photon::PhotonTrackedTarget *pTarget) {
+  if(pTarget) {
     return std::nullopt;
   }
   units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(
       GetCameraHeight(), 
       GetTargetHeight(), 
       GetCameraPitch(),
-      units::degree_t{currentTarget.value().GetPitch()});
+      units::degree_t{pTarget->GetPitch()});
   return std::make_optional(range);
 
    

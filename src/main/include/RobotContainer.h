@@ -116,5 +116,6 @@ class RobotContainer {
     std::unique_ptr<frc2::Command> Destroy;
     std::unique_ptr<frc2::Command> Amp_Note1_Note2;
     std::unique_ptr<frc2::Command> FivePiece;
+    std::unique_ptr<frc2::Command> SourceMidline;
 
 };

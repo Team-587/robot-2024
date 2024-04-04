@@ -208,8 +208,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string Amp_Str = "Amp";
   const std::string Destroy_Str = "destroy";
   const std::string Amp_Note1_Note2_Str = "Amp + Note 1 + Note 2";
-  const std::string FivePiece_Str = "5 Piece";
-  const std::string SourceMidline_Str = "Source Fast Midline";
+  const std::string CenterFivePiece_Str = "Center 5 Piece";
+  const std::string SourceMidline_Str = "Source Midline";
+  const std::string AmpMidline_Str = "Amp Midline";
 
   AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
   Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
@@ -223,8 +224,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   Amp = pathplanner::PathPlannerAuto(Amp_Str).ToPtr().Unwrap();
   Destroy = pathplanner::PathPlannerAuto(Destroy_Str).ToPtr().Unwrap();
   Amp_Note1_Note2 = pathplanner::PathPlannerAuto(Amp_Note1_Note2_Str).ToPtr().Unwrap();
-  FivePiece = pathplanner::PathPlannerAuto(FivePiece_Str).ToPtr().Unwrap();
-  SourceMidline = pathplanner::PathPlannerAuto(SourceMidline_Str).ToPtr().Unwrap();
+  CenterFivePiece = pathplanner::PathPlannerAuto(CenterFivePiece_Str).ToPtr().Unwrap();
+  //SourceMidline = pathplanner::PathPlannerAuto(SourceMidline_Str).ToPtr().Unwrap();
+  //AmpMidline = pathplanner::PathPlannerAuto(AmpMidline_Str).ToPtr().Unwrap();
 
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
   m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
@@ -238,8 +240,9 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(Amp_Str, Amp.get());
   m_chooser.AddOption(Destroy_Str, Destroy.get());
   m_chooser.AddOption(Amp_Note1_Note2_Str, Amp_Note1_Note2.get());
-  m_chooser.AddOption(FivePiece_Str, FivePiece.get());
-  m_chooser.AddOption(SourceMidline_Str, SourceMidline.get());
+  m_chooser.AddOption(CenterFivePiece_Str, CenterFivePiece.get());
+  //m_chooser.AddOption(SourceMidline_Str, SourceMidline.get());
+  //m_chooser.AddOption(AmpMidline_Str, AmpMidline.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
 

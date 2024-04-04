@@ -13,7 +13,7 @@ RumbleCommand::RumbleCommand(
     m_WaitRumbleOffCommand{RumbleOffTime} {
   // Use addRequirements() here to declare subsystem dependencies.
   m_RumbleType = RumbleType;
-  m_RumbleIntensity = RumbleIntensity
+  m_RumbleIntensity = RumbleIntensity;
 }
 
 // Called when the command is initially scheduled.

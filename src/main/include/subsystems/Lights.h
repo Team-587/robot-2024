@@ -10,6 +10,7 @@
 #include "AprilTagVisionSubsystem.h"
 #include "NoteVisionSubsystem.h"
 #include "ShooterIntake.h"
+#include <commands/RumbleCommand.h>
 
 class Lights : public frc2::SubsystemBase {
  public:
@@ -29,8 +30,10 @@ class Lights : public frc2::SubsystemBase {
 AprilTagVisionSubsystem* m_pAprilTagVisionSubsystem;
 NoteVisionSubsystem* m_pNoteVisionSubsystem;
 ShooterIntake* m_pShooterIntake;
+RumbleCommand m_rumbleCommand;
 
 bool blueActive;
+bool readyToRumble = false;
 int ledLoopCount;
 int disableLoopCount;
 bool haveNoteLight;

@@ -20,6 +20,7 @@
 #include "commands/ShootCommand.h"
 #include <frc2/command/WaitCommand.h>
 #include "VisionThread.h"
+#include <commands/RumbleCommand.h>
 /**
  * An example command.
  *
@@ -58,6 +59,7 @@ class AprilTagVisionCommand
     RobotArm* m_pRobotArm;
     ShootCommand* m_pShootCommand;
     frc2::WaitCommand m_WaitCommand{2_s};
+    RumbleCommand m_rumbleCommand;
     
     const static int BUCKET_COUNT = 23;
     DistanceBucket* m_DistanceBuckets[BUCKET_COUNT];

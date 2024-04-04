@@ -7,7 +7,10 @@
 #include "subsystems/ShooterIntake.h"
 #include "Constants.h"
 
-IntakeCommand::IntakeCommand(ShooterIntake* pShooterIntake, int wait) {
+IntakeCommand::IntakeCommand(ShooterIntake* pShooterIntake, int wait) : m_rumbleCommand{
+  frc::GenericHID::RumbleType::kLeftRumble,
+  1_s, 1_s, 1
+  } {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pShooterIntake = pShooterIntake;
   //if(wait > 0) m_pWait = new frc2::WaitCommand(units::second_t(wait));
@@ -51,6 +54,7 @@ void IntakeCommand::Execute() {
 void IntakeCommand::End(bool interrupted) {
   //std::cout << "IntakeCommand - End\n";
   m_pShooterIntake->setIntakeVelocity(0);
+  m_rumbleCommand.Schedule();
 }
 
 // Returns true when the command should end.

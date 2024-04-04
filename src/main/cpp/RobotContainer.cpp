@@ -148,6 +148,15 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                         frc2::cmd::RunOnce([this]
                                                                                            { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
                                                                                            {&m_shooter})));
+
+                                                                                           
+  pathplanner::NamedCommands::registerCommand("Shoot Note 1", frc2::cmd::Sequence(
+                                                                        frc2::cmd::RunOnce([this]
+                                                                                           { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle + 5, RobotArm::LongShootLength); },
+                                                                                           {&m_robotarm}),
+                                                                        frc2::cmd::RunOnce([this]
+                                                                                           { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
+                                                                                           {&m_shooter})));
   // Set up default drive command
   // The left stick controls translation of the robot.
   // Turning is controlled by the X axis of the right stick

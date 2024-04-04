@@ -50,7 +50,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.4
+            "waitTime": 0.2
           }
         },
         {
@@ -68,7 +68,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Long Shoot Setup"
+            "name": "Shoot Note 1"
           }
         },
         {

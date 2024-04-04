@@ -52,15 +52,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "Long Shoot Velocity"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Setup"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Long Shoot Velocity"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Longer Shoot Setup"
+                      }
+                    }
+                  ]
                 }
               }
             ]

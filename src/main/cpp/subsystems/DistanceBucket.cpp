@@ -4,18 +4,23 @@
 
 #include "subsystems/DistanceBucket.h"
 
-DistanceBucket::DistanceBucket(double minDist,
-                     double maxDist,
-                     double shooterSpeed,
-                     double intakeSpeed,
-                     double elevatorHeight,
-                     double armAngle) { 
-    
+DistanceBucket::DistanceBucket(double distance,
+                    double shooterSpeed,
+                    double armAngle) { 
+  m_distance = distance; 
+  m_shooterSpeed = shooterSpeed;
+  m_armAngle = armAngle;
+}
+
+DistanceBucket::DistanceBucket(double distance,
+                    double minDist,
+                    double maxDist,
+                    double shooterSpeed,
+                    double armAngle) { 
+    m_distance = distance;
     m_minDist = minDist;
     m_maxDist = maxDist;
     m_shooterSpeed = shooterSpeed;
-    m_intakeSpeed = intakeSpeed;
-    m_elevatorHeight = elevatorHeight;
     m_armAngle = armAngle;
 }
 

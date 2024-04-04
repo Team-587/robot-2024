@@ -190,6 +190,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
         if (!m_shooter.getEndgame() && fabs(y) > .1) {
           m_shooter.setIntakeVelocity(y);
         } else {
+          //std::cout << "RobotContainer - End\n";
           m_shooter.setIntakeVelocity(0);
         }
       },
@@ -272,8 +273,8 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton xButtonDrive(&m_driverController, frc::XboxController::Button::kX);
   xButtonDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);
 
-  frc2::JoystickButton RightTriggerCoDriver{&m_codriverController, frc::XboxController::Button::kRightStick};
-  RightTriggerCoDriver.WhileTrue(&m_AprilTagVisionCommand).OnFalse(&m_HoldPosition);
+  frc2::JoystickButton RightTriggerCoDriver{&m_codriverController, frc::XboxController::Button::kX};
+  RightTriggerCoDriver.WhileTrue(&m_AprilTagVisionCommand).OnFalse(&m_HoldPosition).OnFalse(&m_StopIntake);
 
   frc2::JoystickButton leftBumperDriver{&m_driverController, frc::XboxController::Button::kLeftBumper};
   leftBumperDriver.WhileTrue(&m_NoteVisionCommand);
@@ -294,8 +295,8 @@ void RobotContainer::ConfigureButtonBindings()
   yButtonCoDrive.OnTrue(&m_ShortShootPosition).OnTrue(&m_ShortShootVelocity);
 
 
-  frc2::JoystickButton xButtonCoDrive{&m_codriverController, frc::XboxController::Button::kX};
-  xButtonCoDrive.OnTrue(&m_LongSetup);
+  //frc2::JoystickButton xButtonCoDrive{&m_codriverController, frc::XboxController::Button::kX};
+  //xButtonCoDrive.OnTrue(&m_LongSetup);
 
   /*
       frc2::JoystickButton bButtonCoDrive{&m_codriverController, frc::XboxController::Button::kB};

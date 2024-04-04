@@ -19,6 +19,7 @@
 #include "subsystems/RobotArm.h"
 #include "commands/ShootCommand.h"
 #include <frc2/command/WaitCommand.h>
+#include "VisionThread.h"
 /**
  * An example command.
  *
@@ -48,6 +49,9 @@ class AprilTagVisionCommand
   bool IsFinished() override;
 
   private:
+
+    VisionThread m_VisionThread;
+
     AprilTagVisionSubsystem* m_pAprilTagVisionSubsystem;
     DriveSubsystem* m_pDriveSubsystem;
     ShooterIntake* m_pShooterIntake;
@@ -55,18 +59,19 @@ class AprilTagVisionCommand
     ShootCommand* m_pShootCommand;
     frc2::WaitCommand m_WaitCommand{2_s};
     
-    DistanceBucket* m_DistanceBuckets[9];
+    const static int BUCKET_COUNT = 23;
+    DistanceBucket* m_DistanceBuckets[BUCKET_COUNT];
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 
-    frc::PIDController forwardController{VisionConstants::VISION_LINEAR_P, 0.0, VisionConstants::VISION_LINEAR_D};
-    frc::PIDController turnController{VisionConstants::VISION_ANGULAR_P, 0.0, VisionConstants::VISION_ANGULAR_D};
+    //frc::PIDController forwardController{VisionConstants::VISION_LINEAR_P, 0.0, VisionConstants::VISION_LINEAR_D};
+    //frc::PIDController turnController{VisionConstants::VISION_ANGULAR_P, 0.0, VisionConstants::VISION_ANGULAR_D};
 
-    double rotationSpeed;
-    double forwardSpeed;
+    //double rotationSpeed;
+    //double forwardSpeed;
 
-    int aprilTagID;
+    //int aprilTagID;
 
-    std::optional<frc::DriverStation::Alliance> alliance;
+    //std::optional<frc::DriverStation::Alliance> alliance;
 
 };

@@ -38,15 +38,15 @@ class VisionThread {
         if(m_Enable) {
           std::optional<photon::PhotonTrackedTarget> target = m_pVisionSubsystem->GetBestTarget();
           //frc::SmartDashboard::PutBoolean(m_Name + " Targets", target.has_value());
-          std::cout << m_Name << "Targeting\n";
+          //std::cout << m_Name << "Targeting\n";
           if(target.has_value()) {
             SetTarget(&target.value());
           } else {
             SetTarget(nullptr);
           }
         }
-        //usleep(1000000); 
-        sleep(300);
+        usleep(300 * 1000); 
+        //sleep(300);
       }
     }
 

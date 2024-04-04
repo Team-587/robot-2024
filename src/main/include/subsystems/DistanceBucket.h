@@ -12,20 +12,25 @@
 
 class DistanceBucket : public frc2::SubsystemBase {
  public:
-    DistanceBucket(double minDist,
+    DistanceBucket(
+              double distance,
+              double shooterSpeed,
+              double armAngle);
+    DistanceBucket(
+              double distance,
+              double minDist,
               double maxDist,
               double shooterSpeed,
-              double intakeSpeed,
-              double elevatorHeight,
               double armAngle);
 
     DistanceBucket();
 
+    double m_distance;
     double m_minDist;
     double m_maxDist;
     double m_shooterSpeed;
-    double m_intakeSpeed;
-    double m_elevatorHeight;
+    //double m_intakeSpeed;
+    //double m_elevatorHeight;
     double m_armAngle;
   
   private:

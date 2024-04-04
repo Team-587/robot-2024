@@ -57,9 +57,10 @@ class AprilTagVisionCommand
     ShooterIntake* m_pShooterIntake;
     RobotArm* m_pRobotArm;
     ShootCommand* m_pShootCommand;
-    frc2::WaitCommand m_WaitCommand{1_s};
+    frc2::WaitCommand m_WaitCommand{2_s};
     
-    DistanceBucket* m_DistanceBuckets[9];
+    const static int BUCKET_COUNT = 23;
+    DistanceBucket* m_DistanceBuckets[BUCKET_COUNT];
 
     frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 

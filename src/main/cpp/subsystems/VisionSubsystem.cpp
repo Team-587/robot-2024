@@ -29,7 +29,7 @@ bool VisionSubsystem::HasTargets()
 }
 
 std::optional<units::meter_t> VisionSubsystem::GetDistance(photon::PhotonTrackedTarget *pTarget) {
-  if(pTarget) {
+  if(!pTarget) {
     return std::nullopt;
   }
   units::meter_t range = photon::PhotonUtils::CalculateDistanceToTarget(

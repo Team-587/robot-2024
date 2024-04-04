@@ -50,20 +50,7 @@ void Lights::Periodic() {
 
     //frc::DigitalInput intakeSwitch {DriveConstants::kIntakeSwitchPort + 1};
     bool temp = m_pShooterIntake->getIntakeSensorState();
-    if(temp == true) {
-        for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
-        {
-            haveNoteLight = temp;
-            LEDsideArray[i].SetRGB(167, 3, 255);
-        }
-
-        for (int i = 0; i < DriveConstants::kLEDbackLength; i++)
-        {
-            haveNoteLight = temp;
-            LEDbackArray[i].SetRGB(167, 3, 255);
-        }
-      
-    } else if(m_pAprilTagVisionSubsystem->HasTargets() == true) {
+    if(m_pAprilTagVisionSubsystem->HasTargets() == true) {
 
         for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
         {
@@ -91,6 +78,19 @@ void Lights::Periodic() {
             LEDbackArray[i].SetRGB(0, 255, 0);
         }
 
+    } else if(temp == true) {
+        for (int i = 0; i < DriveConstants::kLEDsideLength; i++)
+        {
+            haveNoteLight = temp;
+            LEDsideArray[i].SetRGB(167, 3, 255);
+        }
+
+        for (int i = 0; i < DriveConstants::kLEDbackLength; i++)
+        {
+            haveNoteLight = temp;
+            LEDbackArray[i].SetRGB(167, 3, 255);
+        }
+      
     } else if(temp == false && haveNoteLight == true){
         haveNoteLight = false;
     } else if(frc::DriverStation::IsDisabled() == true) {

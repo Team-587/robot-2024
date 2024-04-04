@@ -10,7 +10,10 @@
 Lights::Lights(
     AprilTagVisionSubsystem* pAprilTagVisionSubsystem,
     NoteVisionSubsystem* pNoteVisionSubsystem,
-    ShooterIntake* pShooterIntake)
+    ShooterIntake* pShooterIntake) : m_rumbleCommand{
+  frc::GenericHID::RumbleType::kBothRumble,
+  1_s, 1_s, 1
+  } 
 {
 
 m_pAprilTagVisionSubsystem = pAprilTagVisionSubsystem;
@@ -141,9 +144,13 @@ void Lights::Periodic() {
             //autoEnabled = true;
         }else{
             //autoEnabled = false;
-            if(matchTime <= 15){
-                totalMatchTime = 15;
+            if(matchTime <= 20){
+                totalMatchTime = 20;
                 endgame = true;
+                if(readyToRumble == false){
+                    m_rumbleCommand.IsScheduled();
+                    readyToRumble = true;
+                }
             }
             else{
                 endgame = false;

@@ -7,8 +7,9 @@
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/WaitCommand.h>
-#include <subsystems/ShooterIntake.h>
-#include <commands/RumbleCommand.h>
+#include <frc/XboxController.h>
+
+#include "Constants.h"
 
 /**
  * An example command.
@@ -17,12 +18,14 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class IntakeCommand
-    : public frc2::CommandHelper<frc2::Command, IntakeCommand> {
+class RumbleCommand
+    : public frc2::CommandHelper<frc2::Command, RumbleCommand> {
  public:
-  IntakeCommand(
-    ShooterIntake* pShooterIntake,
-    int wait = 0);
+  RumbleCommand(
+    frc::GenericHID::RumbleType RumbleType,
+    units::second_t RumbleOnTime,
+    units::second_t RumbleOffTime,
+    double RumbleIntensity);
 
   void Initialize() override;
 
@@ -32,9 +35,13 @@ class IntakeCommand
 
   bool IsFinished() override;
 
-  private:
+ private:
+  frc::XboxController m_DriverController{OIConstants::kDriverControllerPort};
+  frc::XboxController m_CodriverController{OIConstants::kCoDriverControllerPort};
 
-  ShooterIntake* m_pShooterIntake;
-  frc2::WaitCommand* m_pWait;
-  RumbleCommand m_rumbleCommand;
+  frc2::WaitCommand m_WaitRumbleOnCommand;
+  frc2::WaitCommand m_WaitRumbleOffCommand;
+
+  frc::GenericHID::RumbleType m_RumbleType;
+  double m_RumbleIntensity;
 };

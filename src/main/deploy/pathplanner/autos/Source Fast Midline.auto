@@ -32,12 +32,6 @@
         {
           "type": "named",
           "data": {
-            "name": "drive stop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Shoot + Intake"
           }
         },
@@ -62,7 +56,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Short Shoot Setup"
+            "name": "Long Shoot Setup"
           }
         },
         {
@@ -75,6 +69,36 @@
           "type": "named",
           "data": {
             "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source Note 4 Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source Note 4 Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
           }
         },
         {

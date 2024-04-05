@@ -208,9 +208,13 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string Amp_Str = "Amp";
   const std::string Destroy_Str = "destroy";
   const std::string Amp_Note1_Note2_Str = "Amp + Note 1 + Note 2";
-  const std::string CenterFivePiece_Str = "Center 5 Piece";
-  const std::string SourceMidline_Str = "Source Midline";
-  const std::string AmpMidline_Str = "Amp Midline";
+  const std::string RedCenterFivePiece_Str = "Red - Center 5 Piece";
+  const std::string RedSourceMidline_Str = "Red - Source Midline";
+  const std::string RedAmpMidline_Str = "Red - Amp Midline";
+  const std::string BlueCenterFivePiece_Str = "Blue - Center 5 Piece";
+  const std::string BlueSourceMidline_Str = "Blue - Source Midline";
+  const std::string BlueAmpMidline_Str = "Blue - Amp Midline";
+
 
   AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
   Center_Amp_Note1 = pathplanner::PathPlannerAuto(Center_Amp_Note1_Str).ToPtr().Unwrap();
@@ -224,9 +228,12 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   Amp = pathplanner::PathPlannerAuto(Amp_Str).ToPtr().Unwrap();
   Destroy = pathplanner::PathPlannerAuto(Destroy_Str).ToPtr().Unwrap();
   Amp_Note1_Note2 = pathplanner::PathPlannerAuto(Amp_Note1_Note2_Str).ToPtr().Unwrap();
-  CenterFivePiece = pathplanner::PathPlannerAuto(CenterFivePiece_Str).ToPtr().Unwrap();
-  SourceMidline = pathplanner::PathPlannerAuto(SourceMidline_Str).ToPtr().Unwrap();
-  AmpMidline = pathplanner::PathPlannerAuto(AmpMidline_Str).ToPtr().Unwrap();
+  BlueCenterFivePiece = pathplanner::PathPlannerAuto(BlueCenterFivePiece_Str).ToPtr().Unwrap();
+  BlueSourceMidline = pathplanner::PathPlannerAuto(BlueSourceMidline_Str).ToPtr().Unwrap();
+  BlueAmpMidline = pathplanner::PathPlannerAuto(BlueAmpMidline_Str).ToPtr().Unwrap();
+  RedCenterFivePiece = pathplanner::PathPlannerAuto(RedCenterFivePiece_Str).ToPtr().Unwrap();
+  RedSourceMidline = pathplanner::PathPlannerAuto(RedSourceMidline_Str).ToPtr().Unwrap();
+  RedAmpMidline = pathplanner::PathPlannerAuto(RedAmpMidline_Str).ToPtr().Unwrap();
 
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
   m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
@@ -240,9 +247,12 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(Amp_Str, Amp.get());
   m_chooser.AddOption(Destroy_Str, Destroy.get());
   m_chooser.AddOption(Amp_Note1_Note2_Str, Amp_Note1_Note2.get());
-  m_chooser.AddOption(CenterFivePiece_Str, CenterFivePiece.get());
-  m_chooser.AddOption(SourceMidline_Str, SourceMidline.get());
-  m_chooser.AddOption(AmpMidline_Str, AmpMidline.get());
+  m_chooser.AddOption(RedCenterFivePiece_Str, RedCenterFivePiece.get());
+  m_chooser.AddOption(RedSourceMidline_Str, RedSourceMidline.get());
+  m_chooser.AddOption(RedAmpMidline_Str, RedAmpMidline.get());
+  m_chooser.AddOption(BlueCenterFivePiece_Str, BlueCenterFivePiece.get());
+  m_chooser.AddOption(BlueSourceMidline_Str, BlueSourceMidline.get());
+  m_chooser.AddOption(BlueAmpMidline_Str, BlueAmpMidline.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
 

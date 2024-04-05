@@ -115,8 +115,11 @@ class RobotContainer {
     std::unique_ptr<frc2::Command> Amp;
     std::unique_ptr<frc2::Command> Destroy;
     std::unique_ptr<frc2::Command> Amp_Note1_Note2;
-    std::unique_ptr<frc2::Command> CenterFivePiece;
-    std::unique_ptr<frc2::Command> SourceMidline;
-    std::unique_ptr<frc2::Command> AmpMidline;
+    std::unique_ptr<frc2::Command> RedCenterFivePiece;
+    std::unique_ptr<frc2::Command> RedSourceMidline;
+    std::unique_ptr<frc2::Command> RedAmpMidline;
+    std::unique_ptr<frc2::Command> BlueCenterFivePiece;
+    std::unique_ptr<frc2::Command> BlueSourceMidline;
+    std::unique_ptr<frc2::Command> BlueAmpMidline;   
 
 };

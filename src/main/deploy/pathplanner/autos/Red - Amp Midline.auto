@@ -123,6 +123,24 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red - Amp Pickup Note 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Longer Shoot Setup"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -152,43 +170,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Amp to Note 3 Intake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Shoot Note 3b"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Velocity"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
           }
         },
         {

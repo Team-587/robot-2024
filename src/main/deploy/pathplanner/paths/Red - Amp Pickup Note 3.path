@@ -32,7 +32,7 @@
     {
       "waypointRelativePos": 0.5,
       "rotationDegrees": -42.97863505964394,
-      "rotateFast": true
+      "rotateFast": false
     }
   ],
   "constraintZones": [
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red - Amp Midline",
   "previewStartingState": {
     "rotation": 8.880659150520314,
     "velocity": 0

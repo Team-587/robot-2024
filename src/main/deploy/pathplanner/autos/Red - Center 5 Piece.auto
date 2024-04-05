@@ -74,13 +74,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage Center Note Shoot"
+            "pathName": "Red - Stage Center Note Shoot"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.15
+            "waitTime": 0.35
           }
         },
         {
@@ -110,7 +110,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp Center Note Shoot"
+            "pathName": "Red - Amp Center Note Shoot"
           }
         },
         {
@@ -144,7 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center Intake Note 2"
+                  "pathName": "Red - Center Intake Note 2"
                 }
               },
               {
@@ -159,7 +159,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0
+            "waitTime": 0.5
           }
         },
         {
@@ -169,7 +169,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 2"
+                  "pathName": "Red - Shoot Note 2"
                 }
               },
               {
@@ -190,7 +190,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0
+            "waitTime": 0.0
           }
         }
       ]

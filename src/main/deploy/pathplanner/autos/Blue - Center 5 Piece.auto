@@ -44,7 +44,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.15
           }
         },
         {
@@ -74,13 +74,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red - Stage Center Note Shoot"
+            "pathName": "Blue - Stage Center Note Shoot"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.35
           }
         },
         {
@@ -110,7 +110,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red - Amp Center Note Shoot"
+            "pathName": "Blue - Amp Center Note Shoot"
           }
         },
         {
@@ -135,6 +135,62 @@
           "type": "named",
           "data": {
             "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Blue - Center Intake Note 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Long Shoot Velocity"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Blue - Shoot Note 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Longer Shoot Setup"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.0
           }
         }
       ]

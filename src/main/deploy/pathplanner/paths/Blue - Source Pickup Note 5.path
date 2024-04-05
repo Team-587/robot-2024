@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.3651398413907945,
-        "y": 6.342251573392035
+        "x": 1.3038434219362085,
+        "y": 4.083759414338168
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.331950441678662,
-        "y": 6.78407134592047
+        "x": 2.686311742428405,
+        "y": 3.157363117101129
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.3415177941467,
-        "y": 4.0333869556628
+        "x": 8.562699669928602,
+        "y": 0.804218605892683
       },
       "prevControl": {
-        "x": 7.728671012897581,
-        "y": 4.73174724127226
+        "x": 6.452931379145202,
+        "y": 0.7415522210179296
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,41 +30,41 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -42.97863505964394,
-      "rotateFast": true
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": -2.6657465583938285,
+      "rotateFast": false
     }
   ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.9,
+      "minWaypointRelativePos": 0.6,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 3.0,
-        "maxAcceleration": 3.5,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 400.0,
+        "maxAngularAcceleration": 300.0
       }
     }
   ],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 400.0,
     "maxAngularAcceleration": 300.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -58.17255342332688,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Source Midline",
   "previewStartingState": {
-    "rotation": 8.880659150520314,
+    "rotation": -41.90594194108293,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

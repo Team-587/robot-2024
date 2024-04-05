@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8305816611633227,
-      "y": 4.446702226737787
+      "x": 0.8442899328546756,
+      "y": 4.449313326107569
     },
     "rotation": -57.61932229343077
   },
@@ -18,9 +18,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
+            "pathName": "Red - Source Midline Start"
           }
         },
         {
@@ -32,13 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source - Note 5"
+            "pathName": "Red - Source Pickup Note 5"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.0
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Velocity"
           }
         },
         {
@@ -48,26 +54,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 5"
+                  "pathName": "Red - Shoot Note 5"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Long Shoot Velocity"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Longer Shoot Setup"
-                      }
-                    }
-                  ]
+                  "name": "Longer Shoot Setup"
                 }
               }
             ]
@@ -82,7 +75,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source Note 4 Intake"
+            "pathName": "Red - Source Pickup Note 4"
           }
         },
         {
@@ -92,7 +85,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 4"
+                  "pathName": "Red - Shoot Note 4"
                 }
               },
               {
@@ -126,55 +119,6 @@
           "type": "wait",
           "data": {
             "waitTime": 0.15
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source to Note 3 Intake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Shoot Note 3b"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Velocity"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.15
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]

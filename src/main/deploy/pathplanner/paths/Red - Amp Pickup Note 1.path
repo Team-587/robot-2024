@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.008598655394227,
-        "y": 3.6323458649289786
+        "x": 3.037613403471082,
+        "y": 7.091745888326383
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1771817754786165,
-        "y": 2.2689988914971906
+        "x": 3.844510059999438,
+        "y": 7.395793903829821
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.997587145826723,
-        "y": 2.4345481668424793
+        "x": 8.541810874970352,
+        "y": 7.666187749678298
       },
       "prevControl": {
-        "x": 6.994553301087623,
-        "y": 2.113187808819271
+        "x": 9.091436133765045,
+        "y": 7.677881904120738
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 400.0,
+    "maxAngularAcceleration": 300.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red - Amp Midline",
   "previewStartingState": {
-    "rotation": -37.568592028827446,
+    "rotation": 32.00538320808358,
     "velocity": 0
   },
   "useDefaultConstraints": true

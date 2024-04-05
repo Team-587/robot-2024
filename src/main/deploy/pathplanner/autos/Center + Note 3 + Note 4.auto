@@ -116,7 +116,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Shoot Note 4"
+            "pathName": "Red - Shoot Note 4"
           }
         },
         {
@@ -140,6 +140,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Untested",
   "choreoAuto": false
 }

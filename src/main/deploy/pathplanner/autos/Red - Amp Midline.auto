@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8020771597098753,
-      "y": 6.71281009228685
+      "x": 0.8129567404172983,
+      "y": 6.694858784119604
     },
-    "rotation": 58.671307132195885
+    "rotation": 58.07912378006686
   },
   "command": {
     "type": "sequential",
@@ -18,52 +18,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Amp Note Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Velocity"
-                }
-              }
-            ]
+            "pathName": "Red - Amp Midline Start"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.15
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.1
+            "waitTime": 0.0
           }
         },
         {
@@ -75,7 +38,50 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp Note + Note 1"
+            "pathName": "Red - Amp Midline Start 2"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Long Shoot Velocity"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.15
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Long Shoot Setup"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red - Amp Pickup Note 1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.15
           }
         },
         {
@@ -85,7 +91,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 1"
+                  "pathName": "Red - Shoot Note 1"
                 }
               },
               {
@@ -117,19 +123,13 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Amp to Note 2 Intake"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 2"
+                  "pathName": "Red - Shoot Note 2"
                 }
               },
               {
@@ -149,12 +149,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Velocity"
                 }
               }
             ]

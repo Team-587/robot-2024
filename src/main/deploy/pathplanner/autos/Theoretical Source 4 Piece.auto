@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4,
-      "y": 5.5196408968316515
+      "x": 0.8442899328546756,
+      "y": 4.449313326107569
     },
-    "rotation": 0
+    "rotation": -57.61932229343077
   },
   "command": {
     "type": "sequential",
@@ -18,123 +18,33 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "Red - Source Midline Start"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red - Source Pickup Note 5"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Long Shoot Velocity"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.15
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.1
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Velocity"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red - Stage Center Note Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.35
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.1
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Long Shoot Velocity"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red - Amp Center Note Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.2
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.1
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
           }
         },
         {
@@ -144,32 +54,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red - Center Intake Note 2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Velocity"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red - Shoot Note 2"
+                  "pathName": "Red - Shoot Note 5"
                 }
               },
               {
@@ -188,14 +73,106 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Red - Source Pickup Note 4"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red - Shoot Note 4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Long Shoot Velocity"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Longer Shoot Setup"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 0.0
+            "waitTime": 0.15
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.15
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source to Note 3 Intake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Shoot Note 3b"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Long Shoot Velocity"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Longer Shoot Setup"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.15
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Untested",
   "choreoAuto": false
 }

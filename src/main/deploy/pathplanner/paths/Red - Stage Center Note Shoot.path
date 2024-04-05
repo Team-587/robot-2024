@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4187317942065913,
-        "y": 5.535530663936646
+        "x": 2.766059069013813,
+        "y": 5.566863856374023
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.418731794206592,
-        "y": 5.535530663936646
+        "x": 1.3038434219362085,
+        "y": 5.441531086624513
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.6825038891808064,
-        "y": 5.535530663936646
+        "x": 2.7765034664929384,
+        "y": 4.303091761399808
       },
       "prevControl": {
-        "x": 1.6825038891808064,
-        "y": 5.535530663936646
+        "x": 1.439620589164843,
+        "y": 4.167314594171174
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -28.875270024166703,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,14 +45,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -27.121303404158592,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red - Center 5 Piece",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
+  "previewStartingState": null,
   "useDefaultConstraints": true
 }

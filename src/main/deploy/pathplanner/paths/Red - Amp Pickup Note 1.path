@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.766059069013813,
-        "y": 5.566863856374023
+        "x": 3.037613403471082,
+        "y": 7.091745888326383
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3038434219362085,
-        "y": 5.441531086624513
+        "x": 3.844510059999438,
+        "y": 7.395793903829821
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.7765034664929384,
-        "y": 4.303091761399808
+        "x": 8.541810874970352,
+        "y": 7.666187749678298
       },
       "prevControl": {
-        "x": 1.439620589164843,
-        "y": 4.167314594171174
+        "x": 9.091436133765045,
+        "y": 7.677881904120738
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -28.875270024166703,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -45,11 +39,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -27.121303404158592,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
-  "previewStartingState": null,
+  "folder": "Red - Amp Midline",
+  "previewStartingState": {
+    "rotation": 32.00538320808358,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

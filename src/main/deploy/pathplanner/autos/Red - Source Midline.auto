@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source Midline Start"
+            "pathName": "Red - Source Midline Start"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source - Note 5"
+            "pathName": "Red - Source Pickup Note 5"
           }
         },
         {
@@ -54,7 +54,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 5"
+                  "pathName": "Red - Shoot Note 5"
                 }
               },
               {
@@ -75,7 +75,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source Note 4 Intake"
+            "pathName": "Red - Source Pickup Note 4"
           }
         },
         {
@@ -85,7 +85,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Shoot Note 4"
+                  "pathName": "Red - Shoot Note 4"
                 }
               },
               {
@@ -119,55 +119,6 @@
           "type": "wait",
           "data": {
             "waitTime": 0.15
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source to Note 3 Intake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Shoot Note 3b"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Long Shoot Velocity"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Longer Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.15
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot + Intake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]

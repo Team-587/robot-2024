@@ -74,7 +74,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red - Stage Center Note Shoot"
+            "pathName": "Blue - Stage Center Note Shoot"
           }
         },
         {
@@ -110,7 +110,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red - Amp Center Note Shoot"
+            "pathName": "Blue - Amp Center Note Shoot"
           }
         },
         {
@@ -144,7 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red - Center Intake Note 2"
+                  "pathName": "Blue - Center Intake Note 2"
                 }
               },
               {
@@ -169,7 +169,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red - Shoot Note 2"
+                  "pathName": "Blue - Shoot Note 2"
                 }
               },
               {

@@ -225,8 +225,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   Destroy = pathplanner::PathPlannerAuto(Destroy_Str).ToPtr().Unwrap();
   Amp_Note1_Note2 = pathplanner::PathPlannerAuto(Amp_Note1_Note2_Str).ToPtr().Unwrap();
   CenterFivePiece = pathplanner::PathPlannerAuto(CenterFivePiece_Str).ToPtr().Unwrap();
-  //SourceMidline = pathplanner::PathPlannerAuto(SourceMidline_Str).ToPtr().Unwrap();
-  //AmpMidline = pathplanner::PathPlannerAuto(AmpMidline_Str).ToPtr().Unwrap();
+  SourceMidline = pathplanner::PathPlannerAuto(SourceMidline_Str).ToPtr().Unwrap();
+  AmpMidline = pathplanner::PathPlannerAuto(AmpMidline_Str).ToPtr().Unwrap();
 
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
   m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
@@ -241,8 +241,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(Destroy_Str, Destroy.get());
   m_chooser.AddOption(Amp_Note1_Note2_Str, Amp_Note1_Note2.get());
   m_chooser.AddOption(CenterFivePiece_Str, CenterFivePiece.get());
-  //m_chooser.AddOption(SourceMidline_Str, SourceMidline.get());
-  //m_chooser.AddOption(AmpMidline_Str, AmpMidline.get());
+  m_chooser.AddOption(SourceMidline_Str, SourceMidline.get());
+  m_chooser.AddOption(AmpMidline_Str, AmpMidline.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
 

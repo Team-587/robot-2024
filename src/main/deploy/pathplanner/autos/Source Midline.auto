@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8305816611633227,
-      "y": 4.446702226737787
+      "x": 0.8442899328546756,
+      "y": 4.449313326107569
     },
     "rotation": -57.61932229343077
   },
@@ -18,9 +18,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
+            "pathName": "Source Midline Start"
           }
         },
         {
@@ -38,7 +38,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.0
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Velocity"
           }
         },
         {
@@ -52,22 +58,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Long Shoot Velocity"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Longer Shoot Setup"
-                      }
-                    }
-                  ]
+                  "name": "Longer Shoot Setup"
                 }
               }
             ]

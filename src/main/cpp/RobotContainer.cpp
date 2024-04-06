@@ -213,7 +213,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string RedAmpMidline_Str = "Red - Amp Midline";
   const std::string BlueCenterFivePiece_Str = "Blue - Center 5 Piece";
   const std::string BlueSourceMidline_Str = "Blue - Source Midline";
-  const std::string BlueAmpMidline_Str = "Blue - Amp Midline";
+  //const std::string BlueAmpMidline_Str = "Blue - Amp Midline";
 
 
   AmpNote_Note1 = pathplanner::PathPlannerAuto(AmpNote_Note1_Str).ToPtr().Unwrap();
@@ -230,7 +230,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   Amp_Note1_Note2 = pathplanner::PathPlannerAuto(Amp_Note1_Note2_Str).ToPtr().Unwrap();
   BlueCenterFivePiece = pathplanner::PathPlannerAuto(BlueCenterFivePiece_Str).ToPtr().Unwrap();
   BlueSourceMidline = pathplanner::PathPlannerAuto(BlueSourceMidline_Str).ToPtr().Unwrap();
-  BlueAmpMidline = pathplanner::PathPlannerAuto(BlueAmpMidline_Str).ToPtr().Unwrap();
+  //BlueAmpMidline = pathplanner::PathPlannerAuto(BlueAmpMidline_Str).ToPtr().Unwrap();
   RedCenterFivePiece = pathplanner::PathPlannerAuto(RedCenterFivePiece_Str).ToPtr().Unwrap();
   RedSourceMidline = pathplanner::PathPlannerAuto(RedSourceMidline_Str).ToPtr().Unwrap();
   RedAmpMidline = pathplanner::PathPlannerAuto(RedAmpMidline_Str).ToPtr().Unwrap();
@@ -252,7 +252,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(RedAmpMidline_Str, RedAmpMidline.get());
   m_chooser.AddOption(BlueCenterFivePiece_Str, BlueCenterFivePiece.get());
   m_chooser.AddOption(BlueSourceMidline_Str, BlueSourceMidline.get());
-  m_chooser.AddOption(BlueAmpMidline_Str, BlueAmpMidline.get());
+  //m_chooser.AddOption(BlueAmpMidline_Str, BlueAmpMidline.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);
 
@@ -284,7 +284,7 @@ void RobotContainer::ConfigureButtonBindings()
   bButton.OnTrue(&m_Shoot);
 
   frc2::JoystickButton yButtonDrive(&m_driverController, frc::XboxController::Button::kY);
-  yButtonDrive.OnTrue(&m_trapPosition).OnTrue(&m_trapShootVelocity);
+  yButtonDrive.OnTrue(&m_TrapShootPosition).OnTrue(&m_TrapShootVelocity);
 
   frc2::JoystickButton xButtonDrive(&m_driverController, frc::XboxController::Button::kX);
   xButtonDrive.OnTrue(&m_HoldPosition).OnTrue(&m_StopIntake).OnTrue(&m_StopShoot);

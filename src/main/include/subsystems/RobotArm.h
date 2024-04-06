@@ -34,6 +34,7 @@ class RobotArm : public frc2::SubsystemBase {
   static constexpr double ShortShootLength{0.6};
   static constexpr double LongShootAngle{19.0};
   static constexpr double LongShootLength{0.6};
+  static constexpr double TrapShootAngle{60.0};
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -64,7 +65,7 @@ class RobotArm : public frc2::SubsystemBase {
   double elbowD = 0;
 
   frc::PIDController elevatorPID{elevatorP, elevatorI, elevatorD};
-  double elevatorP = 0.8;
+  double elevatorP = 0.4;
   double elevatorI = 0.0;
   double elevatorD = 0.0;
 

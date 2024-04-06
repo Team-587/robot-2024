@@ -185,16 +185,16 @@ void RobotArm::Periodic()
     bool DesElevatorLong = ElevatorHeight >= ElevatorMaxsafe;
     bool DesElbowHigh = ElbowAngle >= ElbowAngleMaxsafe;
 
-    /*if(CurElevatorLong == true && DesElevatorLong == false && CurElbowHigh == false){
+    if(CurElevatorLong == false && DesElevatorLong == true && CurElbowHigh == false){
        ElevatorHeightPID.SetReference(ElevatorMaxsafe, rev::CANSparkMax::ControlType::kPosition);
        ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);
-    }else if(CurElevatorLong == false && CurElbowHigh == true && DesElbowHigh == false){
+    }else if(CurElevatorLong == true && CurElbowHigh == true && DesElbowHigh == false){
         ElbowAnglePID.SetReference(ElbowAngleMaxsafe, rev::CANSparkMax::ControlType::kPosition);
         ElevatorHeightPID.SetReference(ElevatorHeight, rev::CANSparkMax::ControlType::kPosition);
     }else{
         ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);
         ElevatorHeightPID.SetReference(ElevatorHeight, rev::CANSparkMax::ControlType::kPosition);
-    }*/
+    }
     ElbowAnglePID.SetReference(ElbowAngle, rev::CANSparkMax::ControlType::kPosition);
     ElevatorHeightPID.SetReference(ElevatorHeight, rev::CANSparkMax::ControlType::kPosition);
     #endif

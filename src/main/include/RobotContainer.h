@@ -97,6 +97,8 @@ class RobotContainer {
     frc2::InstantCommand m_trapShootVelocity{[this] {m_shooter.setShooterVelocity(0.35); }, {&m_shooter}};
     frc2::InstantCommand m_AmpShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::AmpShootVelocity);}, {&m_shooter}};
     frc2::InstantCommand m_FeedShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::FeedShootVelocity);}, {&m_shooter}};
+    frc2::InstantCommand m_TrapShootPosition{[this] {m_robotarm.ArmPosition(RobotArm::TrapShootAngle, RobotArm::PickUpLength);}, {&m_robotarm}};
+    frc2::InstantCommand m_TrapShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::TrapShootVelocity);}, {&m_shooter}};
     frc2::WaitCommand m_wait{3_s};
 
     frc2::SequentialCommandGroup m_LongSetup {
@@ -121,6 +123,6 @@ class RobotContainer {
     std::unique_ptr<frc2::Command> RedAmpMidline;
     std::unique_ptr<frc2::Command> BlueCenterFivePiece;
     std::unique_ptr<frc2::Command> BlueSourceMidline;
-    std::unique_ptr<frc2::Command> BlueAmpMidline;   
+    //std::unique_ptr<frc2::Command> BlueAmpMidline;   
 
 };

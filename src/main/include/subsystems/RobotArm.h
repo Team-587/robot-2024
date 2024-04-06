@@ -65,7 +65,7 @@ class RobotArm : public frc2::SubsystemBase {
   double elbowD = 0;
 
   frc::PIDController elevatorPID{elevatorP, elevatorI, elevatorD};
-  double elevatorP = 0.4;
+  double elevatorP = 0.2;
   double elevatorI = 0.0;
   double elevatorD = 0.0;
 

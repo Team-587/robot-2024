@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.4702555274013229,
-      "y": 4.165457812392099
+      "x": 0.5478697552887402,
+      "y": 7.3815500418663955
     },
     "rotation": 0
   },
@@ -14,19 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Short Shoot Setup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.1
+            "name": "Long Shoot Setup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Source Start"
+            "pathName": "Amp Start"
           }
         },
         {
@@ -38,19 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red - Source Pickup Note 5"
+            "pathName": "Amp Speaker"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red - Shoot Note 5"
+            "name": "drive stop"
           }
         },
         {
@@ -62,7 +50,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.2
           }
         },
         {
@@ -70,10 +58,40 @@
           "data": {
             "name": "Shoot + Intake"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red - Amp Pickup Note 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red - Shoot Note 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Untested",
   "choreoAuto": false
 }

@@ -196,13 +196,14 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
       },
       {&m_shooter}));
 
-  const std::string AmpNote_Note1_Str = "Amp note + Note 1";
+  const std::string AmpNote_Note1_Str = "Amp note + Note 1 AmpZone";
   const std::string Center_Amp_Note1_Str = "Center note + Amp note + Note 1";
   const std::string SourceNote_Note3_Str = "Source Note + Note 3";
-  const std::string FourPiece_Str = "4 Piece";
+  const std::string FourPiece_Str = "4 Piece Center";
   const std::string Center_Note3_Note4_Str = "Center + Note 3 + Note 4";
-  const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
-  const std::string Source_Note5_Str = "Source + Note 5";
+  const std::string Center_Note2_Note3_Str = "Center + Note 2 + Not= 3";
+  const std::string RedSource_Note5_Str = "Red - Source + Note 5 Wall";
+  const std::string BlueSource_Note5_Str = "Blue - Source + Note 5 Wall";
   const std::string Amp_Move_Str = "Amp Move";
   const std::string Feeder_Str = "Feeding";
   const std::string Amp_Str = "Amp";
@@ -222,7 +223,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   FourPiece = pathplanner::PathPlannerAuto(FourPiece_Str).ToPtr().Unwrap();
   Center_Note3_Note4 = pathplanner::PathPlannerAuto(Center_Note3_Note4_Str).ToPtr().Unwrap();
   Center_Note2_Note3 = pathplanner::PathPlannerAuto(Center_Note2_Note3_Str).ToPtr().Unwrap();
-  Source_Note5 = pathplanner::PathPlannerAuto(Source_Note5_Str).ToPtr().Unwrap();
+  RedSource_Note5 = pathplanner::PathPlannerAuto(RedSource_Note5_Str).ToPtr().Unwrap();
+  BlueSource_Note5 = pathplanner::PathPlannerAuto(BlueSource_Note5_Str).ToPtr().Unwrap();
   Amp_Move = pathplanner::PathPlannerAuto(Amp_Move_Str).ToPtr().Unwrap();
   Feeder = pathplanner::PathPlannerAuto(Feeder_Str).ToPtr().Unwrap();
   Amp = pathplanner::PathPlannerAuto(Amp_Str).ToPtr().Unwrap();
@@ -241,7 +243,8 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
   m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
   m_chooser.AddOption(FourPiece_Str, FourPiece.get());
-  m_chooser.AddOption(Source_Note5_Str, Source_Note5.get());
+  m_chooser.AddOption(RedSource_Note5_Str, RedSource_Note5.get());
+  m_chooser.AddOption(BlueSource_Note5_Str, BlueSource_Note5.get());
   m_chooser.AddOption(Amp_Move_Str, Amp_Move.get());
   m_chooser.AddOption(Feeder_Str, Feeder.get());
   m_chooser.AddOption(Amp_Str, Amp.get());

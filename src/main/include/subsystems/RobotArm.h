@@ -27,7 +27,7 @@ class RobotArm : public frc2::SubsystemBase {
   static constexpr double PickUpLength{0.6};
   static constexpr double HoldAngle{0.2};
   static constexpr double HoldLength{0.6};
-  static constexpr double AmpAngle{87.0};
+  static constexpr double AmpAngle{83.0};
   static constexpr double AmpLength{7.9};
   //static constexpr double ShortShootAngle{14.0};
   static constexpr double ShortShootAngle{3.0};

@@ -107,19 +107,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Longer Shoot Setup"
+                        "name": "Shoot Note 1"
                       }
                     }
                   ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Note 1"
           }
         },
         {

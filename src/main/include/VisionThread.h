@@ -1,7 +1,8 @@
 #pragma once
 
+#include <chrono>
 #include <thread>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <wpi/mutex.h>
@@ -45,7 +46,8 @@ class VisionThread {
             SetTarget(nullptr);
           }
         }
-        usleep(300 * 1000); 
+        std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        //usleep(300 * 1000); 
         //sleep(300);
       }
     }

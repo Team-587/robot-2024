@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue - Source Pickup Note 5"
+            "pathName": "Red - Source Pickup Note 5"
           }
         },
         {
@@ -50,13 +50,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue - Shoot Note 5"
+            "pathName": "Red - Shoot Note 5"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot Note 1"
+            "name": "Longer Shoot Setup"
           }
         },
         {
@@ -74,12 +74,36 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue - Source Pickup Note 4"
+            "pathName": "Red Note 4"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Long Shoot Setup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Shoot Note 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot + Intake"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Untested",
   "choreoAuto": false
 }

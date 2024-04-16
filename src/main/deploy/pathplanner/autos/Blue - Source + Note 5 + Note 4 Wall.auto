@@ -56,7 +56,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Note 1"
+            "name": "Longer Shoot Setup"
           }
         },
         {
@@ -74,12 +74,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue - Source Pickup Note 4"
+            "pathName": " Blue Shoot Note 4"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Untested",
   "choreoAuto": false
 }

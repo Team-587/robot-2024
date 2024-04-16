@@ -3,15 +3,16 @@
   "robotLength": 0.991,
   "holonomicMode": true,
   "pathFolders": [
-    "Red - Amp Midline",
     "Center 5 Piece",
+    "Source Note 5 + Note 4",
+    "Red - Amp Midline",
     "Source Midline"
   ],
   "autoFolders": [
     "Untested"
   ],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 4.0,
+  "defaultMaxAccel": 4.0,
   "defaultMaxAngVel": 400.0,
   "defaultMaxAngAccel": 300.0,
   "maxModuleSpeed": 5.5

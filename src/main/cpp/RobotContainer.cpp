@@ -157,6 +157,21 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
                                                                         frc2::cmd::RunOnce([this]
                                                                                            { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
                                                                                            {&m_shooter})));
+
+  pathplanner::NamedCommands::registerCommand("Longest Shoot Setup", frc2::cmd::Sequence(
+                                                                        frc2::cmd::RunOnce([this]
+                                                                                           { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle + 6, RobotArm::LongShootLength); },
+                                                                                           {&m_robotarm}),
+                                                                        frc2::cmd::RunOnce([this]
+                                                                                           { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
+                                                                                           {&m_shooter})));
+  pathplanner::NamedCommands::registerCommand("Most Longerest Shoot Setup", frc2::cmd::Sequence(
+                                                                        frc2::cmd::RunOnce([this]
+                                                                                           { this->m_robotarm.ArmPosition(RobotArm::LongShootAngle + 8, RobotArm::LongShootLength); },
+                                                                                           {&m_robotarm}),
+                                                                        frc2::cmd::RunOnce([this]
+                                                                                           { this->m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); },
+                                                                                           {&m_shooter})));
   // Set up default drive command
   // The left stick controls translation of the robot.
   // Turning is controlled by the X axis of the right stick
@@ -201,7 +216,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string SourceNote_Note3_Str = "Source Note + Note 3";
   const std::string FourPiece_Str = "4 Piece Center";
   const std::string Center_Note3_Note4_Str = "Center + Note 3 + Note 4";
-  const std::string Center_Note2_Note3_Str = "Center + Note 2 + Not= 3";
+  const std::string Center_Note2_Note3_Str = "Center + Note 2 + Note 3";
   const std::string RedSource_Note5_Str = "Red - Source + Note 5 Wall";
   const std::string BlueSource_Note5_Str = "Blue - Source + Note 5 Wall";
   const std::string Amp_Move_Str = "Amp Move";
@@ -214,6 +229,7 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   const std::string RedAmpMidline_Str = "Red - Amp Midline";
   const std::string BlueCenterFivePiece_Str = "Blue - Center 5 Piece";
   const std::string BlueSourceMidline_Str = "Blue - Source Midline";
+  const std::string RedSourceNote5Note4_Str = "Red - Source + Note 5 + 4 Wall";
   //const std::string BlueAmpMidline_Str = "Blue - Amp Midline";
 
 
@@ -236,25 +252,27 @@ RobotContainer::RobotContainer() : m_drive{&m_vision},
   RedCenterFivePiece = pathplanner::PathPlannerAuto(RedCenterFivePiece_Str).ToPtr().Unwrap();
   RedSourceMidline = pathplanner::PathPlannerAuto(RedSourceMidline_Str).ToPtr().Unwrap();
   RedAmpMidline = pathplanner::PathPlannerAuto(RedAmpMidline_Str).ToPtr().Unwrap();
+  RedSourceNote5_Note4 = pathplanner::PathPlannerAuto(RedSourceNote5Note4_Str).ToPtr().Unwrap();
 
   m_chooser.SetDefaultOption(AmpNote_Note1_Str, AmpNote_Note1.get());
-  m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
-  m_chooser.AddOption(SourceNote_Note3_Str, SourceNote_Note3.get());
-  m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
-  m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
+  //m_chooser.AddOption(Center_Amp_Note1_Str, Center_Amp_Note1.get());
+  //m_chooser.AddOption(SourceNote_Note3_Str, SourceNote_Note3.get());
+  //m_chooser.AddOption(Center_Note3_Note4_Str, Center_Note3_Note4.get());
+  //m_chooser.AddOption(Center_Note2_Note3_Str, Center_Note2_Note3.get());
   m_chooser.AddOption(FourPiece_Str, FourPiece.get());
   m_chooser.AddOption(RedSource_Note5_Str, RedSource_Note5.get());
   m_chooser.AddOption(BlueSource_Note5_Str, BlueSource_Note5.get());
-  m_chooser.AddOption(Amp_Move_Str, Amp_Move.get());
-  m_chooser.AddOption(Feeder_Str, Feeder.get());
-  m_chooser.AddOption(Amp_Str, Amp.get());
-  m_chooser.AddOption(Destroy_Str, Destroy.get());
-  m_chooser.AddOption(Amp_Note1_Note2_Str, Amp_Note1_Note2.get());
+  //m_chooser.AddOption(Amp_Move_Str, Amp_Move.get());
+  //m_chooser.AddOption(Feeder_Str, Feeder.get());
+  //m_chooser.AddOption(Amp_Str, Amp.get());
+  //m_chooser.AddOption(Destroy_Str, Destroy.get());
+  //m_chooser.AddOption(Amp_Note1_Note2_Str, Amp_Note1_Note2.get());
   m_chooser.AddOption(RedCenterFivePiece_Str, RedCenterFivePiece.get());
   m_chooser.AddOption(RedSourceMidline_Str, RedSourceMidline.get());
   m_chooser.AddOption(RedAmpMidline_Str, RedAmpMidline.get());
   m_chooser.AddOption(BlueCenterFivePiece_Str, BlueCenterFivePiece.get());
   m_chooser.AddOption(BlueSourceMidline_Str, BlueSourceMidline.get());
+  m_chooser.AddOption(RedSourceNote5Note4_Str, RedSourceNote5_Note4.get());
   //m_chooser.AddOption(BlueAmpMidline_Str, BlueAmpMidline.get());
 
   frc::SmartDashboard::PutData("Auto", &m_chooser);

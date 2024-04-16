@@ -124,6 +124,7 @@ class RobotContainer {
     std::unique_ptr<frc2::Command> RedAmpMidline;
     std::unique_ptr<frc2::Command> BlueCenterFivePiece;
     std::unique_ptr<frc2::Command> BlueSourceMidline;
+    std::unique_ptr<frc2::Command> RedSourceNote5_Note4;
     //std::unique_ptr<frc2::Command> BlueAmpMidline;   
 
 };

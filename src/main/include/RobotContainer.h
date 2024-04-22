@@ -86,7 +86,7 @@ class RobotContainer {
     frc2::InstantCommand m_StopIntake{[this] {m_shooter.setIntakeStop(); }, {&m_shooter}};
     frc2::InstantCommand m_Shoot{[this] {m_shooter.setBeginShooter(); }, {&m_shooter}};
     frc2::InstantCommand m_StopShoot{[this] {m_shooter.setShooterVelocity(ShooterIntake::StopShootVelocity); }, {&m_shooter}};
-    frc2::InstantCommand m_ShortShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::ShortShootVelocity); }, {&m_shooter}};
+    frc2::InstantCommand m_ShortShootVelocity{[this] {m_shooter.setShooterVelocity(2500/*ShooterIntake::ShortShootVelocity*/); }, {&m_shooter}};
     frc2::InstantCommand m_LongShootVelocity{[this] {m_shooter.setShooterVelocity(ShooterIntake::LongShootVelocity); }, {&m_shooter}};
     frc2::InstantCommand m_PickUpPosition{[this] {m_robotarm.ArmPosition(RobotArm::PickUpAngle, RobotArm::PickUpLength);}, {&m_robotarm}};
     frc2::InstantCommand m_HoldPosition{[this] {m_robotarm.ArmPosition(RobotArm::HoldAngle, RobotArm::HoldLength);}, {&m_robotarm}};
